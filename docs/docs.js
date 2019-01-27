@@ -4054,7 +4054,6 @@ function _VirtualDom_dekey(keyedNode)
 
 // ELEMENT
 
-
 var _Debugger_element;
 
 var _Browser_element = _Debugger_element || F4(function(impl, flagDecoder, debugMetadata, args)
@@ -4127,10 +4126,15 @@ var _Browser_document = _Debugger_document || F4(function(impl, flagDecoder, deb
 // ANIMATION
 
 
+var _Browser_cancelAnimationFrame =
+	typeof cancelAnimationFrame !== 'undefined'
+		? cancelAnimationFrame
+		: function(id) { clearTimeout(id); };
+
 var _Browser_requestAnimationFrame =
 	typeof requestAnimationFrame !== 'undefined'
 		? requestAnimationFrame
-		: function(callback) { setTimeout(callback, 1000 / 60); };
+		: function(callback) { return setTimeout(callback, 1000 / 60); };
 
 
 function _Browser_makeAnimator(model, draw)
@@ -4180,7 +4184,7 @@ function _Browser_application(impl)
 
 			return F2(function(domNode, event)
 			{
-				if (!event.ctrlKey && !event.metaKey && !event.shiftKey && event.button < 1 && !domNode.target && !domNode.download)
+				if (!event.ctrlKey && !event.metaKey && !event.shiftKey && event.button < 1 && !domNode.target && !domNode.hasAttribute('download'))
 				{
 					event.preventDefault();
 					var href = domNode.href;
@@ -4292,12 +4296,12 @@ function _Browser_rAF()
 {
 	return _Scheduler_binding(function(callback)
 	{
-		var id = requestAnimationFrame(function() {
+		var id = _Browser_requestAnimationFrame(function() {
 			callback(_Scheduler_succeed(Date.now()));
 		});
 
 		return function() {
-			cancelAnimationFrame(id);
+			_Browser_cancelAnimationFrame(id);
 		};
 	});
 }
@@ -7008,7 +7012,7 @@ var author$project$Docs$Configuration$view = author$project$Docs$Html$content(
 			author$project$Docs$Html$pre(
 			_List_fromArray(
 				[
-					elm$html$Html$text('{\n    "checks" : {\n        "UnusedTypeAlias": false\n    }\n}')
+					elm$html$Html$text('{\r\n    "checks" : {\r\n        "UnusedTypeAlias": false\r\n    }\r\n}')
 				])),
 			A2(
 			elm$html$Html$p,
@@ -7069,7 +7073,7 @@ var author$project$Docs$Configuration$view = author$project$Docs$Html$content(
 			author$project$Docs$Html$pre(
 			_List_fromArray(
 				[
-					elm$html$Html$text('{\n    ...\n    "<CheckName>" : {\n        "<property>": <value>\n    },\n    ...\n}')
+					elm$html$Html$text('{\r\n    ...\r\n    "<CheckName>" : {\r\n        "<property>": <value>\r\n    },\r\n    ...\r\n}')
 				])),
 			A2(
 			elm$html$Html$p,
@@ -7157,7 +7161,7 @@ var author$project$Docs$Configuration$view = author$project$Docs$Html$content(
 			author$project$Docs$Html$pre(
 			_List_fromArray(
 				[
-					elm$html$Html$text('{\n    ...\n    "excludedPaths" : [\n        "src/Vendor",\n        "src/App/FileThatShouldNotBeInspected.elm"\n    ],\n    ...\n}\n')
+					elm$html$Html$text('{\r\n    ...\r\n    "excludedPaths" : [\r\n        "src/Vendor",\r\n        "src/App/FileThatShouldNotBeInspected.elm"\r\n    ],\r\n    ...\r\n}\r\n')
 				]))
 		]));
 var author$project$Docs$Contributing$simpleCode = function (t) {
@@ -7188,7 +7192,7 @@ var author$project$Docs$Contributing$view = author$project$Docs$Html$content(
 			_List_Nil,
 			_List_fromArray(
 				[
-					elm$html$Html$text('\n                Contributions are an important part of moving software forward.\n                In this guide I would like to help you not only bringing Elm Analyse forward, but also in the right direction.\n                I\'ve listed a few points below that would help you get your contributions back into Elm Analyse.\n                ')
+					elm$html$Html$text('\r\n                Contributions are an important part of moving software forward.\r\n                In this guide I would like to help you not only bringing Elm Analyse forward, but also in the right direction.\r\n                I\'ve listed a few points below that would help you get your contributions back into Elm Analyse.\r\n                ')
 				])),
 			A2(
 			elm$html$Html$h3,
@@ -7202,7 +7206,7 @@ var author$project$Docs$Contributing$view = author$project$Docs$Html$content(
 			_List_Nil,
 			_List_fromArray(
 				[
-					elm$html$Html$text('\n                If you are making a contribution, be aware if you are fixing a bug, creating new functionality or changing existent things.\n                Fixing bugs is easy, but making bigger changes may affect which release a change could be released.\n                Please work with '),
+					elm$html$Html$text('\r\n                If you are making a contribution, be aware if you are fixing a bug, creating new functionality or changing existent things.\r\n                Fixing bugs is easy, but making bigger changes may affect which release a change could be released.\r\n                Please work with '),
 					A2(
 					elm$html$Html$a,
 					_List_fromArray(
@@ -7221,7 +7225,7 @@ var author$project$Docs$Contributing$view = author$project$Docs$Html$content(
 			_List_Nil,
 			_List_fromArray(
 				[
-					elm$html$Html$text('\n            In the solution the goal should always be to create a solution that works for \'everyone\'.\n            Especially in the early days of this tool I would want to avoid circumstantial and highly configurable functionality.\n            For example a check such as "Unused variables" is always valid.\n            Disabling checks for a Module, a function or a single expression, is something that should not be at the core of this tool.\n            In my (@stil4m) honest opinion, thinking about how we can write quality Elm code (and implement this in Elm Analyse) would help the Elm community forward much more,\n            than creating a tool that contains the exact same functionality as other linters (ESLint for example).\n            ')
+					elm$html$Html$text('\r\n            In the solution the goal should always be to create a solution that works for \'everyone\'.\r\n            Especially in the early days of this tool I would want to avoid circumstantial and highly configurable functionality.\r\n            For example a check such as "Unused variables" is always valid.\r\n            Disabling checks for a Module, a function or a single expression, is something that should not be at the core of this tool.\r\n            In my (@stil4m) honest opinion, thinking about how we can write quality Elm code (and implement this in Elm Analyse) would help the Elm community forward much more,\r\n            than creating a tool that contains the exact same functionality as other linters (ESLint for example).\r\n            ')
 				])),
 			A2(
 			elm$html$Html$h3,
@@ -7239,7 +7243,7 @@ var author$project$Docs$Contributing$view = author$project$Docs$Html$content(
 					author$project$Docs$Html$pre(
 					_List_fromArray(
 						[
-							elm$html$Html$text('npm install\n\nnpm run dev:server\nnpm run dev:client\nnpm run dev:docs')
+							elm$html$Html$text('npm install\r\n\r\nnpm run dev:server\r\nnpm run dev:client\r\nnpm run dev:docs')
 						]))
 				])),
 			A2(
@@ -7321,7 +7325,7 @@ var author$project$Docs$Contributing$view = author$project$Docs$Html$content(
 			_List_Nil,
 			_List_fromArray(
 				[
-					elm$html$Html$text('\n                Please remove the following files from your pull request: \'docs/docs.js\', \'js/backend-elm.js\', \'js/public/client-elm.js\'.\n                All JS will be compiled before the release.\n                The JS is tracked with Git to make sure Elm Analyse does not have to compile on the machines that install via npm.\n                ')
+					elm$html$Html$text('\r\n                Please remove the following files from your pull request: \'docs/docs.js\', \'js/backend-elm.js\', \'js/public/client-elm.js\'.\r\n                All JS will be compiled before the release.\r\n                The JS is tracked with Git to make sure Elm Analyse does not have to compile on the machines that install via npm.\r\n                ')
 				]))
 		]));
 var elm$html$Html$img = _VirtualDom_node('img');
@@ -8909,7 +8913,7 @@ var author$project$Docs$MsgDoc$booleanCase = {
 	info: function ($) {
 		return $.info;
 	}(author$project$Analyser$Checks$BooleanCase$checker),
-	input: '\nmodule Foo exposing (sum)\n\nthing : Boolean -> String\nthing x =\n    case x of\n        True ->\n            "Hello"\n        False ->\n            "Goodbye"\n'
+	input: '\r\nmodule Foo exposing (sum)\r\n\r\nthing : Boolean -> String\r\nthing x =\r\n    case x of\r\n        True ->\r\n            "Hello"\r\n        False ->\r\n            "Goodbye"\r\n'
 };
 var author$project$Analyser$Checks$DebugCrash$entryForQualifiedExpr = F2(
 	function (moduleName, f) {
@@ -8974,7 +8978,7 @@ var author$project$Docs$MsgDoc$debugCrash = {
 	info: function ($) {
 		return $.info;
 	}(author$project$Analyser$Checks$DebugCrash$checker),
-	input: '\nmodule Foo exposing (foo)\n\nfoo =\n    Debug.todo "SHOULD NEVER HAPPEN"\n'
+	input: '\r\nmodule Foo exposing (foo)\r\n\r\nfoo =\r\n    Debug.todo "SHOULD NEVER HAPPEN"\r\n'
 };
 var author$project$Analyser$Checks$DebugLog$entryForQualifiedExpr = F2(
 	function (moduleName, f) {
@@ -9034,7 +9038,7 @@ var author$project$Docs$MsgDoc$debugLog = {
 	info: function ($) {
 		return $.info;
 	}(author$project$Analyser$Checks$DebugLog$checker),
-	input: '\nmodule Foo exposing (foo)\n\nfoo =\n    Debug.log "Log this" (1 + 1)\n\n'
+	input: '\r\nmodule Foo exposing (foo)\r\n\r\nfoo =\r\n    Debug.log "Log this" (1 + 1)\r\n\r\n'
 };
 var author$project$Analyser$Checks$DropConcatOfLists$onExpression = F2(
 	function (_n0, context) {
@@ -9088,7 +9092,7 @@ var author$project$Docs$MsgDoc$dropConcatOfLists = {
 	info: function ($) {
 		return $.info;
 	}(author$project$Analyser$Checks$DropConcatOfLists$checker),
-	input: '\nmodule Foo exposing (foo)\n\nfoo : List Int\nfoo =\n    [ 1, 2, 3 ] ++ [ 4, 5, 6]\n'
+	input: '\r\nmodule Foo exposing (foo)\r\n\r\nfoo : List Int\r\nfoo =\r\n    [ 1, 2, 3 ] ++ [ 4, 5, 6]\r\n'
 };
 var author$project$Analyser$Checks$DropConsOfItemAndList$onExpression = F2(
 	function (_n0, context) {
@@ -9158,7 +9162,7 @@ var author$project$Docs$MsgDoc$dropConsOfItemAndList = {
 	info: function ($) {
 		return $.info;
 	}(author$project$Analyser$Checks$DropConsOfItemAndList$checker),
-	input: '\nmodule Foo exposing (foo)\n\nfoo : List Int\nfoo =\n    1 :: [ 2, 3, 4]\n'
+	input: '\r\nmodule Foo exposing (foo)\r\n\r\nfoo : List Int\r\nfoo =\r\n    1 :: [ 2, 3, 4]\r\n'
 };
 var author$project$ASTUtil$Inspector$Skip = {$: 'Skip'};
 var author$project$Analyser$Messages$Data$ModuleNameV = function (a) {
@@ -9341,7 +9345,7 @@ var author$project$Docs$MsgDoc$duplicateImport = {
 	info: function ($) {
 		return $.info;
 	}(author$project$Analyser$Checks$DuplicateImport$checker),
-	input: '\nmodule Foo exposing (main)\n\nimport Html exposing (text)\nimport Maybe\nimport Html exposing (Html)\n\nmain : Html a\nmain =\n    text "Hello World"\n'
+	input: '\r\nmodule Foo exposing (main)\r\n\r\nimport Html exposing (text)\r\nimport Maybe\r\nimport Html exposing (Html)\r\n\r\nmain : Html a\r\nmain =\r\n    text "Hello World"\r\n'
 };
 var author$project$Analyser$Messages$Data$VariableNameV = function (a) {
 	return {$: 'VariableNameV', a: a};
@@ -9571,7 +9575,7 @@ var author$project$Docs$MsgDoc$duplicateImportedVariable = {
 	info: function ($) {
 		return $.info;
 	}(author$project$Analyser$Checks$DuplicateImportedVariable$checker),
-	input: '\nmodule Foo exposing (main)\n\nimport Html exposing (Html, text, Html)\n\nmain : Html a\nmain =\n    text "Hello World"\n'
+	input: '\r\nmodule Foo exposing (main)\r\n\r\nimport Html exposing (Html, text, Html)\r\n\r\nmain : Html a\r\nmain =\r\n    text "Hello World"\r\n'
 };
 var author$project$ASTUtil$Inspector$Inner = function (a) {
 	return {$: 'Inner', a: a};
@@ -9640,7 +9644,7 @@ var author$project$Docs$MsgDoc$exposeAll = {
 	info: function ($) {
 		return $.info;
 	}(author$project$Analyser$Checks$ExposeAll$checker),
-	input: '\nmodule Foo exposing (..)\n\nfoo : Int\nfoo =\n    1\n'
+	input: '\r\nmodule Foo exposing (..)\r\n\r\nfoo : Int\r\nfoo =\r\n    1\r\n'
 };
 var author$project$Analyser$Checks$FileLoadFailed$scan = F2(
 	function (_n0, _n1) {
@@ -9705,7 +9709,7 @@ var author$project$Docs$MsgDoc$fileLoadFailed = {
 	info: function ($) {
 		return $.info;
 	}(author$project$Analyser$Checks$FileLoadFailed$checker),
-	input: '\n'
+	input: '\r\n'
 };
 var stil4m$elm_syntax$Elm$Syntax$Node$range = function (_n0) {
 	var r = _n0.a;
@@ -9803,7 +9807,7 @@ var author$project$Docs$MsgDoc$functionInLet = {
 	info: function ($) {
 		return $.info;
 	}(author$project$Analyser$Checks$FunctionInLet$checker),
-	input: '\nport module Foo exposing (foo)\n\nfoo : Int -> Int\nfoo x =\n    let\n        somethingIShouldDefineOnTopLevel : Int -> Int\n        somethingIShouldDefineOnTopLevel y =\n            y + 1\n    in\n        somethingIShouldDefineOnTopLevel x\n'
+	input: '\r\nport module Foo exposing (foo)\r\n\r\nfoo : Int -> Int\r\nfoo x =\r\n    let\r\n        somethingIShouldDefineOnTopLevel : Int -> Int\r\n        somethingIShouldDefineOnTopLevel y =\r\n            y + 1\r\n    in\r\n        somethingIShouldDefineOnTopLevel x\r\n'
 };
 var author$project$Analyser$Checks$ImportAll$onImport = F2(
 	function (_n0, context) {
@@ -9879,7 +9883,7 @@ var author$project$Docs$MsgDoc$importAll = {
 	info: function ($) {
 		return $.info;
 	}(author$project$Analyser$Checks$ImportAll$checker),
-	input: '\nmodule Foo exposing (bar)\n\nimport Html exposing (..)\n\nfoo = text "Hello world!"\n'
+	input: '\r\nmodule Foo exposing (bar)\r\n\r\nimport Html exposing (..)\r\n\r\nfoo = text "Hello world!"\r\n'
 };
 var author$project$Analyser$Checks$MapNothingToNothing$buildMessage = function (r) {
 	return A3(
@@ -9955,7 +9959,7 @@ var author$project$Docs$MsgDoc$mapNothingToNothing = {
 	info: function ($) {
 		return $.info;
 	}(author$project$Analyser$Checks$MapNothingToNothing$checker),
-	input: '\nmodule Greet exposing (greet)\n\ngreet x =\n    case x of\n        Nothing ->\n            Nothing\n        Just x ->\n            "Hello " ++ x\n'
+	input: '\r\nmodule Greet exposing (greet)\r\n\r\ngreet x =\r\n    case x of\r\n        Nothing ->\r\n            Nothing\r\n        Just x ->\r\n            "Hello " ++ x\r\n'
 };
 var author$project$Analyser$Checks$MultiLineRecordFormatting$buildMessageData = function (r) {
 	return A3(
@@ -10121,7 +10125,7 @@ var author$project$Docs$MsgDoc$multiLineRecordFormatting = {
 	info: function ($) {
 		return $.info;
 	}(author$project$Analyser$Checks$MultiLineRecordFormatting$checker),
-	input: '\nmodule Foo exposing (Person)\n\ntype alias Person =\n    { name : String , age : string , address : Adress }\n'
+	input: '\r\nmodule Foo exposing (Person)\r\n\r\ntype alias Person =\r\n    { name : String , age : string , address : Adress }\r\n'
 };
 var author$project$Analyser$Checks$NoTopLevelSignature$onFunction = F3(
 	function (_n0, _n1, context) {
@@ -10186,7 +10190,7 @@ var author$project$Docs$MsgDoc$noTopLevelSignature = {
 	info: function ($) {
 		return $.info;
 	}(author$project$Analyser$Checks$NoTopLevelSignature$checker),
-	input: '\nmodule Foo exposing (foo)\n\nfoo =\n    1\n'
+	input: '\r\nmodule Foo exposing (foo)\r\n\r\nfoo =\r\n    1\r\n'
 };
 var author$project$Analyser$Checks$NoUncurriedPrefix$onExpression = F2(
 	function (_n0, context) {
@@ -10269,7 +10273,7 @@ var author$project$Docs$MsgDoc$noUncurriedPrefix = {
 	info: function ($) {
 		return $.info;
 	}(author$project$Analyser$Checks$NoUncurriedPrefix$checker),
-	input: '\nmodule Foo exposing (main)\n\nhello : String\nhello =\n    (++) "Hello " "World"\n'
+	input: '\r\nmodule Foo exposing (main)\r\n\r\nhello : String\r\nhello =\r\n    (++) "Hello " "World"\r\n'
 };
 var author$project$Analyser$Checks$SingleFieldRecord$isSingleFieldRecord = function (x) {
 	return elm$core$List$length(x) === 1;
@@ -10389,7 +10393,7 @@ var author$project$Docs$MsgDoc$singleFieldRecord = {
 	info: function ($) {
 		return $.info;
 	}(author$project$Analyser$Checks$SingleFieldRecord$checker),
-	input: '\nmodule Foo exposing (Model)\n\ntype Model =\n    Model { input : String }\n'
+	input: '\r\nmodule Foo exposing (Model)\r\n\r\ntype Model =\r\n    Model { input : String }\r\n'
 };
 var author$project$Analyser$Checks$TriggerWords$buildMessage = function (_n0) {
 	var word = _n0.a;
@@ -10592,7 +10596,7 @@ var author$project$Docs$MsgDoc$triggerWords = {
 	info: function ($) {
 		return $.info;
 	}(author$project$Analyser$Checks$TriggerWords$checker),
-	input: '\nmodule Foo exposing (sum)\n\n-- TODO actually implement this\nsum : Int -> Int -> Int\nsum x y =\n    0\n'
+	input: '\r\nmodule Foo exposing (sum)\r\n\r\n-- TODO actually implement this\r\nsum : Int -> Int -> Int\r\nsum x y =\r\n    0\r\n'
 };
 var author$project$Analyser$Checks$UnnecessaryListConcat$isListExpression = function (_n0) {
 	var inner = _n0.b;
@@ -10670,7 +10674,7 @@ var author$project$Docs$MsgDoc$unnecessaryListConcat = {
 	info: function ($) {
 		return $.info;
 	}(author$project$Analyser$Checks$UnnecessaryListConcat$checker),
-	input: '\nmodule Foo exposing (foo)\n\nfoo : List Int\nfoo =\n    List.concat [ [ 1, 2 ,3 ], [ a, b, c] ]\n'
+	input: '\r\nmodule Foo exposing (foo)\r\n\r\nfoo : List Int\r\nfoo =\r\n    List.concat [ [ 1, 2 ,3 ], [ a, b, c] ]\r\n'
 };
 var author$project$Analyser$Checks$UnnecessaryParens$buildMessage = function (r) {
 	return A3(
@@ -11051,7 +11055,7 @@ var author$project$Docs$MsgDoc$unnecessaryParens = {
 	info: function ($) {
 		return $.info;
 	}(author$project$Analyser$Checks$UnnecessaryParens$checker),
-	input: '\nmodule Foo exposing (someCall)\n\nsomeCall =\n    (foo 1) 2\n\nalgorithmsAllowed =\n    ( 1 + 1) * 4\n'
+	input: '\r\nmodule Foo exposing (someCall)\r\n\r\nsomeCall =\r\n    (foo 1) 2\r\n\r\nalgorithmsAllowed =\r\n    ( 1 + 1) * 4\r\n'
 };
 var author$project$Analyser$Checks$UnnecessaryPortModule$onPortDeclaration = F2(
 	function (_n0, x) {
@@ -11094,7 +11098,7 @@ var author$project$Docs$MsgDoc$unnecessaryPortModule = {
 	info: function ($) {
 		return $.info;
 	}(author$project$Analyser$Checks$UnnecessaryPortModule$checker),
-	input: '\nport module Foo exposing (notAPort)\n\nnotAPort : Int\nnotAPort = 1\n'
+	input: '\r\nport module Foo exposing (notAPort)\r\n\r\nnotAPort : Int\r\nnotAPort = 1\r\n'
 };
 var author$project$Analyser$Checks$UnusedImport$buildMessage = function (_n0) {
 	var moduleName = _n0.a;
@@ -11267,7 +11271,7 @@ var author$project$Docs$MsgDoc$unusedImport = {
 	info: function ($) {
 		return $.info;
 	}(author$project$Analyser$Checks$UnusedImport$checker),
-	input: '\nmodule Foo exposing (main)\n\nimport Html exposing (Html, text)\nimport SomeOtherModule\n\nmain : Html a\nmain =\n    text "Hello"\n'
+	input: '\r\nmodule Foo exposing (main)\r\n\r\nimport Html exposing (Html, text)\r\nimport SomeOtherModule\r\n\r\nmain : Html a\r\nmain =\r\n    text "Hello"\r\n'
 };
 var author$project$Analyser$Checks$UnusedImportAlias$buildMessageData = function (_n0) {
 	var moduleName = _n0.a;
@@ -11404,7 +11408,7 @@ var author$project$Docs$MsgDoc$unusedImportAlias = {
 	info: function ($) {
 		return $.info;
 	}(author$project$Analyser$Checks$UnusedImportAlias$checker),
-	input: '\nmodule Foo exposing (main)\n\nimport Html as H exposing (Html, text)\n\nmain : Html a\nmain =\n    text "Hello"\n'
+	input: '\r\nmodule Foo exposing (main)\r\n\r\nimport Html as H exposing (Html, text)\r\n\r\nmain : Html a\r\nmain =\r\n    text "Hello"\r\n'
 };
 var author$project$Analyser$Checks$UnusedImportedVariable$filterForEffectModule = function (_n0) {
 	var k = _n0.a;
@@ -12149,7 +12153,7 @@ var author$project$Docs$MsgDoc$unusedImportedVariable = {
 	info: function ($) {
 		return $.info;
 	}(author$project$Analyser$Checks$UnusedImportedVariable$checker),
-	input: '\nmodule Foo exposing (thing)\n\nimport Html exposing (Html, div, text)\n\nmain : Html a\nmain =\n    text "Hello World!"\n'
+	input: '\r\nmodule Foo exposing (thing)\r\n\r\nimport Html exposing (Html, div, text)\r\n\r\nmain : Html a\r\nmain =\r\n    text "Hello World!"\r\n'
 };
 var author$project$Analyser$Checks$UnusedPatternVariable$emptyContext = {activeScopes: _List_Nil, poppedScopes: _List_Nil};
 var author$project$Analyser$Checks$UnusedPatternVariable$filterForEffectModule = function (_n0) {
@@ -12521,7 +12525,7 @@ var author$project$Docs$MsgDoc$unusedPatternVariable = {
 	info: function ($) {
 		return $.info;
 	}(author$project$Analyser$Checks$UnusedPatternVariable$checker),
-	input: '\nmodule Foo exposing (thing)\n\ntype alias Person =\n    { name : String\n    , age : Int\n    }\n\nsayHello : Person -> String\nsayHello {name, age} = "Hello " ++ name\n'
+	input: '\r\nmodule Foo exposing (thing)\r\n\r\ntype alias Person =\r\n    { name : String\r\n    , age : Int\r\n    }\r\n\r\nsayHello : Person -> String\r\nsayHello {name, age} = "Hello " ++ name\r\n'
 };
 var author$project$Analyser$Checks$UnusedTopLevel$filterForEffectModule = function (_n0) {
 	var k = _n0.a;
@@ -12610,7 +12614,7 @@ var author$project$Docs$MsgDoc$unusedTopLevel = {
 	info: function ($) {
 		return $.info;
 	}(author$project$Analyser$Checks$UnusedTopLevel$checker),
-	input: '\nmodule Foo exposing (thing)\n\nthing : Int\nthing =\n    1\n\nunusedThing : String -> String\nunusedThing x =\n    "Hello " ++ x\n'
+	input: '\r\nmodule Foo exposing (thing)\r\n\r\nthing : Int\r\nthing =\r\n    1\r\n\r\nunusedThing : String -> String\r\nunusedThing x =\r\n    "Hello " ++ x\r\n'
 };
 var author$project$Analyser$Checks$UnusedTypeAlias$buildMessageData = function (_n0) {
 	var varName = _n0.a;
@@ -12770,7 +12774,7 @@ var author$project$Docs$MsgDoc$unusedTypeAlias = {
 	info: function ($) {
 		return $.info;
 	}(author$project$Analyser$Checks$UnusedTypeAlias$checker),
-	input: '\nmodule Foo exposing (main)\n\nimport Html exposing (Html, text, Html)\n\ntype alias SomeUnusedThing =\n    { name : String }\n\nmain : Html a\nmain =\n    text "Hello World"\n'
+	input: '\r\nmodule Foo exposing (main)\r\n\r\nimport Html exposing (Html, text, Html)\r\n\r\ntype alias SomeUnusedThing =\r\n    { name : String }\r\n\r\nmain : Html a\r\nmain =\r\n    text "Hello World"\r\n'
 };
 var author$project$Analyser$Checks$UnusedValueConstructor$buildMessageData = function (_n0) {
 	var varName = _n0.a;
@@ -12878,7 +12882,7 @@ var author$project$Docs$MsgDoc$unusedValueConstructor = {
 	info: function ($) {
 		return $.info;
 	}(author$project$Analyser$Checks$UnusedValueConstructor$checker),
-	input: '\nmodule Greet exposing (Color)\n\ntype Color\n    = Blue\n    | Red\n    | Green\n\nred = Red\n\nblue = Blue\n'
+	input: '\r\nmodule Greet exposing (Color)\r\n\r\ntype Color\r\n    = Blue\r\n    | Red\r\n    | Green\r\n\r\nred = Red\r\n\r\nblue = Blue\r\n'
 };
 var author$project$Analyser$Checks$UnusedVariable$filterForEffectModule = function (_n0) {
 	var k = _n0.a;
@@ -12979,7 +12983,7 @@ var author$project$Docs$MsgDoc$unusedVariable = {
 	info: function ($) {
 		return $.info;
 	}(author$project$Analyser$Checks$UnusedVariable$checker),
-	input: '\nmodule Foo exposing (f)\n\nfoo : String -> Int\nfoo x =\n    1\n'
+	input: '\r\nmodule Foo exposing (f)\r\n\r\nfoo : String -> Int\r\nfoo x =\r\n    1\r\n'
 };
 var author$project$Analyser$Checks$UseConsOverConcat$onExpression = F2(
 	function (_n0, context) {
@@ -13032,7 +13036,7 @@ var author$project$Docs$MsgDoc$useConsOverConcat = {
 	info: function ($) {
 		return $.info;
 	}(author$project$Analyser$Checks$UseConsOverConcat$checker),
-	input: '\nmodule Foo exposing (foo)\n\nfoo : List String\nfoo =\n    [ a ] ++ foo\n'
+	input: '\r\nmodule Foo exposing (foo)\r\n\r\nfoo : List String\r\nfoo =\r\n    [ a ] ++ foo\r\n'
 };
 var author$project$Docs$MsgDoc$allMessages = _List_fromArray(
 	[author$project$Docs$MsgDoc$functionInLet, author$project$Docs$MsgDoc$unnecessaryPortModule, author$project$Docs$MsgDoc$multiLineRecordFormatting, author$project$Docs$MsgDoc$unnecessaryListConcat, author$project$Docs$MsgDoc$dropConsOfItemAndList, author$project$Docs$MsgDoc$dropConcatOfLists, author$project$Docs$MsgDoc$useConsOverConcat, author$project$Docs$MsgDoc$unusedImport, author$project$Docs$MsgDoc$unusedImportAlias, author$project$Docs$MsgDoc$noUncurriedPrefix, author$project$Docs$MsgDoc$unusedTypeAlias, author$project$Docs$MsgDoc$duplicateImportedVariable, author$project$Docs$MsgDoc$duplicateImport, author$project$Docs$MsgDoc$fileLoadFailed, author$project$Docs$MsgDoc$booleanCase, author$project$Docs$MsgDoc$debugCrash, author$project$Docs$MsgDoc$debugLog, author$project$Docs$MsgDoc$unnecessaryParens, author$project$Docs$MsgDoc$noTopLevelSignature, author$project$Docs$MsgDoc$exposeAll, author$project$Docs$MsgDoc$unusedPatternVariable, author$project$Docs$MsgDoc$unusedImportedVariable, author$project$Docs$MsgDoc$unusedTopLevel, author$project$Docs$MsgDoc$unusedVariable, author$project$Docs$MsgDoc$importAll, author$project$Docs$MsgDoc$singleFieldRecord, author$project$Docs$MsgDoc$triggerWords, author$project$Docs$MsgDoc$mapNothingToNothing, author$project$Docs$MsgDoc$unusedValueConstructor]);
@@ -19777,8 +19781,8 @@ var author$project$Docs$MsgDoc$getMessage = function (d) {
 			return _Debug_todo(
 				'Docs.MsgDoc',
 				{
-					start: {line: 659, column: 21},
-					end: {line: 659, column: 35}
+					start: {line: 869, column: 21},
+					end: {line: 869, column: 35}
 				})('Something is wrong');
 		}
 	}

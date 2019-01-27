@@ -15,16 +15,18 @@ var minimist_1 = __importDefault(require("minimist"));
 var fs = __importStar(require("fs"));
 var path = __importStar(require("path"));
 var app_1 = __importDefault(require("../server/app"));
+var language_server_1 = __importDefault(require("../server/language-server"));
 var analyser_1 = __importDefault(require("../analyser"));
 var args = minimist_1.default(process.argv.slice(2), {
     alias: {
         serve: 's',
+        lsp: 'l',
         help: 'h',
         port: 'p',
         version: 'v',
         open: 'o'
     },
-    boolean: ['serve', 'help', 'version', 'open'],
+    boolean: ['lsp', 'serve', 'help', 'version', 'open'],
     string: ['port', 'elm-format-path', 'format']
 });
 (function () {
@@ -52,6 +54,9 @@ var args = minimist_1.default(process.argv.slice(2), {
         console.log('   --help, -h          Print the help output.');
         console.log('   --serve, -s         Enable server mode. Disabled by default.');
         console.log('   --port, -p          The port on which the server should listen. Defaults to 3000.');
+        console.log('   --lsp, -l           Enable language server mode. Disabled by default.');
+        console.log('                       You must also specify one of: "--stdio", "--node-ipc",');
+        console.log('                       or "--socket={number}" for the communication method to use.');
         console.log('   --open, -o          Open default browser when server goes live.');
         console.log('   --elm-format-path   Path to elm-format. Defaults to `elm-format`.');
         console.log('   --format            Output format for CLI. Defaults to "human". Options "human"|"json"');
@@ -69,6 +74,10 @@ var args = minimist_1.default(process.argv.slice(2), {
     var projectFile = JSON.parse(fs.readFileSync('./elm.json').toString());
     if (args.serve) {
         app_1.default.start(config, info, projectFile);
+        return;
+    }
+    else if (args.lsp) {
+        language_server_1.default.start(config, info, projectFile);
         return;
     }
     analyser_1.default.start(config, projectFile);
