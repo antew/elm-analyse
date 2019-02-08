@@ -14,6 +14,10 @@ import {
 } from 'vscode-languageserver';
 
 function start(config: Config, info: Info, project: {}) {
+    // Disable console logging while in language server mode
+    // otherwise in stdio mode we will not be sending valid JSON
+    console.log = console.warn = () => {};
+
     let connection = createConnection(ProposedFeatures.all);
     worker.run(config, project, function(elm: ElmApp) {
         let report: Report | null = null;
@@ -70,9 +74,7 @@ function start(config: Config, info: Info, project: {}) {
             // When publishing diagnostics it looks like you have to publish
             // for one URI at a time, so this groups all of the messages for
             // each file and sends them as a batch
-            _.forEach(_.groupBy(report.messages, 'file'), (messages, file) => 
-                publishDiagnostics(messages, fileUrl(file))
-            );
+            _.forEach(_.groupBy(report.messages, 'file'), (messages, file) => publishDiagnostics(messages, fileUrl(file)));
         });
     });
 }
@@ -89,9 +91,7 @@ function messageToDiagnostic(message: Message): Diagnostic {
         // Clean up the error message a bit, removing the end of the line, e.g.
         // "Record has only one field. Use the field's type or introduce a Type. At ((14,5),(14,20))"
         message:
-            message.data.description.split(/at .+$/i)[0] +
-            '\n' +
-            `See https://stil4m.github.io/elm-analyse/#/messages/${message.type}`,
+            message.data.description.split(/at .+$/i)[0] + '\n' + `See https://stil4m.github.io/elm-analyse/#/messages/${message.type}`,
         source: 'elm-analyse'
     };
 }
