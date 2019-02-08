@@ -51,6 +51,9 @@ var worker_1 = __importDefault(require("./worker"));
 var watcher_1 = __importDefault(require("./watcher"));
 var vscode_languageserver_1 = require("vscode-languageserver");
 function start(config, info, project) {
+    // Disable console logging while in language server mode
+    // otherwise in stdio mode we will not be sending valid JSON
+    console.log = console.warn = function () { };
     var connection = vscode_languageserver_1.createConnection(vscode_languageserver_1.ProposedFeatures.all);
     worker_1.default.run(config, project, function (elm) {
         var report = null;
@@ -115,9 +118,7 @@ function start(config, info, project) {
             // When publishing diagnostics it looks like you have to publish
             // for one URI at a time, so this groups all of the messages for
             // each file and sends them as a batch
-            lodash_1.default.forEach(lodash_1.default.groupBy(report.messages, 'file'), function (messages, file) {
-                return publishDiagnostics(messages, fileUrl(file));
-            });
+            lodash_1.default.forEach(lodash_1.default.groupBy(report.messages, 'file'), function (messages, file) { return publishDiagnostics(messages, fileUrl(file)); });
         });
     });
 }
@@ -132,9 +133,7 @@ function messageToDiagnostic(message) {
         range: range,
         // Clean up the error message a bit, removing the end of the line, e.g.
         // "Record has only one field. Use the field's type or introduce a Type. At ((14,5),(14,20))"
-        message: message.data.description.split(/at .+$/i)[0] +
-            '\n' +
-            ("See https://stil4m.github.io/elm-analyse/#/messages/" + message.type),
+        message: message.data.description.split(/at .+$/i)[0] + '\n' + ("See https://stil4m.github.io/elm-analyse/#/messages/" + message.type),
         source: 'elm-analyse'
     };
 }
