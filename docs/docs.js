@@ -18143,7 +18143,8 @@ var stil4m$elm_syntax$Elm$Parser$Imports$setupNode = F2(
 				A2(elm$core$List$filterMap, elm$core$Basics$identity, allRanges)),
 			imp);
 	});
-var stil4m$elm_syntax$Elm$Parser$Tokens$asToken = stil4m$elm_syntax$Combine$string('as');
+var stil4m$elm_syntax$Elm$Parser$Tokens$asToken = stil4m$elm_syntax$Combine$fromCore(
+	elm$parser$Parser$keyword('as'));
 var stil4m$elm_syntax$Elm$Parser$Tokens$importToken = stil4m$elm_syntax$Combine$fromCore(
 	elm$parser$Parser$keyword('import'));
 var stil4m$elm_syntax$Elm$Syntax$Import$Import = F3(
