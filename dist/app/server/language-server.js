@@ -34,6 +34,9 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
         if (op[0] & 5) throw op[1]; return { value: op[0] ? op[1] : void 0, done: true };
     }
 };
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
 var __importStar = (this && this.__importStar) || function (mod) {
     if (mod && mod.__esModule) return mod;
     var result = {};
@@ -41,22 +44,21 @@ var __importStar = (this && this.__importStar) || function (mod) {
     result["default"] = mod;
     return result;
 };
-var __importDefault = (this && this.__importDefault) || function (mod) {
-    return (mod && mod.__esModule) ? mod : { "default": mod };
-};
 Object.defineProperty(exports, "__esModule", { value: true });
-var path = __importStar(require("path"));
-var lodash_1 = __importDefault(require("lodash"));
-var worker_1 = __importDefault(require("./worker"));
 var file_uri_to_path_1 = __importDefault(require("file-uri-to-path"));
-var vscode_languageserver_1 = require("vscode-languageserver");
 var file_url_1 = __importDefault(require("file-url"));
+var lodash_1 = __importDefault(require("lodash"));
+var path = __importStar(require("path"));
+var vscode_languageserver_1 = require("vscode-languageserver");
+var fileLoadingPorts = __importStar(require("../file-loading-ports"));
+var dependencies = __importStar(require("../util/dependencies"));
+var loggingPorts = __importStar(require("../util/logging-ports"));
 function start(config, info, project) {
     // Disable console logging while in language server mode
     // otherwise in stdio mode we will not be sending valid JSON
     console.log = console.warn = console.error = function () { };
     var connection = vscode_languageserver_1.createConnection(vscode_languageserver_1.ProposedFeatures.all);
-    worker_1.default.run(config, project, function (elm) {
+    run(config, project, function (elm) {
         var report = null;
         var documents = new vscode_languageserver_1.TextDocuments();
         documents.listen(connection);
@@ -123,5 +125,20 @@ function messageToDiagnostic(message) {
         message: message.data.description.split(/at .+$/i)[0] + '\n' + ("See https://stil4m.github.io/elm-analyse/#/messages/" + message.type),
         source: 'elm-analyse'
     };
+}
+function run(config, project, onload) {
+    dependencies.getDependencies(function (registry) {
+        var Elm = require('../backend-elm.js').Elm;
+        var app = Elm.Analyser.init({
+            flags: {
+                server: false,
+                registry: registry || [],
+                project: project
+            }
+        });
+        loggingPorts.setup(app, config);
+        fileLoadingPorts.setup(app, config, process.cwd());
+        onload(app);
+    });
 }
 exports.default = { start: start };
