@@ -1,18 +1,19 @@
-import * as path from 'path';
-import { Config, Info, ElmApp, Report, Message } from '../domain';
-import _ from 'lodash';
-import worker from './worker';
 import uri2path from 'file-uri-to-path';
-import {
-    createConnection,
-    TextDocuments,
-    TextDocumentChangeEvent,
+import fileUrl from 'file-url';
+import _ from 'lodash';
+import * as path from 'path';
+import { createConnection,
     Diagnostic,
     DiagnosticSeverity,
+    InitializeParams,
     ProposedFeatures,
-    InitializeParams
+    TextDocumentChangeEvent,
+    TextDocuments 
 } from 'vscode-languageserver';
-import fileUrl from 'file-url'
+import { Config, ElmApp, Info, Message, Report } from '../domain';
+import * as fileLoadingPorts from '../file-loading-ports';
+import * as dependencies from '../util/dependencies';
+import * as loggingPorts from '../util/logging-ports';
 
 function start(config: Config, info: Info, project: {}) {
     // Disable console logging while in language server mode
@@ -21,7 +22,7 @@ function start(config: Config, info: Info, project: {}) {
 
     let connection = createConnection(ProposedFeatures.all);
 
-    worker.run(config, project, function(elm: ElmApp) {
+    run(config, project, function(elm: ElmApp) {
         let report: Report | null = null;
         let documents: TextDocuments = new TextDocuments();
 
@@ -91,6 +92,23 @@ function messageToDiagnostic(message: Message): Diagnostic {
             message.data.description.split(/at .+$/i)[0] + '\n' + `See https://stil4m.github.io/elm-analyse/#/messages/${message.type}`,
         source: 'elm-analyse'
     };
+}
+
+function run(config: Config, project: {}, onload: (app: ElmApp) => void) {
+    dependencies.getDependencies(function(registry) {
+        const { Elm } = require('../backend-elm.js');
+        const app = Elm.Analyser.init({
+            flags: {
+                server: false,
+                registry: registry || [],
+                project: project
+            }
+        });
+
+        loggingPorts.setup(app, config);
+        fileLoadingPorts.setup(app, config, process.cwd());
+        onload(app);
+    });
 }
 
 export default { start };

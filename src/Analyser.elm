@@ -400,11 +400,11 @@ subscriptions : Model -> Sub Msg
 subscriptions model =
     Sub.batch
         [ AnalyserPorts.onReset (always Reset)
+        , if model.server then
+            Time.every 1000 (always ReloadTick)
 
-        -- , if model.server then
-        --     Time.every 1000 (always ReloadTick)
-        --   else
-        --     Sub.none
+          else
+            Sub.none
         , FileWatch.watcher Change
         , AnalyserPorts.onFixMessage OnFixMessage
         , case model.stage of
