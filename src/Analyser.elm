@@ -190,10 +190,10 @@ update msg model =
                     ( model, Cmd.none )
 
         Change (Just (Update x)) ->
-            doSendState
+            startSourceLoading (x :: model.changedFiles)
                 ( { model
                     | state = State.outdateMessagesForFile x model.state
-                    , changedFiles = x :: model.changedFiles
+                    , changedFiles = []
                   }
                 , Cmd.none
                 )
@@ -400,11 +400,11 @@ subscriptions : Model -> Sub Msg
 subscriptions model =
     Sub.batch
         [ AnalyserPorts.onReset (always Reset)
-        , if model.server then
-            Time.every 1000 (always ReloadTick)
 
-          else
-            Sub.none
+        -- , if model.server then
+        --     Time.every 1000 (always ReloadTick)
+        --   else
+        --     Sub.none
         , FileWatch.watcher Change
         , AnalyserPorts.onFixMessage OnFixMessage
         , case model.stage of

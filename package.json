@@ -37,6 +37,8 @@
   "dependencies": {
     "express": "4.16.3",
     "express-ws": "2.0.0",
+    "file-uri-to-path": "^1.0.0",
+    "file-url": "^2.0.2",
     "find": "0.2.7",
     "fs-extra": "2.0.0",
     "lodash": "4.17.5",
@@ -52,6 +54,7 @@
   "devDependencies": {
     "@types/express": "^4.16.0",
     "@types/express-ws": "^3.0.0",
+    "@types/file-url": "^2.0.0",
     "@types/find": "^0.2.0",
     "@types/fs-extra": "^5.0.3",
     "@types/lodash": "^4.14.110",
