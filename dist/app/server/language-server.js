@@ -48,17 +48,17 @@ Object.defineProperty(exports, "__esModule", { value: true });
 var path = __importStar(require("path"));
 var lodash_1 = __importDefault(require("lodash"));
 var worker_1 = __importDefault(require("./worker"));
-var watcher_1 = __importDefault(require("./watcher"));
+var file_uri_to_path_1 = __importDefault(require("file-uri-to-path"));
 var vscode_languageserver_1 = require("vscode-languageserver");
+var file_url_1 = __importDefault(require("file-url"));
 function start(config, info, project) {
     // Disable console logging while in language server mode
     // otherwise in stdio mode we will not be sending valid JSON
-    console.log = console.warn = function () { };
+    console.log = console.warn = console.error = function () { };
     var connection = vscode_languageserver_1.createConnection(vscode_languageserver_1.ProposedFeatures.all);
     worker_1.default.run(config, project, function (elm) {
         var report = null;
         var documents = new vscode_languageserver_1.TextDocuments();
-        watcher_1.default.run(elm);
         documents.listen(connection);
         connection.listen();
         connection.onInitialize(function (params) { return ({
@@ -69,19 +69,26 @@ function start(config, info, project) {
                 },
                 textDocument: {
                     publishDiagnostics: {
-                        relatedInformation: true
+                        relatedInformation: false
                     }
                 }
             }
         }); });
         // The content of a text document has changed. This event is emitted
         // when the text document first opened or when its content has changed.
-        documents.onDidChangeContent(function (change) {
-            validateTextDocument(change.document);
-        });
-        documents.onDidSave(function (change) {
-            validateTextDocument(change.document);
-        });
+        documents.onDidOpen(validateTextDocument);
+        documents.onDidSave(validateTextDocument);
+        function validateTextDocument(change) {
+            return __awaiter(this, void 0, void 0, function () {
+                return __generator(this, function (_a) {
+                    elm.ports.fileWatch.send({
+                        event: 'update',
+                        file: path.relative(process.cwd(), file_uri_to_path_1.default(change.document.uri))
+                    });
+                    return [2 /*return*/];
+                });
+            });
+        }
         function publishDiagnostics(messages, uri) {
             var messagesForFile = messages.filter(function (m) {
                 // Windows paths have a forward slash in the `message.file`, which won't
@@ -92,33 +99,13 @@ function start(config, info, project) {
             var diagnostics = messagesForFile.map(messageToDiagnostic);
             connection.sendDiagnostics({ uri: uri, diagnostics: diagnostics });
         }
-        function waitForReport() {
-            return __awaiter(this, void 0, void 0, function () {
-                return __generator(this, function (_a) {
-                    return [2 /*return*/, report ? Promise.resolve(report) : sleep(500).then(waitForReport)];
-                });
-            });
-        }
-        function validateTextDocument(textDocument) {
-            return __awaiter(this, void 0, void 0, function () {
-                var report;
-                return __generator(this, function (_a) {
-                    switch (_a.label) {
-                        case 0: return [4 /*yield*/, waitForReport()];
-                        case 1:
-                            report = _a.sent();
-                            publishDiagnostics(report.messages, textDocument.uri);
-                            return [2 /*return*/];
-                    }
-                });
-            });
-        }
-        elm.ports.sendReportValue.subscribe(function (newReport) {
-            report = newReport;
+        elm.ports.sendReportValue.subscribe(function (report) {
             // When publishing diagnostics it looks like you have to publish
             // for one URI at a time, so this groups all of the messages for
             // each file and sends them as a batch
-            lodash_1.default.forEach(lodash_1.default.groupBy(report.messages, 'file'), function (messages, file) { return publishDiagnostics(messages, fileUrl(file)); });
+            lodash_1.default.forEach(lodash_1.default.groupBy(report.messages, 'file'), function (messages, file) {
+                return publishDiagnostics(messages, file_url_1.default(file));
+            });
         });
     });
 }
@@ -136,23 +123,5 @@ function messageToDiagnostic(message) {
         message: message.data.description.split(/at .+$/i)[0] + '\n' + ("See https://stil4m.github.io/elm-analyse/#/messages/" + message.type),
         source: 'elm-analyse'
     };
-}
-function fileUrl(str) {
-    if (typeof str !== 'string') {
-        throw new Error('Expected a string');
-    }
-    var pathName = path.resolve(str).replace(/\\/g, '/');
-    // Windows drive letter must be prefixed with a slash
-    if (pathName[0] !== '/') {
-        pathName = '/' + pathName;
-    }
-    return encodeURI('file://' + pathName);
-}
-function sleep(ms) {
-    return __awaiter(this, void 0, void 0, function () {
-        return __generator(this, function (_a) {
-            return [2 /*return*/, new Promise(function (resolve) { return setTimeout(resolve, ms); })];
-        });
-    });
 }
 exports.default = { start: start };

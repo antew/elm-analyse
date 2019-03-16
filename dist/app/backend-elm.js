@@ -2427,52 +2427,6 @@ var _Parser_findSubString = F5(function(smallString, offset, row, col, bigString
 });
 
 
-
-function _Time_now(millisToPosix)
-{
-	return _Scheduler_binding(function(callback)
-	{
-		callback(_Scheduler_succeed(millisToPosix(Date.now())));
-	});
-}
-
-var _Time_setInterval = F2(function(interval, task)
-{
-	return _Scheduler_binding(function(callback)
-	{
-		var id = setInterval(function() { _Scheduler_rawSpawn(task); }, interval);
-		return function() { clearInterval(id); };
-	});
-});
-
-function _Time_here()
-{
-	return _Scheduler_binding(function(callback)
-	{
-		callback(_Scheduler_succeed(
-			A2(elm$time$Time$customZone, -(new Date().getTimezoneOffset()), _List_Nil)
-		));
-	});
-}
-
-
-function _Time_getZoneName()
-{
-	return _Scheduler_binding(function(callback)
-	{
-		try
-		{
-			var name = elm$time$Time$Name(Intl.DateTimeFormat().resolvedOptions().timeZone);
-		}
-		catch (e)
-		{
-			var name = elm$time$Time$Offset(new Date().getTimezoneOffset());
-		}
-		callback(_Scheduler_succeed(name));
-	});
-}
-
-
 // CREATE
 
 var _Regex_never = /.^/;
@@ -3110,7 +3064,7 @@ var author$project$Analyser$Modules$empty = {fz: _List_Nil, ch: _List_Nil};
 var author$project$Analyser$State$Initialising = 0;
 var author$project$Analyser$State$Dependencies$Application = 1;
 var author$project$Analyser$State$Dependencies$none = {bY: 1, gK: _List_Nil, gO: elm$core$Dict$empty};
-var author$project$Analyser$State$initialState = {fz: author$project$Analyser$State$Dependencies$none, as: 0, es: _List_Nil, eu: author$project$Analyser$Modules$empty, ag: _List_Nil, gw: 0};
+var author$project$Analyser$State$initialState = {fz: author$project$Analyser$State$Dependencies$none, as: 0, es: _List_Nil, eu: author$project$Analyser$Modules$empty, af: _List_Nil, gw: 0};
 var elm$core$Platform$Cmd$batch = _Platform_batch;
 var author$project$Analyser$reset = function (_n0) {
 	var model = _n0.a;
@@ -3255,7 +3209,7 @@ var author$project$Analyser$Configuration$defaultChecks = elm$core$Dict$fromList
 			_Utils_Tuple2('FunctionInLet', false)
 		]));
 var author$project$Analyser$Configuration$defaultConfiguration = {aI: author$project$Analyser$Configuration$defaultChecks, cW: _List_Nil, dx: ''};
-var author$project$Analyser$ContextLoader$emptyContext = {X: '', c1: _List_Nil, gu: _List_Nil};
+var author$project$Analyser$ContextLoader$emptyContext = {W: '', c1: _List_Nil, gu: _List_Nil};
 var author$project$Registry$Registry = elm$core$Basics$identity;
 var author$project$Registry$Package$Package = F3(
 	function (name, summary, versions) {
@@ -3371,7 +3325,7 @@ var author$project$Registry$fromValue = function (value) {
 };
 var author$project$Util$Logger$LogMessage = F2(
 	function (level, message) {
-		return {ep: level, ac: message};
+		return {ep: level, ab: message};
 	});
 var elm$json$Json$Encode$object = function (pairs) {
 	return _Json_wrap(
@@ -3398,7 +3352,7 @@ var author$project$Util$Logger$log = _Platform_outgoingPort(
 					elm$json$Json$Encode$string($.ep)),
 					_Utils_Tuple2(
 					'message',
-					elm$json$Json$Encode$string($.ac))
+					elm$json$Json$Encode$string($.ab))
 				]));
 	});
 var author$project$Util$Logger$error = A2(
@@ -4081,12 +4035,12 @@ var author$project$Analyser$init = function (flags) {
 		{
 			D: _List_Nil,
 			J: author$project$Analyser$CodeBase$init,
-			X: author$project$Analyser$Configuration$defaultConfiguration,
+			W: author$project$Analyser$Configuration$defaultConfiguration,
 			aK: author$project$Analyser$ContextLoader$emptyContext,
 			R: elm$project_metadata_utils$Elm$Project$Application(
 				{fB: _List_Nil, fC: _List_Nil, fF: _List_Nil, fI: elm$project_metadata_utils$Elm$Version$one, gD: _List_Nil, gE: _List_Nil}),
 			S: author$project$Registry$fromValue(flags.S),
-			T: flags.T,
+			ag: flags.ag,
 			j: author$project$Analyser$Finished,
 			o: author$project$Analyser$State$initialState
 		},
@@ -4102,11 +4056,11 @@ var author$project$Analyser$init = function (flags) {
 				{
 					D: _List_Nil,
 					J: author$project$Analyser$CodeBase$init,
-					X: author$project$Analyser$Configuration$defaultConfiguration,
+					W: author$project$Analyser$Configuration$defaultConfiguration,
 					aK: author$project$Analyser$ContextLoader$emptyContext,
 					R: v,
 					S: author$project$Registry$fromValue(flags.S),
-					T: flags.T,
+					ag: flags.ag,
 					j: author$project$Analyser$Finished,
 					o: author$project$Analyser$State$initialState
 				},
@@ -4128,7 +4082,6 @@ var author$project$Analyser$OnContext = function (a) {
 var author$project$Analyser$OnFixMessage = function (a) {
 	return {$: 6, a: a};
 };
-var author$project$Analyser$ReloadTick = {$: 4};
 var author$project$Analyser$Reset = {$: 5};
 var author$project$Analyser$SourceLoadingStageMsg = function (a) {
 	return {$: 2, a: a};
@@ -4146,7 +4099,7 @@ var author$project$Analyser$ContextLoader$onLoadedContext = _Platform_incomingPo
 						elm$json$Json$Decode$andThen,
 						function (configuration) {
 							return elm$json$Json$Decode$succeed(
-								{X: configuration, c1: interfaceFiles, gu: sourceFiles});
+								{W: configuration, c1: interfaceFiles, gu: sourceFiles});
 						},
 						A2(elm$json$Json$Decode$field, 'configuration', elm$json$Json$Decode$string));
 				},
@@ -4839,7 +4792,7 @@ var stil4m$elm_syntax$Combine$withLocation = function (f) {
 				function (_n0) {
 					var row = _n0.a;
 					var col = _n0.b;
-					return {W: col, aU: row};
+					return {V: col, aU: row};
 				},
 				elm$parser$Parser$getPosition));
 	};
@@ -5313,8 +5266,8 @@ var stil4m$elm_syntax$Combine$sepBy1 = F2(
 	});
 var stil4m$elm_syntax$Elm$Parser$Node$asPointerLocation = function (_n0) {
 	var line = _n0.aU;
-	var column = _n0.W;
-	return {W: column, C: line};
+	var column = _n0.V;
+	return {V: column, C: line};
 };
 var stil4m$elm_syntax$Elm$Syntax$Node$Node = F2(
 	function (a, b) {
@@ -6167,7 +6120,7 @@ var stil4m$elm_syntax$Elm$Parser$Comments$singleLineComment = stil4m$elm_syntax$
 			stil4m$elm_syntax$Combine$succeed(elm$core$Basics$append))));
 var stil4m$elm_syntax$Elm$Parser$Layout$anyComment = A2(stil4m$elm_syntax$Combine$or, stil4m$elm_syntax$Elm$Parser$Comments$singleLineComment, stil4m$elm_syntax$Elm$Parser$Comments$multilineComment);
 var stil4m$elm_syntax$Elm$Parser$State$currentIndent = function (_n0) {
-	var indents = _n0.ab;
+	var indents = _n0.aa;
 	return A2(
 		elm$core$Maybe$withDefault,
 		0,
@@ -6185,8 +6138,8 @@ var stil4m$elm_syntax$Elm$Parser$Layout$verifyIndent = function (f) {
 					return A2(
 						f,
 						stil4m$elm_syntax$Elm$Parser$State$expectedColumn(s),
-						l.W) ? stil4m$elm_syntax$Combine$succeed(0) : stil4m$elm_syntax$Combine$fail(
-						'Expected higher indent than ' + elm$core$String$fromInt(l.W));
+						l.V) ? stil4m$elm_syntax$Combine$succeed(0) : stil4m$elm_syntax$Combine$fail(
+						'Expected higher indent than ' + elm$core$String$fromInt(l.V));
 				});
 		});
 };
@@ -6585,13 +6538,13 @@ var stil4m$elm_syntax$Elm$Syntax$Range$Range = F2(
 		return {bE: end, I: start};
 	});
 var stil4m$elm_syntax$Elm$Syntax$Range$emptyRange = {
-	bE: {W: 0, C: 0},
-	I: {W: 0, C: 0}
+	bE: {V: 0, C: 0},
+	I: {V: 0, C: 0}
 };
 var elm$core$List$sortWith = _List_sortWith;
 var stil4m$elm_syntax$Elm$Syntax$Range$compareLocations = F2(
 	function (left, right) {
-		return (_Utils_cmp(left.C, right.C) < 0) ? 0 : ((_Utils_cmp(right.C, left.C) < 0) ? 2 : A2(elm$core$Basics$compare, left.W, right.W));
+		return (_Utils_cmp(left.C, right.C) < 0) ? 0 : ((_Utils_cmp(right.C, left.C) < 0) ? 2 : A2(elm$core$Basics$compare, left.V, right.V));
 	});
 var stil4m$elm_syntax$Elm$Syntax$Range$sortLocations = elm$core$List$sortWith(stil4m$elm_syntax$Elm$Syntax$Range$compareLocations);
 var stil4m$elm_syntax$Elm$Syntax$Range$combine = function (ranges) {
@@ -6874,7 +6827,7 @@ var elm$core$List$member = F2(
 var stil4m$elm_syntax$Elm$Parser$Layout$Indented = 1;
 var stil4m$elm_syntax$Elm$Parser$Layout$Strict = 0;
 var stil4m$elm_syntax$Elm$Parser$State$storedColumns = function (_n0) {
-	var indents = _n0.ab;
+	var indents = _n0.aa;
 	return A2(
 		elm$core$List$map,
 		elm$core$Basics$add(1),
@@ -6888,7 +6841,7 @@ var stil4m$elm_syntax$Elm$Parser$Layout$compute = stil4m$elm_syntax$Combine$with
 					elm$core$List$cons,
 					1,
 					stil4m$elm_syntax$Elm$Parser$State$storedColumns(s));
-				return A2(elm$core$List$member, l.W, known) ? stil4m$elm_syntax$Combine$succeed(0) : stil4m$elm_syntax$Combine$succeed(1);
+				return A2(elm$core$List$member, l.V, known) ? stil4m$elm_syntax$Combine$succeed(0) : stil4m$elm_syntax$Combine$succeed(1);
 			});
 	});
 var stil4m$elm_syntax$Elm$Parser$Layout$optimisticLayout = A2(
@@ -7607,7 +7560,7 @@ var stil4m$elm_syntax$Elm$Parser$State$popIndent = function (_n0) {
 	return _Utils_update(
 		s,
 		{
-			ab: A2(elm$core$List$drop, 1, s.ab)
+			aa: A2(elm$core$List$drop, 1, s.aa)
 		});
 };
 var stil4m$elm_syntax$Elm$Parser$State$pushIndent = F2(
@@ -7616,7 +7569,7 @@ var stil4m$elm_syntax$Elm$Parser$State$pushIndent = F2(
 		return _Utils_update(
 			s,
 			{
-				ab: A2(elm$core$List$cons, x, s.ab)
+				aa: A2(elm$core$List$cons, x, s.aa)
 			});
 	});
 var stil4m$elm_syntax$Elm$Parser$State$pushColumn = F2(
@@ -7633,7 +7586,7 @@ var stil4m$elm_syntax$Elm$Parser$Declarations$withIndentedState = function (p) {
 					stil4m$elm_syntax$Combine$continueWith,
 					p,
 					stil4m$elm_syntax$Combine$modifyState(
-						stil4m$elm_syntax$Elm$Parser$State$pushColumn(location.W))));
+						stil4m$elm_syntax$Elm$Parser$State$pushColumn(location.V))));
 		});
 };
 var stil4m$elm_syntax$Elm$Parser$Layout$layoutStrict = A2(
@@ -7944,7 +7897,7 @@ function stil4m$elm_syntax$Elm$Parser$Declarations$cyclic$caseStatements() {
 							function (l) {
 								return _Utils_eq(
 									stil4m$elm_syntax$Elm$Parser$State$expectedColumn(s),
-									l.W) ? A2(
+									l.V) ? A2(
 									stil4m$elm_syntax$Combine$andThen,
 									helper,
 									A2(
@@ -8685,8 +8638,8 @@ var stil4m$elm_syntax$Elm$Parser$Infix$infixDefinition = A2(
 											stil4m$elm_syntax$Combine$succeed(stil4m$elm_syntax$Elm$Syntax$Infix$Infix))))))))))));
 var stil4m$elm_syntax$Elm$Parser$Ranges$asPointerLocation = function (_n0) {
 	var line = _n0.aU;
-	var column = _n0.W;
-	return {W: column, C: line};
+	var column = _n0.V;
+	return {V: column, C: line};
 };
 var stil4m$elm_syntax$Elm$Parser$Ranges$withCurrentPoint = function (p) {
 	return stil4m$elm_syntax$Combine$withLocation(
@@ -9409,7 +9362,7 @@ var stil4m$elm_syntax$Elm$Parser$File$file = A2(
 								stil4m$elm_syntax$Combine$ignore,
 								stil4m$elm_syntax$Combine$maybe(stil4m$elm_syntax$Elm$Parser$Layout$layoutStrict),
 								stil4m$elm_syntax$Combine$succeed(stil4m$elm_syntax$Elm$Syntax$File$File)))))))));
-var stil4m$elm_syntax$Elm$Parser$State$emptyState = {ft: _List_Nil, ab: _List_Nil};
+var stil4m$elm_syntax$Elm$Parser$State$emptyState = {ft: _List_Nil, aa: _List_Nil};
 var stil4m$elm_syntax$Elm$Parser$parse = function (input) {
 	var _n0 = A3(
 		stil4m$elm_syntax$Combine$runParser,
@@ -9557,8 +9510,8 @@ var stil4m$elm_syntax$Elm$Syntax$Range$fromList = function (input) {
 		var d = _n3.a;
 		return elm$core$Result$Ok(
 			{
-				bE: {W: d, C: c},
-				I: {W: b, C: a}
+				bE: {V: d, C: c},
+				I: {V: b, C: a}
 			});
 	} else {
 		return elm$core$Result$Err('Invalid input list');
@@ -11722,307 +11675,12 @@ var author$project$Analyser$SourceLoadingStage$subscriptions = function (_n0) {
 };
 var author$project$AnalyserPorts$onFixMessage = _Platform_incomingPort('onFixMessage', elm$json$Json$Decode$int);
 var author$project$AnalyserPorts$onReset = _Platform_incomingPort('onReset', elm$json$Json$Decode$bool);
-var elm$time$Time$Every = F2(
-	function (a, b) {
-		return {$: 0, a: a, b: b};
-	});
-var elm$core$Task$succeed = _Scheduler_succeed;
-var elm$time$Time$State = F2(
-	function (taggers, processes) {
-		return {eG: processes, eZ: taggers};
-	});
-var elm$time$Time$init = elm$core$Task$succeed(
-	A2(elm$time$Time$State, elm$core$Dict$empty, elm$core$Dict$empty));
-var elm$core$Dict$foldl = F3(
-	function (func, acc, dict) {
-		foldl:
-		while (true) {
-			if (dict.$ === -2) {
-				return acc;
-			} else {
-				var key = dict.b;
-				var value = dict.c;
-				var left = dict.d;
-				var right = dict.e;
-				var $temp$func = func,
-					$temp$acc = A3(
-					func,
-					key,
-					value,
-					A3(elm$core$Dict$foldl, func, acc, left)),
-					$temp$dict = right;
-				func = $temp$func;
-				acc = $temp$acc;
-				dict = $temp$dict;
-				continue foldl;
-			}
-		}
-	});
-var elm$core$Dict$merge = F6(
-	function (leftStep, bothStep, rightStep, leftDict, rightDict, initialResult) {
-		var stepState = F3(
-			function (rKey, rValue, _n0) {
-				stepState:
-				while (true) {
-					var list = _n0.a;
-					var result = _n0.b;
-					if (!list.b) {
-						return _Utils_Tuple2(
-							list,
-							A3(rightStep, rKey, rValue, result));
-					} else {
-						var _n2 = list.a;
-						var lKey = _n2.a;
-						var lValue = _n2.b;
-						var rest = list.b;
-						if (_Utils_cmp(lKey, rKey) < 0) {
-							var $temp$rKey = rKey,
-								$temp$rValue = rValue,
-								$temp$_n0 = _Utils_Tuple2(
-								rest,
-								A3(leftStep, lKey, lValue, result));
-							rKey = $temp$rKey;
-							rValue = $temp$rValue;
-							_n0 = $temp$_n0;
-							continue stepState;
-						} else {
-							if (_Utils_cmp(lKey, rKey) > 0) {
-								return _Utils_Tuple2(
-									list,
-									A3(rightStep, rKey, rValue, result));
-							} else {
-								return _Utils_Tuple2(
-									rest,
-									A4(bothStep, lKey, lValue, rValue, result));
-							}
-						}
-					}
-				}
-			});
-		var _n3 = A3(
-			elm$core$Dict$foldl,
-			stepState,
-			_Utils_Tuple2(
-				elm$core$Dict$toList(leftDict),
-				initialResult),
-			rightDict);
-		var leftovers = _n3.a;
-		var intermediateResult = _n3.b;
-		return A3(
-			elm$core$List$foldl,
-			F2(
-				function (_n4, result) {
-					var k = _n4.a;
-					var v = _n4.b;
-					return A3(leftStep, k, v, result);
-				}),
-			intermediateResult,
-			leftovers);
-	});
-var elm$core$Process$kill = _Scheduler_kill;
-var elm$core$Task$andThen = _Scheduler_andThen;
-var elm$time$Time$addMySub = F2(
-	function (_n0, state) {
-		var interval = _n0.a;
-		var tagger = _n0.b;
-		var _n1 = A2(elm$core$Dict$get, interval, state);
-		if (_n1.$ === 1) {
-			return A3(
-				elm$core$Dict$insert,
-				interval,
-				_List_fromArray(
-					[tagger]),
-				state);
-		} else {
-			var taggers = _n1.a;
-			return A3(
-				elm$core$Dict$insert,
-				interval,
-				A2(elm$core$List$cons, tagger, taggers),
-				state);
-		}
-	});
-var elm$core$Platform$sendToSelf = _Platform_sendToSelf;
-var elm$core$Process$spawn = _Scheduler_spawn;
-var elm$time$Time$Name = function (a) {
-	return {$: 0, a: a};
-};
-var elm$time$Time$Offset = function (a) {
-	return {$: 1, a: a};
-};
-var elm$time$Time$Zone = F2(
-	function (a, b) {
-		return {$: 0, a: a, b: b};
-	});
-var elm$time$Time$customZone = elm$time$Time$Zone;
-var elm$time$Time$setInterval = _Time_setInterval;
-var elm$time$Time$spawnHelp = F3(
-	function (router, intervals, processes) {
-		if (!intervals.b) {
-			return elm$core$Task$succeed(processes);
-		} else {
-			var interval = intervals.a;
-			var rest = intervals.b;
-			var spawnTimer = elm$core$Process$spawn(
-				A2(
-					elm$time$Time$setInterval,
-					interval,
-					A2(elm$core$Platform$sendToSelf, router, interval)));
-			var spawnRest = function (id) {
-				return A3(
-					elm$time$Time$spawnHelp,
-					router,
-					rest,
-					A3(elm$core$Dict$insert, interval, id, processes));
-			};
-			return A2(elm$core$Task$andThen, spawnRest, spawnTimer);
-		}
-	});
-var elm$time$Time$onEffects = F3(
-	function (router, subs, _n0) {
-		var processes = _n0.eG;
-		var rightStep = F3(
-			function (_n6, id, _n7) {
-				var spawns = _n7.a;
-				var existing = _n7.b;
-				var kills = _n7.c;
-				return _Utils_Tuple3(
-					spawns,
-					existing,
-					A2(
-						elm$core$Task$andThen,
-						function (_n5) {
-							return kills;
-						},
-						elm$core$Process$kill(id)));
-			});
-		var newTaggers = A3(elm$core$List$foldl, elm$time$Time$addMySub, elm$core$Dict$empty, subs);
-		var leftStep = F3(
-			function (interval, taggers, _n4) {
-				var spawns = _n4.a;
-				var existing = _n4.b;
-				var kills = _n4.c;
-				return _Utils_Tuple3(
-					A2(elm$core$List$cons, interval, spawns),
-					existing,
-					kills);
-			});
-		var bothStep = F4(
-			function (interval, taggers, id, _n3) {
-				var spawns = _n3.a;
-				var existing = _n3.b;
-				var kills = _n3.c;
-				return _Utils_Tuple3(
-					spawns,
-					A3(elm$core$Dict$insert, interval, id, existing),
-					kills);
-			});
-		var _n1 = A6(
-			elm$core$Dict$merge,
-			leftStep,
-			bothStep,
-			rightStep,
-			newTaggers,
-			processes,
-			_Utils_Tuple3(
-				_List_Nil,
-				elm$core$Dict$empty,
-				elm$core$Task$succeed(0)));
-		var spawnList = _n1.a;
-		var existingDict = _n1.b;
-		var killTask = _n1.c;
-		return A2(
-			elm$core$Task$andThen,
-			function (newProcesses) {
-				return elm$core$Task$succeed(
-					A2(elm$time$Time$State, newTaggers, newProcesses));
-			},
-			A2(
-				elm$core$Task$andThen,
-				function (_n2) {
-					return A3(elm$time$Time$spawnHelp, router, spawnList, existingDict);
-				},
-				killTask));
-	});
-var elm$core$Platform$sendToApp = _Platform_sendToApp;
-var elm$core$Task$map2 = F3(
-	function (func, taskA, taskB) {
-		return A2(
-			elm$core$Task$andThen,
-			function (a) {
-				return A2(
-					elm$core$Task$andThen,
-					function (b) {
-						return elm$core$Task$succeed(
-							A2(func, a, b));
-					},
-					taskB);
-			},
-			taskA);
-	});
-var elm$core$Task$sequence = function (tasks) {
-	return A3(
-		elm$core$List$foldr,
-		elm$core$Task$map2(elm$core$List$cons),
-		elm$core$Task$succeed(_List_Nil),
-		tasks);
-};
-var elm$time$Time$Posix = elm$core$Basics$identity;
-var elm$time$Time$millisToPosix = elm$core$Basics$identity;
-var elm$time$Time$now = _Time_now(elm$time$Time$millisToPosix);
-var elm$time$Time$onSelfMsg = F3(
-	function (router, interval, state) {
-		var _n0 = A2(elm$core$Dict$get, interval, state.eZ);
-		if (_n0.$ === 1) {
-			return elm$core$Task$succeed(state);
-		} else {
-			var taggers = _n0.a;
-			var tellTaggers = function (time) {
-				return elm$core$Task$sequence(
-					A2(
-						elm$core$List$map,
-						function (tagger) {
-							return A2(
-								elm$core$Platform$sendToApp,
-								router,
-								tagger(time));
-						},
-						taggers));
-			};
-			return A2(
-				elm$core$Task$andThen,
-				function (_n1) {
-					return elm$core$Task$succeed(state);
-				},
-				A2(elm$core$Task$andThen, tellTaggers, elm$time$Time$now));
-		}
-	});
-var elm$time$Time$subMap = F2(
-	function (f, _n0) {
-		var interval = _n0.a;
-		var tagger = _n0.b;
-		return A2(
-			elm$time$Time$Every,
-			interval,
-			A2(elm$core$Basics$composeL, f, tagger));
-	});
-_Platform_effectManagers['Time'] = _Platform_createManager(elm$time$Time$init, elm$time$Time$onEffects, elm$time$Time$onSelfMsg, 0, elm$time$Time$subMap);
-var elm$time$Time$subscription = _Platform_leaf('Time');
-var elm$time$Time$every = F2(
-	function (interval, tagger) {
-		return elm$time$Time$subscription(
-			A2(elm$time$Time$Every, interval, tagger));
-	});
 var author$project$Analyser$subscriptions = function (model) {
 	return elm$core$Platform$Sub$batch(
 		_List_fromArray(
 			[
 				author$project$AnalyserPorts$onReset(
 				elm$core$Basics$always(author$project$Analyser$Reset)),
-				model.T ? A2(
-				elm$time$Time$every,
-				1000,
-				elm$core$Basics$always(author$project$Analyser$ReloadTick)) : elm$core$Platform$Sub$none,
 				author$project$Analyser$FileWatch$watcher(author$project$Analyser$Change),
 				author$project$AnalyserPorts$onFixMessage(author$project$Analyser$OnFixMessage),
 				function () {
@@ -12540,7 +12198,7 @@ var author$project$ASTUtil$Inspector$inspect = F3(
 	});
 var author$project$AST$Ranges$locationToString = function (_n0) {
 	var row = _n0.C;
-	var column = _n0.W;
+	var column = _n0.V;
 	return '(' + (elm$core$String$fromInt(row) + (',' + (elm$core$String$fromInt(column) + ')')));
 };
 var author$project$AST$Ranges$rangeToString = function (_n0) {
@@ -12652,8 +12310,8 @@ var author$project$Analyser$Fixes$Base$Patched = function (a) {
 };
 var author$project$Analyser$Fixes$FileContent$patchRange = function (rawRange) {
 	return {
-		bE: {W: rawRange.bE.W - 1, C: rawRange.bE.C - 1},
-		I: {W: rawRange.I.W - 1, C: rawRange.I.C - 1}
+		bE: {V: rawRange.bE.V - 1, C: rawRange.bE.C - 1},
+		I: {V: rawRange.I.V - 1, C: rawRange.I.C - 1}
 	};
 };
 var elm$core$List$takeReverse = F3(
@@ -12794,8 +12452,8 @@ var author$project$Analyser$Fixes$FileContent$updateRange = F3(
 	function (rawRange, patch, content) {
 		var rows = A2(elm$core$String$split, '\n', content);
 		var range = author$project$Analyser$Fixes$FileContent$patchRange(rawRange);
-		var rowPostPartTakeFn = elm$core$String$dropLeft(range.bE.W);
-		var rowPrePartTakeFn = elm$core$String$left(range.I.W);
+		var rowPostPartTakeFn = elm$core$String$dropLeft(range.bE.V);
+		var rowPrePartTakeFn = elm$core$String$left(range.I.V);
 		var beforeRows = range.I.C;
 		var linesBefore = A2(elm$core$List$take, beforeRows, rows);
 		var rowPrePart = A2(
@@ -13365,6 +13023,31 @@ var author$project$Analyser$Checks$DuplicateImport$onImport = F2(
 				_List_fromArray(
 					[range]),
 				context);
+		}
+	});
+var elm$core$Dict$foldl = F3(
+	function (func, acc, dict) {
+		foldl:
+		while (true) {
+			if (dict.$ === -2) {
+				return acc;
+			} else {
+				var key = dict.b;
+				var value = dict.c;
+				var left = dict.d;
+				var right = dict.e;
+				var $temp$func = func,
+					$temp$acc = A3(
+					func,
+					key,
+					value,
+					A3(elm$core$Dict$foldl, func, acc, left)),
+					$temp$dict = right;
+				func = $temp$func;
+				acc = $temp$acc;
+				dict = $temp$dict;
+				continue foldl;
+			}
 		}
 	});
 var elm$core$Dict$filter = F2(
@@ -13973,9 +13656,9 @@ var author$project$Analyser$Checks$UnnecessaryParens$rangeToString = function (r
 		_List_fromArray(
 			[
 				elm$core$String$fromInt(range.I.C),
-				elm$core$String$fromInt(range.I.W),
+				elm$core$String$fromInt(range.I.V),
 				elm$core$String$fromInt(range.bE.C),
-				elm$core$String$fromInt(range.bE.W)
+				elm$core$String$fromInt(range.bE.V)
 			]));
 };
 var elm_community$list_extra$List$Extra$uniqueBy = F2(
@@ -14013,15 +13696,15 @@ var author$project$Analyser$Fixes$Base$Error = function (a) {
 	return {$: 2, a: a};
 };
 var author$project$Analyser$Fixes$FileContent$patchLocation = function (_n0) {
-	var column = _n0.W;
+	var column = _n0.V;
 	var row = _n0.C;
-	return {W: column - 1, C: row - 1};
+	return {V: column - 1, C: row - 1};
 };
 var author$project$Analyser$Fixes$FileContent$getCharAtLocation = F2(
 	function (pair, input) {
 		var _n0 = author$project$Analyser$Fixes$FileContent$patchLocation(pair);
 		var row = _n0.C;
-		var column = _n0.W;
+		var column = _n0.V;
 		return A2(
 			elm$core$Maybe$map,
 			A2(
@@ -14049,7 +13732,7 @@ var author$project$Analyser$Fixes$FileContent$replaceLocationWith = F3(
 		var rows = A2(elm$core$String$split, '\n', input);
 		var _n0 = author$project$Analyser$Fixes$FileContent$patchLocation(pair);
 		var row = _n0.C;
-		var column = _n0.W;
+		var column = _n0.V;
 		var lineUpdater = function (target) {
 			return elm$core$String$concat(
 				_List_fromArray(
@@ -14073,7 +13756,7 @@ var author$project$Analyser$Fixes$UnnecessaryParens$fixContent = F2(
 		var _n0 = range;
 		var start = _n0.I;
 		var end = _n0.bE;
-		var endLoc = {W: end.W - 1, C: end.C};
+		var endLoc = {V: end.V - 1, C: end.C};
 		var endChar = A2(author$project$Analyser$Fixes$FileContent$getCharAtLocation, endLoc, content);
 		var startChar = A2(author$project$Analyser$Fixes$FileContent$getCharAtLocation, start, content);
 		var _n1 = _Utils_Tuple2(startChar, endChar);
@@ -14264,7 +13947,7 @@ var author$project$Analyser$Checks$UnusedImport$checker = {
 var author$project$Analyser$Fixes$UnusedImport$canFix = author$project$Analyser$Checks$UnusedImport$checker.fY.f1;
 var author$project$AST$Ranges$isGte = F2(
 	function (a, b) {
-		return (_Utils_cmp(a.C, b.C) > 0) ? true : ((_Utils_cmp(a.C, b.C) < 0) ? false : (_Utils_cmp(a.W, b.W) > -1));
+		return (_Utils_cmp(a.C, b.C) > 0) ? true : ((_Utils_cmp(a.C, b.C) < 0) ? false : (_Utils_cmp(a.V, b.V) > -1));
 	});
 var author$project$AST$Ranges$containsRange = F2(
 	function (a, b) {
@@ -14657,7 +14340,7 @@ var author$project$ASTUtil$Inspector$Pre = function (a) {
 	return {$: 2, a: a};
 };
 var author$project$Analyser$Checks$Variables$UsedVariableContext = elm$core$Basics$identity;
-var author$project$Analyser$Checks$Variables$emptyContext = {r: _List_Nil, af: _List_Nil};
+var author$project$Analyser$Checks$Variables$emptyContext = {r: _List_Nil, ae: _List_Nil};
 var author$project$ASTUtil$Variables$qualifiedNameUsedVars = F2(
 	function (_n0, range) {
 		var moduleName = _n0.aY;
@@ -14846,14 +14529,14 @@ var author$project$Analyser$Checks$Variables$popScope = function (x) {
 		x,
 		{
 			r: A2(elm$core$List$drop, 1, x.r),
-			af: A2(
+			ae: A2(
 				elm$core$Maybe$withDefault,
-				x.af,
+				x.ae,
 				A2(
 					elm$core$Maybe$map,
 					function (_n0) {
 						var activeScope = _n0.b;
-						return elm$core$Dict$isEmpty(activeScope) ? x.af : A2(elm$core$List$cons, activeScope, x.af);
+						return elm$core$Dict$isEmpty(activeScope) ? x.ae : A2(elm$core$List$cons, activeScope, x.ae);
 					},
 					elm$core$List$head(x.r)))
 		});
@@ -15246,7 +14929,7 @@ var author$project$Analyser$Checks$Variables$unusedVariables = function (_n0) {
 			return _Utils_Tuple3(a, c, d);
 		},
 		author$project$Analyser$Checks$Variables$onlyUnused(
-			A2(elm$core$List$concatMap, elm$core$Dict$toList, x.af)));
+			A2(elm$core$List$concatMap, elm$core$Dict$toList, x.ae)));
 };
 var stil4m$elm_syntax$Elm$Interface$exposesFunction = F2(
 	function (k, _interface) {
@@ -15432,7 +15115,7 @@ var author$project$Analyser$Fixes$UnusedImportedVariable$fix = F2(
 		}
 	});
 var author$project$Analyser$Fixes$UnusedImportedVariable$fixer = A3(author$project$Analyser$Fixes$Base$Fixer, author$project$Analyser$Checks$UnusedImportedVariable$checker.fY.f1, author$project$Analyser$Fixes$UnusedImportedVariable$fix, 'Remove variable from from import list and format');
-var author$project$Analyser$Checks$UnusedPatternVariable$emptyContext = {r: _List_Nil, af: _List_Nil};
+var author$project$Analyser$Checks$UnusedPatternVariable$emptyContext = {r: _List_Nil, ae: _List_Nil};
 var author$project$Analyser$Checks$UnusedPatternVariable$filterForEffectModule = function (_n0) {
 	var k = _n0.a;
 	return !A2(
@@ -15516,14 +15199,14 @@ var author$project$Analyser$Checks$UnusedPatternVariable$popScope = function (x)
 		x,
 		{
 			r: A2(elm$core$List$drop, 1, x.r),
-			af: A2(
+			ae: A2(
 				elm$core$Maybe$withDefault,
-				x.af,
+				x.ae,
 				A2(
 					elm$core$Maybe$map,
 					function (_n0) {
 						var activeScope = _n0.b;
-						return elm$core$Dict$isEmpty(activeScope) ? x.af : A2(elm$core$List$cons, activeScope, x.af);
+						return elm$core$Dict$isEmpty(activeScope) ? x.ae : A2(elm$core$List$cons, activeScope, x.ae);
 					},
 					elm$core$List$head(x.r)))
 		});
@@ -15782,7 +15465,7 @@ var author$project$Analyser$Checks$UnusedPatternVariable$scan = F2(
 				return A3(author$project$Analyser$Checks$UnusedPatternVariable$forVariableType, t, z, y);
 			},
 			onlyUnused(
-				A2(elm$core$List$concatMap, elm$core$Dict$toList, x.af)));
+				A2(elm$core$List$concatMap, elm$core$Dict$toList, x.ae)));
 		return _Utils_ap(unusedVariables, unusedTopLevels);
 	});
 var author$project$Analyser$Checks$UnusedPatternVariable$checker = {
@@ -15798,8 +15481,8 @@ var author$project$Analyser$Checks$UnusedPatternVariable$checker = {
 	}
 };
 var author$project$ASTUtil$PatternOptimizer$emptyRange = {
-	bE: {W: 0, C: 0},
-	I: {W: 0, C: 0}
+	bE: {V: 0, C: 0},
+	I: {V: 0, C: 0}
 };
 var author$project$ASTUtil$PatternOptimizer$isAllPattern = function (p) {
 	var _n0 = stil4m$elm_syntax$Elm$Syntax$Node$value(p);
@@ -16593,7 +16276,7 @@ var author$project$Analyser$Fixer$initWithMessage = F2(
 			elm$core$Maybe$map,
 			function (fixer) {
 				return _Utils_Tuple3(
-					{ap: false, bH: fixer, ac: mess, gz: true},
+					{ap: false, bH: fixer, ab: mess, gz: true},
 					author$project$Analyser$Fixer$loadFileContentWithSha(mess.d6.gl),
 					A2(author$project$Analyser$State$startFixing, mess, state));
 			},
@@ -16626,7 +16309,7 @@ var author$project$Analyser$Fixer$init = F2(
 			A2(author$project$Analyser$State$getMessage, x, state));
 	});
 var author$project$Analyser$State$nextTask = function (state) {
-	var _n0 = state.ag;
+	var _n0 = state.af;
 	if (!_n0.b) {
 		return elm$core$Maybe$Nothing;
 	} else {
@@ -16636,7 +16319,7 @@ var author$project$Analyser$State$nextTask = function (state) {
 			_Utils_Tuple2(
 				_Utils_update(
 					state,
-					{ag: xs}),
+					{af: xs}),
 				x));
 	}
 };
@@ -16936,7 +16619,7 @@ var stil4m$elm_syntax$Elm$Syntax$Range$encode = function (_n0) {
 		elm$json$Json$Encode$list,
 		elm$json$Json$Encode$int,
 		_List_fromArray(
-			[start.C, start.W, end.C, end.W]));
+			[start.C, start.V, end.C, end.V]));
 };
 var stil4m$elm_syntax$Elm$Syntax$Node$encode = F2(
 	function (f, _n0) {
@@ -17195,7 +16878,7 @@ var author$project$Analyser$Fixer$isDone = function (_n0) {
 };
 var author$project$Analyser$Fixer$message = function (_n0) {
 	var m = _n0;
-	return m.ac;
+	return m.ab;
 };
 var author$project$Analyser$Fixer$succeeded = function (_n0) {
 	var m = _n0;
@@ -17207,7 +16890,7 @@ var author$project$Analyser$CodeBase$processContext = function (_n0) {
 };
 var author$project$Analyser$Fixer$applyFix = F2(
 	function (model, pair) {
-		var _n0 = A2(model.bH.fO, pair, model.ac.dY);
+		var _n0 = A2(model.bH.fO, pair, model.ab.dY);
 		switch (_n0.$) {
 			case 2:
 				var e = _n0.a;
@@ -18583,7 +18266,7 @@ var author$project$Analyser$Fixer$update = F3(
 		var model = _n0;
 		if (!msg.$) {
 			var reference = msg.a;
-			if (!A2(author$project$Analyser$Fixer$fileHashEqual, reference, model.ac)) {
+			if (!A2(author$project$Analyser$Fixer$fileHashEqual, reference, model.ab)) {
 				return _Utils_Tuple2(
 					_Utils_update(
 						model,
@@ -18616,7 +18299,7 @@ var author$project$Analyser$Fixer$update = F3(
 					return _Utils_Tuple2(
 						model,
 						author$project$Analyser$Fixer$storeFile(
-							{d6: model.ac.d6.gl, c4: newContent}));
+							{d6: model.ab.d6.gl, c4: newContent}));
 				} else {
 					return _Utils_Tuple2(
 						_Utils_update(
@@ -18631,7 +18314,7 @@ var author$project$Analyser$Fixer$update = F3(
 					model,
 					{ap: true}),
 				author$project$Util$Logger$info(
-					'Fixed message: ' + author$project$Analyser$Messages$Data$description(model.ac.dY)));
+					'Fixed message: ' + author$project$Analyser$Messages$Data$description(model.ab.dY)));
 		}
 	});
 var author$project$Analyser$Messages$Util$messageFile = function (m) {
@@ -18848,7 +18531,7 @@ var author$project$Analyser$Messages$Util$compareMessageFile = F2(
 	});
 var author$project$AST$Ranges$orderByStart = F2(
 	function (r1, r2) {
-		return (!_Utils_eq(r1.I.C, r2.I.C)) ? A2(elm$core$Basics$compare, r1.I.C, r2.I.C) : A2(elm$core$Basics$compare, r1.I.W, r2.I.W);
+		return (!_Utils_eq(r1.I.C, r2.I.C)) ? A2(elm$core$Basics$compare, r1.I.C, r2.I.C) : A2(elm$core$Basics$compare, r1.I.V, r2.I.V);
 	});
 var author$project$Analyser$Messages$Data$dataValueRanges = function (dv) {
 	switch (dv.$) {
@@ -19374,7 +19057,7 @@ var author$project$Analyser$State$encodeState = function (state) {
 				author$project$Analyser$State$encodeStatus(state.gw)),
 				_Utils_Tuple2(
 				'queue',
-				A2(elm$json$Json$Encode$list, elm$json$Json$Encode$int, state.ag)),
+				A2(elm$json$Json$Encode$list, elm$json$Json$Encode$int, state.af)),
 				_Utils_Tuple2(
 				'modules',
 				author$project$Analyser$Modules$encode(state.eu))
@@ -20980,9 +20663,9 @@ var author$project$Analyser$finishProcess = F3(
 		var newCodeBase = A2(author$project$Analyser$CodeBase$addSourceFiles, loadedSourceFiles, model.J);
 		var includedSources = A2(
 			elm$core$List$filter,
-			author$project$Analyser$isSourceFileIncluded(model.X),
+			author$project$Analyser$isSourceFileIncluded(model.W),
 			loadedSourceFiles);
-		var messages = A3(author$project$Inspection$run, newCodeBase, includedSources, model.X);
+		var messages = A3(author$project$Inspection$run, newCodeBase, includedSources, model.W);
 		var _n0 = A2(
 			author$project$Analyser$Modules$build,
 			newCodeBase,
@@ -22247,6 +21930,67 @@ var author$project$Analyser$Configuration$decodeConfiguration = function (raw) {
 						elm$json$Json$Decode$succeed(_List_Nil)
 					]))));
 };
+var elm$core$Dict$merge = F6(
+	function (leftStep, bothStep, rightStep, leftDict, rightDict, initialResult) {
+		var stepState = F3(
+			function (rKey, rValue, _n0) {
+				stepState:
+				while (true) {
+					var list = _n0.a;
+					var result = _n0.b;
+					if (!list.b) {
+						return _Utils_Tuple2(
+							list,
+							A3(rightStep, rKey, rValue, result));
+					} else {
+						var _n2 = list.a;
+						var lKey = _n2.a;
+						var lValue = _n2.b;
+						var rest = list.b;
+						if (_Utils_cmp(lKey, rKey) < 0) {
+							var $temp$rKey = rKey,
+								$temp$rValue = rValue,
+								$temp$_n0 = _Utils_Tuple2(
+								rest,
+								A3(leftStep, lKey, lValue, result));
+							rKey = $temp$rKey;
+							rValue = $temp$rValue;
+							_n0 = $temp$_n0;
+							continue stepState;
+						} else {
+							if (_Utils_cmp(lKey, rKey) > 0) {
+								return _Utils_Tuple2(
+									list,
+									A3(rightStep, rKey, rValue, result));
+							} else {
+								return _Utils_Tuple2(
+									rest,
+									A4(bothStep, lKey, lValue, rValue, result));
+							}
+						}
+					}
+				}
+			});
+		var _n3 = A3(
+			elm$core$Dict$foldl,
+			stepState,
+			_Utils_Tuple2(
+				elm$core$Dict$toList(leftDict),
+				initialResult),
+			rightDict);
+		var leftovers = _n3.a;
+		var intermediateResult = _n3.b;
+		return A3(
+			elm$core$List$foldl,
+			F2(
+				function (_n4, result) {
+					var k = _n4.a;
+					var v = _n4.b;
+					return A3(leftStep, k, v, result);
+				}),
+			intermediateResult,
+			leftovers);
+	});
 var author$project$Analyser$Configuration$withDefaultChecks = function (x) {
 	return A6(
 		elm$core$Dict$merge,
@@ -22422,8 +22166,8 @@ var author$project$Analyser$State$addFixToQueue = F2(
 		return _Utils_update(
 			s,
 			{
-				ag: _Utils_ap(
-					s.ag,
+				af: _Utils_ap(
+					s.af,
 					_List_fromArray(
 						[m]))
 			});
@@ -22482,7 +22226,7 @@ var author$project$Analyser$update = F2(
 					_Utils_Tuple2(model, elm$core$Platform$Cmd$none));
 			case 0:
 				var context = msg.a;
-				var _n1 = author$project$Analyser$Configuration$fromString(context.X);
+				var _n1 = author$project$Analyser$Configuration$fromString(context.W);
 				var configuration = _n1.a;
 				var messages = _n1.b;
 				var _n2 = author$project$Analyser$DependencyLoadingStage$init(model.R);
@@ -22493,7 +22237,7 @@ var author$project$Analyser$update = F2(
 						_Utils_update(
 							model,
 							{
-								X: configuration,
+								W: configuration,
 								aK: context,
 								j: author$project$Analyser$DependencyLoadingStage(stage)
 							}),
@@ -22545,12 +22289,14 @@ var author$project$Analyser$update = F2(
 				} else {
 					if (!msg.a.a.$) {
 						var x = msg.a.a.a;
-						return author$project$Analyser$doSendState(
+						return A2(
+							author$project$Analyser$startSourceLoading,
+							A2(elm$core$List$cons, x, model.D),
 							_Utils_Tuple2(
 								_Utils_update(
 									model,
 									{
-										D: A2(elm$core$List$cons, x, model.D),
+										D: _List_Nil,
 										o: A2(author$project$Analyser$State$outdateMessagesForFile, x, model.o)
 									}),
 								elm$core$Platform$Cmd$none));
@@ -22589,7 +22335,7 @@ _Platform_export({'Analyser':{'init':author$project$Analyser$main(
 						elm$json$Json$Decode$andThen,
 						function (project) {
 							return elm$json$Json$Decode$succeed(
-								{R: project, S: registry, T: server});
+								{R: project, S: registry, ag: server});
 						},
 						A2(elm$json$Json$Decode$field, 'project', elm$json$Json$Decode$value));
 				},
