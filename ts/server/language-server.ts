@@ -8,7 +8,8 @@ import { createConnection,
     InitializeParams,
     ProposedFeatures,
     TextDocumentChangeEvent,
-    TextDocuments 
+    TextDocuments, 
+    TextDocumentSyncKind
 } from 'vscode-languageserver';
 import { Config, ElmApp, Info, Message, Report } from '../domain';
 import * as fileLoadingPorts from '../file-loading-ports';
@@ -33,7 +34,8 @@ function start(config: Config, info: Info, project: {}) {
             capabilities: {
                 textDocumentSync: {
                     openClose: true,
-                    willSave: true
+                    willSave: true,
+                    change: TextDocumentSyncKind.Full
                 },
                 textDocument: {
                     publishDiagnostics: {
@@ -46,12 +48,14 @@ function start(config: Config, info: Info, project: {}) {
         // The content of a text document has changed. This event is emitted
         // when the text document first opened or when its content has changed.
         documents.onDidOpen(validateTextDocument);
+        documents.onDidChangeContent(validateTextDocument);
         documents.onDidSave(validateTextDocument);
 
         async function validateTextDocument( change: TextDocumentChangeEvent ): Promise<void> {
             elm.ports.fileWatch.send({
                 event: 'update',
-                file: path.relative(process.cwd(), uri2path(change.document.uri))
+                file: path.relative(process.cwd(), uri2path(change.document.uri)),
+                content: change.document.getText()
             });
         }
 
