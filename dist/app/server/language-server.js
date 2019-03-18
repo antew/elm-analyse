@@ -67,7 +67,8 @@ function start(config, info, project) {
             capabilities: {
                 textDocumentSync: {
                     openClose: true,
-                    willSave: true
+                    willSave: true,
+                    change: vscode_languageserver_1.TextDocumentSyncKind.Full
                 },
                 textDocument: {
                     publishDiagnostics: {
@@ -79,13 +80,15 @@ function start(config, info, project) {
         // The content of a text document has changed. This event is emitted
         // when the text document first opened or when its content has changed.
         documents.onDidOpen(validateTextDocument);
+        documents.onDidChangeContent(validateTextDocument);
         documents.onDidSave(validateTextDocument);
         function validateTextDocument(change) {
             return __awaiter(this, void 0, void 0, function () {
                 return __generator(this, function (_a) {
                     elm.ports.fileWatch.send({
                         event: 'update',
-                        file: path.relative(process.cwd(), file_uri_to_path_1.default(change.document.uri))
+                        file: path.relative(process.cwd(), file_uri_to_path_1.default(change.document.uri)),
+                        content: change.document.getText()
                     });
                     return [2 /*return*/];
                 });
