@@ -82,13 +82,13 @@ function start(config: Config, info: Info, project: {}) {
 }
 
 function messageToDiagnostic(message: Message): Diagnostic {
-    if (message.type == "FileLoadFailed") {
+    if (message.type === "FileLoadFailed") {
         return {
             severity: DiagnosticSeverity.Error,
             range: { start : { line: 0, character: 0 },
                 end: { line: 1, character: 0}
             },
-            code: "-1",
+            code: "1",
             message: "Error parsing file",
             source: 'elm-analyse'
         }
