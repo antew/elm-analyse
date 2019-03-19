@@ -82,6 +82,18 @@ function start(config: Config, info: Info, project: {}) {
 }
 
 function messageToDiagnostic(message: Message): Diagnostic {
+    if (message.type == "FileLoadFailed") {
+        return {
+            severity: DiagnosticSeverity.Error,
+            range: { start : { line: 0, character: 0 },
+                end: { line: 1, character: 0}
+            },
+            code: "-1",
+            message: "Error parsing file",
+            source: 'elm-analyse'
+        }
+    }
+
     let [lineStart, colStart, lineEnd, colEnd] = message.data.properties.range;
     const range = {
         start: { line: lineStart - 1, character: colStart - 1 },
@@ -90,6 +102,7 @@ function messageToDiagnostic(message: Message): Diagnostic {
     return {
         severity: DiagnosticSeverity.Warning,
         range: range,
+        code: message.id,
         // Clean up the error message a bit, removing the end of the line, e.g.
         // "Record has only one field. Use the field's type or introduce a Type. At ((14,5),(14,20))"
         message:
