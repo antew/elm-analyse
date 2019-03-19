@@ -115,6 +115,17 @@ function start(config, info, project) {
     });
 }
 function messageToDiagnostic(message) {
+    if (message.type === "FileLoadFailed") {
+        return {
+            severity: vscode_languageserver_1.DiagnosticSeverity.Error,
+            range: { start: { line: 0, character: 0 },
+                end: { line: 1, character: 0 }
+            },
+            code: "1",
+            message: "Error parsing file",
+            source: 'elm-analyse'
+        };
+    }
     var _a = message.data.properties.range, lineStart = _a[0], colStart = _a[1], lineEnd = _a[2], colEnd = _a[3];
     var range = {
         start: { line: lineStart - 1, character: colStart - 1 },
@@ -123,6 +134,7 @@ function messageToDiagnostic(message) {
     return {
         severity: vscode_languageserver_1.DiagnosticSeverity.Warning,
         range: range,
+        code: message.id,
         // Clean up the error message a bit, removing the end of the line, e.g.
         // "Record has only one field. Use the field's type or introduce a Type. At ((14,5),(14,20))"
         message: message.data.description.split(/at .+$/i)[0] + '\n' + ("See https://stil4m.github.io/elm-analyse/#/messages/" + message.type),
