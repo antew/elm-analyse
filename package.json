@@ -17,7 +17,12 @@
     "elm:test": "./node_modules/.bin/elm-test",
     "elm:format": "./node_modules/.bin/elm-format --yes src/ tests/ docs/",
     "elm:validate-format": "./node_modules/.bin/elm-format --validate src/ tests/",
-    "pr:check": "npm install && npm run js:lint && npm run elm:validate-format && npm run elm:test"
+    "pr:check": "npm install && npm run js:lint && npm run elm:validate-format && npm run elm:test",
+    "build:tsc": "tsc",
+    "build:analyser": "elm make src/Analyser.elm --optimize --output dist/app/backend-elm.js",
+    "build:client": "elm make src/Client.elm --optimize --output dist/public/client-elm.js",
+    "build:docs": "elm make docs/Docs/Main.elm --output docs/docs.js",
+    "build": "npm run build:tsc && npm run build:analyser && npm run build:client && npm run build:docs"
   },
   "author": "Mats Stijlaart",
   "license": "MIT",
