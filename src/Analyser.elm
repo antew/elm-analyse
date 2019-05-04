@@ -156,10 +156,23 @@ update msg model =
                     case maybeMessage of
                         Just message ->
                             CodeBase.getFile message.file.path model.codeBase
-                                |> Maybe.map (FileContext.buildForFile processingContext)
+                                |> Maybe.map
+                                    (\loadedSourceFile ->
+                                        ( .content <| Tuple.first loadedSourceFile
+                                        , FileContext.buildForFile processingContext loadedSourceFile
+                                            |> Maybe.map .ast
+                                        )
+                                    )
+                                |> Maybe.map
+                                    (\sources ->
+                                        case sources of
+                                            ( Just fileText, Just ast ) ->
+                                                Just <| Fixer.fixFast message ( fileText, ast )
+
+                                            _ ->
+                                                Nothing
+                                    )
                                 |> Maybe.join
-                                |> Maybe.map .ast
-                                |> Maybe.map (\parsedAst -> Fixer.fixFast message ( message.file.path, parsedAst ))
 
                         Nothing ->
                             Nothing
