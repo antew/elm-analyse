@@ -17,7 +17,7 @@ import AnalyserPorts
 import Elm.Project
 import Elm.Version
 import Inspection
-import Json.Decode
+import Json.Decode as Decode exposing (Decoder)
 import Json.Encode exposing (Value)
 import Maybe.Extra as Maybe
 import Platform exposing (worker)
@@ -62,11 +62,12 @@ type Stage
 type alias Flags =
     { server : Bool
     , registry : Value
-    , project : Value
+    , project : Elm.Project.Project
+    , configuration : String
     }
 
 
-main : Program Flags Model Msg
+main : Program Decode.Value Model Msg
 main =
     worker
         { init = init
@@ -75,21 +76,23 @@ main =
         }
 
 
-init : Flags -> ( Model, Cmd Msg )
-init flags =
+init : Decode.Value -> ( Model, Cmd Msg )
+init flagsValue =
     let
-        project =
-            Json.Decode.decodeValue Elm.Project.decoder flags.project
+        decodedFlags =
+            Decode.decodeValue decodeFlags flagsValue
 
         base =
             ( { context = ContextLoader.emptyContext
               , stage = Finished
-              , configuration = Configuration.defaultConfiguration
+              , configuration =
+                    Configuration.fromString ""
+                        |> Tuple.first
               , codeBase = CodeBase.init
               , state = State.initialState
               , changedFiles = []
-              , server = flags.server
-              , registry = Registry.fromValue flags.registry
+              , server = False
+              , registry = Registry.fromValue Json.Encode.null
               , project =
                     Elm.Project.Application
                         { elm = Elm.Version.one
@@ -103,21 +106,23 @@ init flags =
             , Cmd.none
             )
     in
-    case project of
+    case decodedFlags of
         Err _ ->
             ( Tuple.first base, Logger.error "Could not read project file (./elm.json)" )
 
-        Ok v ->
+        Ok flags ->
             reset
                 ( { context = ContextLoader.emptyContext
                   , stage = Finished
-                  , configuration = Configuration.defaultConfiguration
+                  , configuration =
+                        Configuration.fromString flags.configuration
+                            |> Tuple.first
                   , codeBase = CodeBase.init
                   , state = State.initialState
                   , changedFiles = []
                   , server = flags.server
                   , registry = Registry.fromValue flags.registry
-                  , project = v
+                  , project = flags.project
                   }
                 , Logger.info "Started..."
                 )
@@ -137,6 +142,10 @@ reset ( model, cmds ) =
 
 update : Msg -> Model -> ( Model, Cmd Msg )
 update msg model =
+    let
+        _ =
+            Debug.log "Msg" msg
+    in
     case msg of
         OnFixMessage messageId ->
             ( { model | state = State.addFixToQueue messageId model.state }
@@ -240,25 +249,30 @@ update msg model =
                     ( model, Cmd.none )
 
         Change (Just (Update path maybeContent)) ->
-            case maybeContent of
-                Just content ->
-                    let
-                        finishQuick ( sourceModel, sourceCmds ) =
-                            finishProcess sourceModel
-                                sourceCmds
-                                { model | state = State.outdateMessagesForFile path model.state }
-                    in
-                    SourceLoadingStage.initWithContent content
-                        |> finishQuick
+            case model.stage of
+                Finished ->
+                    case maybeContent of
+                        Just content ->
+                            let
+                                finishQuick ( sourceModel, sourceCmds ) =
+                                    finishProcess sourceModel
+                                        sourceCmds
+                                        { model | state = State.outdateMessagesForFile path model.state }
+                            in
+                            SourceLoadingStage.initWithContent content
+                                |> finishQuick
 
-                Nothing ->
-                    startSourceLoading (path :: model.changedFiles)
-                        ( { model
-                            | state = State.outdateMessagesForFile path model.state
-                            , changedFiles = []
-                          }
-                        , Cmd.none
-                        )
+                        Nothing ->
+                            startSourceLoading (path :: model.changedFiles)
+                                ( { model
+                                    | state = State.outdateMessagesForFile path model.state
+                                    , changedFiles = []
+                                  }
+                                , Cmd.none
+                                )
+
+                _ ->
+                    ( model, Cmd.none )
 
         ReloadTick ->
             if model.stage == Finished && model.changedFiles /= [] then
@@ -400,6 +414,9 @@ finishProcess newStage cmds model =
         newCodeBase =
             CodeBase.addSourceFiles loadedSourceFiles model.codeBase
 
+        _ =
+            Debug.log "Got Config" model.configuration
+
         messages =
             Inspection.run newCodeBase includedSources model.configuration
 
@@ -486,3 +503,16 @@ subscriptions model =
             FixerStage stage ->
                 Fixer.subscriptions stage |> Sub.map FixerMsg
         ]
+
+
+decodeFlags : Decoder Flags
+decodeFlags =
+    Decode.map4 Flags
+        (Decode.field "server" Decode.bool)
+        (Decode.field "registry" Decode.value)
+        (Decode.field "project" Elm.Project.decoder)
+        (Decode.oneOf
+            [ Decode.field "configuration" Decode.string
+            , Decode.succeed ""
+            ]
+        )
