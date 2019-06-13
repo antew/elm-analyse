@@ -600,11 +600,11 @@ function _Debug_crash_UNUSED(identifier, fact1, fact2, fact3, fact4)
 
 function _Debug_regionToString(region)
 {
-	if (region.I.aV === region.bE.aV)
+	if (region.J.aV === region.bE.aV)
 	{
-		return 'on line ' + region.I.aV;
+		return 'on line ' + region.J.aV;
 	}
-	return 'on lines ' + region.I.aV + ' through ' + region.bE.aV;
+	return 'on lines ' + region.J.aV + ' through ' + region.bE.aV;
 }
 
 
@@ -2716,7 +2716,7 @@ var elm$core$Dict$RBEmpty_elm_builtin = {$: -2};
 var elm$core$Dict$empty = elm$core$Dict$RBEmpty_elm_builtin;
 var stil4m$elm_syntax$Elm$Processing$ProcessContext = elm$core$Basics$identity;
 var stil4m$elm_syntax$Elm$Processing$init = elm$core$Dict$empty;
-var author$project$Analyser$CodeBase$init = {fz: _List_Nil, aD: stil4m$elm_syntax$Elm$Processing$init, cz: elm$core$Dict$empty};
+var author$project$Analyser$CodeBase$init = {fz: _List_Nil, aD: stil4m$elm_syntax$Elm$Processing$init, a2: elm$core$Dict$empty};
 var elm$core$Array$branchFactor = 32;
 var elm$core$Array$Array_elm_builtin = F4(
 	function (a, b, c, d) {
@@ -2825,25 +2825,25 @@ var elm$core$Basics$sub = _Basics_sub;
 var elm$core$Elm$JsArray$length = _JsArray_length;
 var elm$core$Array$builderToArray = F2(
 	function (reverseNodeList, builder) {
-		if (!builder.i) {
+		if (!builder.j) {
 			return A4(
 				elm$core$Array$Array_elm_builtin,
-				elm$core$Elm$JsArray$length(builder.k),
+				elm$core$Elm$JsArray$length(builder.l),
 				elm$core$Array$shiftStep,
 				elm$core$Elm$JsArray$empty,
-				builder.k);
+				builder.l);
 		} else {
-			var treeLen = builder.i * elm$core$Array$branchFactor;
+			var treeLen = builder.j * elm$core$Array$branchFactor;
 			var depth = elm$core$Basics$floor(
 				A2(elm$core$Basics$logBase, elm$core$Array$branchFactor, treeLen - 1));
-			var correctNodeList = reverseNodeList ? elm$core$List$reverse(builder.l) : builder.l;
-			var tree = A2(elm$core$Array$treeFromBuilder, correctNodeList, builder.i);
+			var correctNodeList = reverseNodeList ? elm$core$List$reverse(builder.m) : builder.m;
+			var tree = A2(elm$core$Array$treeFromBuilder, correctNodeList, builder.j);
 			return A4(
 				elm$core$Array$Array_elm_builtin,
-				elm$core$Elm$JsArray$length(builder.k) + treeLen,
+				elm$core$Elm$JsArray$length(builder.l) + treeLen,
 				A2(elm$core$Basics$max, 5, depth * elm$core$Array$shiftStep),
 				tree,
-				builder.k);
+				builder.l);
 		}
 	});
 var elm$core$Basics$False = 1;
@@ -2858,7 +2858,7 @@ var elm$core$Array$initializeHelp = F5(
 				return A2(
 					elm$core$Array$builderToArray,
 					false,
-					{l: nodeList, i: (len / elm$core$Array$branchFactor) | 0, k: tail});
+					{m: nodeList, j: (len / elm$core$Array$branchFactor) | 0, l: tail});
 			} else {
 				var leaf = elm$core$Array$Leaf(
 					A3(elm$core$Elm$JsArray$initialize, elm$core$Array$branchFactor, fromIndex, fn));
@@ -3118,7 +3118,7 @@ var author$project$Analyser$ContextLoader$loadContext = _Platform_outgoingPort(
 	function ($) {
 		return elm$json$Json$Encode$null;
 	});
-var author$project$Analyser$Modules$empty = {fz: _List_Nil, ch: _List_Nil};
+var author$project$Analyser$Modules$empty = {fz: _List_Nil, ci: _List_Nil};
 var author$project$Analyser$State$Initialising = 0;
 var author$project$Analyser$State$Dependencies$Application = 1;
 var author$project$Analyser$State$Dependencies$none = {bY: 1, gK: _List_Nil, gO: elm$core$Dict$empty};
@@ -3131,7 +3131,7 @@ var author$project$Analyser$reset = function (_n0) {
 		_Utils_Tuple2(
 			_Utils_update(
 				model,
-				{J: author$project$Analyser$CodeBase$init, j: author$project$Analyser$ContextLoadingStage, m: author$project$Analyser$State$initialState}),
+				{x: author$project$Analyser$CodeBase$init, k: author$project$Analyser$ContextLoadingStage, i: author$project$Analyser$State$initialState}),
 			elm$core$Platform$Cmd$batch(
 				_List_fromArray(
 					[
@@ -3266,8 +3266,8 @@ var author$project$Analyser$Configuration$defaultChecks = elm$core$Dict$fromList
 		[
 			_Utils_Tuple2('FunctionInLet', false)
 		]));
-var author$project$Analyser$Configuration$defaultConfiguration = {aK: author$project$Analyser$Configuration$defaultChecks, cW: _List_Nil, dx: ''};
-var author$project$Analyser$ContextLoader$emptyContext = {X: '', c1: _List_Nil, gu: _List_Nil};
+var author$project$Analyser$Configuration$defaultConfiguration = {aK: author$project$Analyser$Configuration$defaultChecks, cX: _List_Nil, dx: ''};
+var author$project$Analyser$ContextLoader$emptyContext = {K: '', c2: _List_Nil, gu: _List_Nil};
 var author$project$Registry$Registry = elm$core$Basics$identity;
 var author$project$Registry$Package$Package = F3(
 	function (name, summary, versions) {
@@ -4088,19 +4088,19 @@ var elm$project_metadata_utils$Elm$Project$decoder = A2(
 	A2(elm$json$Json$Decode$field, 'type', elm$json$Json$Decode$string));
 var elm$project_metadata_utils$Elm$Version$one = A3(elm$project_metadata_utils$Elm$Version$Version, 1, 0, 0);
 var author$project$Analyser$init = function (flags) {
-	var project = A2(elm$json$Json$Decode$decodeValue, elm$project_metadata_utils$Elm$Project$decoder, flags.R);
+	var project = A2(elm$json$Json$Decode$decodeValue, elm$project_metadata_utils$Elm$Project$decoder, flags.S);
 	var base = _Utils_Tuple2(
 		{
-			D: _List_Nil,
-			J: author$project$Analyser$CodeBase$init,
-			X: author$project$Analyser$Configuration$defaultConfiguration,
+			E: _List_Nil,
+			x: author$project$Analyser$CodeBase$init,
+			K: author$project$Analyser$Configuration$defaultConfiguration,
 			aM: author$project$Analyser$ContextLoader$emptyContext,
-			R: elm$project_metadata_utils$Elm$Project$Application(
+			S: elm$project_metadata_utils$Elm$Project$Application(
 				{fB: _List_Nil, fC: _List_Nil, fF: _List_Nil, fI: elm$project_metadata_utils$Elm$Version$one, gD: _List_Nil, gE: _List_Nil}),
-			S: author$project$Registry$fromValue(flags.S),
-			T: flags.T,
-			j: author$project$Analyser$Finished,
-			m: author$project$Analyser$State$initialState
+			T: author$project$Registry$fromValue(flags.T),
+			U: flags.U,
+			k: author$project$Analyser$Finished,
+			i: author$project$Analyser$State$initialState
 		},
 		elm$core$Platform$Cmd$none);
 	if (project.$ === 1) {
@@ -4112,15 +4112,15 @@ var author$project$Analyser$init = function (flags) {
 		return author$project$Analyser$reset(
 			_Utils_Tuple2(
 				{
-					D: _List_Nil,
-					J: author$project$Analyser$CodeBase$init,
-					X: author$project$Analyser$Configuration$defaultConfiguration,
+					E: _List_Nil,
+					x: author$project$Analyser$CodeBase$init,
+					K: author$project$Analyser$Configuration$defaultConfiguration,
 					aM: author$project$Analyser$ContextLoader$emptyContext,
-					R: v,
-					S: author$project$Registry$fromValue(flags.S),
-					T: flags.T,
-					j: author$project$Analyser$Finished,
-					m: author$project$Analyser$State$initialState
+					S: v,
+					T: author$project$Registry$fromValue(flags.T),
+					U: flags.U,
+					k: author$project$Analyser$Finished,
+					i: author$project$Analyser$State$initialState
 				},
 				author$project$Util$Logger$info('Started...')));
 	}
@@ -4132,13 +4132,22 @@ var author$project$Analyser$DependencyLoadingStageMsg = function (a) {
 	return {$: 1, a: a};
 };
 var author$project$Analyser$FixerMsg = function (a) {
-	return {$: 7, a: a};
+	return {$: 10, a: a};
 };
 var author$project$Analyser$OnContext = function (a) {
 	return {$: 0, a: a};
 };
+var author$project$Analyser$OnFixFileMessage = function (a) {
+	return {$: 7, a: a};
+};
 var author$project$Analyser$OnFixMessage = function (a) {
 	return {$: 6, a: a};
+};
+var author$project$Analyser$OnQuickFixFileMessage = function (a) {
+	return {$: 9, a: a};
+};
+var author$project$Analyser$OnQuickFixMessage = function (a) {
+	return {$: 8, a: a};
 };
 var author$project$Analyser$ReloadTick = {$: 4};
 var author$project$Analyser$Reset = {$: 5};
@@ -4158,7 +4167,7 @@ var author$project$Analyser$ContextLoader$onLoadedContext = _Platform_incomingPo
 						elm$json$Json$Decode$andThen,
 						function (configuration) {
 							return elm$json$Json$Decode$succeed(
-								{X: configuration, c1: interfaceFiles, gu: sourceFiles});
+								{K: configuration, c2: interfaceFiles, gu: sourceFiles});
 						},
 						A2(elm$json$Json$Decode$field, 'configuration', elm$json$Json$Decode$string));
 				},
@@ -4512,7 +4521,7 @@ var stil4m$elm_syntax$Elm$Interface$fileToDefinitions = function (file) {
 					var i = decl.a;
 					return elm$core$Maybe$Just(
 						_Utils_Tuple2(
-							stil4m$elm_syntax$Elm$Syntax$Node$value(i.gj),
+							stil4m$elm_syntax$Elm$Syntax$Node$value(i.gk),
 							stil4m$elm_syntax$Elm$Interface$Operator(i)));
 				default:
 					return elm$core$Maybe$Nothing;
@@ -4606,10 +4615,10 @@ var elm$parser$Parser$Problem = function (a) {
 };
 var elm$parser$Parser$DeadEnd = F3(
 	function (row, col, problem) {
-		return {dW: col, eE: problem, C: row};
+		return {dW: col, eE: problem, D: row};
 	});
 var elm$parser$Parser$problemToDeadEnd = function (p) {
-	return A3(elm$parser$Parser$DeadEnd, p.C, p.dW, p.eE);
+	return A3(elm$parser$Parser$DeadEnd, p.D, p.dW, p.eE);
 };
 var elm$parser$Parser$Advanced$bagToList = F2(
 	function (bag, list) {
@@ -4641,7 +4650,7 @@ var elm$parser$Parser$Advanced$run = F2(
 	function (_n0, src) {
 		var parse = _n0;
 		var _n1 = parse(
-			{dW: 1, aM: _List_Nil, f: 1, b: 0, C: 1, a: src});
+			{dW: 1, aM: _List_Nil, f: 1, b: 0, D: 1, a: src});
 		if (!_n1.$) {
 			var value = _n1.b;
 			return elm$core$Result$Ok(value);
@@ -4689,7 +4698,7 @@ var elm$parser$Parser$Advanced$AddRight = F2(
 	});
 var elm$parser$Parser$Advanced$DeadEnd = F4(
 	function (row, col, problem, contextStack) {
-		return {dW: col, fw: contextStack, eE: problem, C: row};
+		return {dW: col, fw: contextStack, eE: problem, D: row};
 	});
 var elm$parser$Parser$Advanced$Empty = {$: 0};
 var elm$parser$Parser$Advanced$fromState = F2(
@@ -4697,7 +4706,7 @@ var elm$parser$Parser$Advanced$fromState = F2(
 		return A2(
 			elm$parser$Parser$Advanced$AddRight,
 			elm$parser$Parser$Advanced$Empty,
-			A4(elm$parser$Parser$Advanced$DeadEnd, s.C, s.dW, x, s.aM));
+			A4(elm$parser$Parser$Advanced$DeadEnd, s.D, s.dW, x, s.aM));
 	});
 var elm$parser$Parser$Advanced$end = function (x) {
 	return function (s) {
@@ -4828,7 +4837,7 @@ var elm$parser$Parser$Advanced$getPosition = function (s) {
 	return A3(
 		elm$parser$Parser$Advanced$Good,
 		false,
-		_Utils_Tuple2(s.C, s.dW),
+		_Utils_Tuple2(s.D, s.dW),
 		s);
 };
 var elm$parser$Parser$getPosition = elm$parser$Parser$Advanced$getPosition;
@@ -4851,7 +4860,7 @@ var stil4m$elm_syntax$Combine$withLocation = function (f) {
 				function (_n0) {
 					var row = _n0.a;
 					var col = _n0.b;
-					return {W: col, aV: row};
+					return {X: col, aV: row};
 				},
 				elm$parser$Parser$getPosition));
 	};
@@ -5187,7 +5196,7 @@ var elm$parser$Parser$Advanced$token = function (_n0) {
 	var expecting = _n0.b;
 	var progress = !elm$core$String$isEmpty(str);
 	return function (s) {
-		var _n1 = A5(elm$parser$Parser$Advanced$isSubString, str, s.b, s.C, s.dW, s.a);
+		var _n1 = A5(elm$parser$Parser$Advanced$isSubString, str, s.b, s.D, s.dW, s.a);
 		var newOffset = _n1.a;
 		var newRow = _n1.b;
 		var newCol = _n1.c;
@@ -5198,7 +5207,7 @@ var elm$parser$Parser$Advanced$token = function (_n0) {
 			elm$parser$Parser$Advanced$Good,
 			progress,
 			0,
-			{dW: newCol, aM: s.aM, f: s.f, b: newOffset, C: newRow, a: s.a});
+			{dW: newCol, aM: s.aM, f: s.f, b: newOffset, D: newRow, a: s.a});
 	};
 };
 var elm$parser$Parser$token = function (str) {
@@ -5325,8 +5334,8 @@ var stil4m$elm_syntax$Combine$sepBy1 = F2(
 	});
 var stil4m$elm_syntax$Elm$Parser$Node$asPointerLocation = function (_n0) {
 	var line = _n0.aV;
-	var column = _n0.W;
-	return {W: column, C: line};
+	var column = _n0.X;
+	return {X: column, D: line};
 };
 var stil4m$elm_syntax$Elm$Syntax$Node$Node = F2(
 	function (a, b) {
@@ -5342,7 +5351,7 @@ var stil4m$elm_syntax$Elm$Parser$Node$parser = function (p) {
 						return stil4m$elm_syntax$Combine$succeed(
 							{
 								bE: stil4m$elm_syntax$Elm$Parser$Node$asPointerLocation(end),
-								I: stil4m$elm_syntax$Elm$Parser$Node$asPointerLocation(start)
+								J: stil4m$elm_syntax$Elm$Parser$Node$asPointerLocation(start)
 							});
 					}),
 				A2(
@@ -5394,11 +5403,11 @@ var elm$parser$Parser$Advanced$chompIf = F2(
 				elm$parser$Parser$Advanced$Good,
 				true,
 				0,
-				{dW: 1, aM: s.aM, f: s.f, b: s.b + 1, C: s.C + 1, a: s.a}) : A3(
+				{dW: 1, aM: s.aM, f: s.f, b: s.b + 1, D: s.D + 1, a: s.a}) : A3(
 				elm$parser$Parser$Advanced$Good,
 				true,
 				0,
-				{dW: s.dW + 1, aM: s.aM, f: s.f, b: newOffset, C: s.C, a: s.a}));
+				{dW: s.dW + 1, aM: s.aM, f: s.f, b: newOffset, D: s.D, a: s.a}));
 		};
 	});
 var elm$parser$Parser$chompIf = function (isGood) {
@@ -5471,7 +5480,7 @@ var elm$parser$Parser$Advanced$chompWhileHelp = F5(
 					elm$parser$Parser$Advanced$Good,
 					_Utils_cmp(s0.b, offset) < 0,
 					0,
-					{dW: col, aM: s0.aM, f: s0.f, b: offset, C: row, a: s0.a});
+					{dW: col, aM: s0.aM, f: s0.f, b: offset, D: row, a: s0.a});
 			} else {
 				if (_Utils_eq(newOffset, -2)) {
 					var $temp$isGood = isGood,
@@ -5503,7 +5512,7 @@ var elm$parser$Parser$Advanced$chompWhileHelp = F5(
 	});
 var elm$parser$Parser$Advanced$chompWhile = function (isGood) {
 	return function (s) {
-		return A5(elm$parser$Parser$Advanced$chompWhileHelp, isGood, s.b, s.C, s.dW, s);
+		return A5(elm$parser$Parser$Advanced$chompWhileHelp, isGood, s.b, s.D, s.dW, s);
 	};
 };
 var elm$parser$Parser$chompWhile = elm$parser$Parser$Advanced$chompWhile;
@@ -5817,7 +5826,7 @@ var elm$parser$Parser$Advanced$keyword = function (_n0) {
 	var expecting = _n0.b;
 	var progress = !elm$core$String$isEmpty(kwd);
 	return function (s) {
-		var _n1 = A5(elm$parser$Parser$Advanced$isSubString, kwd, s.b, s.C, s.dW, s.a);
+		var _n1 = A5(elm$parser$Parser$Advanced$isSubString, kwd, s.b, s.D, s.dW, s.a);
 		var newOffset = _n1.a;
 		var newRow = _n1.b;
 		var newCol = _n1.c;
@@ -5834,7 +5843,7 @@ var elm$parser$Parser$Advanced$keyword = function (_n0) {
 			elm$parser$Parser$Advanced$Good,
 			progress,
 			0,
-			{dW: newCol, aM: s.aM, f: s.f, b: newOffset, C: newRow, a: s.a});
+			{dW: newCol, aM: s.aM, f: s.f, b: newOffset, D: newRow, a: s.a});
 	};
 };
 var elm$parser$Parser$keyword = function (kwd) {
@@ -5872,7 +5881,7 @@ var elm$parser$Parser$Advanced$varHelp = F7(
 		while (true) {
 			var newOffset = A3(elm$parser$Parser$Advanced$isSubChar, isGood, offset, src);
 			if (_Utils_eq(newOffset, -1)) {
-				return {dW: col, aM: context, f: indent, b: offset, C: row, a: src};
+				return {dW: col, aM: context, f: indent, b: offset, D: row, a: src};
 			} else {
 				if (_Utils_eq(newOffset, -2)) {
 					var $temp$isGood = isGood,
@@ -5912,14 +5921,14 @@ var elm$parser$Parser$Advanced$varHelp = F7(
 	});
 var elm$parser$Parser$Advanced$variable = function (i) {
 	return function (s) {
-		var firstOffset = A3(elm$parser$Parser$Advanced$isSubChar, i.I, s.b, s.a);
+		var firstOffset = A3(elm$parser$Parser$Advanced$isSubChar, i.J, s.b, s.a);
 		if (_Utils_eq(firstOffset, -1)) {
 			return A2(
 				elm$parser$Parser$Advanced$Bad,
 				false,
 				A2(elm$parser$Parser$Advanced$fromState, s, i.d3));
 		} else {
-			var s1 = _Utils_eq(firstOffset, -2) ? A7(elm$parser$Parser$Advanced$varHelp, i.eh, s.b + 1, s.C + 1, 1, s.a, s.f, s.aM) : A7(elm$parser$Parser$Advanced$varHelp, i.eh, firstOffset, s.C, s.dW + 1, s.a, s.f, s.aM);
+			var s1 = _Utils_eq(firstOffset, -2) ? A7(elm$parser$Parser$Advanced$varHelp, i.eh, s.b + 1, s.D + 1, 1, s.a, s.f, s.aM) : A7(elm$parser$Parser$Advanced$varHelp, i.eh, firstOffset, s.D, s.dW + 1, s.a, s.f, s.aM);
 			var name = A3(elm$core$String$slice, s.b, s1.b, s.a);
 			return A2(elm$core$Set$member, name, i.eM) ? A2(
 				elm$parser$Parser$Advanced$Bad,
@@ -5930,7 +5939,7 @@ var elm$parser$Parser$Advanced$variable = function (i) {
 };
 var elm$parser$Parser$variable = function (i) {
 	return elm$parser$Parser$Advanced$variable(
-		{d3: elm$parser$Parser$ExpectingVariable, eh: i.eh, eM: i.eM, I: i.I});
+		{d3: elm$parser$Parser$ExpectingVariable, eh: i.eh, eM: i.eM, J: i.J});
 };
 var stil4m$elm_syntax$Elm$Parser$Tokens$reservedList = _List_fromArray(
 	['module', 'exposing', 'import', 'as', 'if', 'then', 'else', 'let', 'in', 'case', 'of', 'port', 'infixr', 'infixl', 'type', 'where']);
@@ -5941,7 +5950,7 @@ var stil4m$elm_syntax$Elm$Parser$Tokens$typeName = stil4m$elm_syntax$Combine$fro
 				return elm$core$Char$isAlphaNum(c) || (c === '_');
 			},
 			eM: elm$core$Set$fromList(stil4m$elm_syntax$Elm$Parser$Tokens$reservedList),
-			I: elm$core$Char$isUpper
+			J: elm$core$Char$isUpper
 		}));
 var stil4m$elm_syntax$Elm$Parser$Base$typeIndicator = function () {
 	var helper = function (_n0) {
@@ -6014,7 +6023,7 @@ var elm$parser$Parser$Advanced$chompUntil = function (_n0) {
 	var str = _n0.a;
 	var expecting = _n0.b;
 	return function (s) {
-		var _n1 = A5(elm$parser$Parser$Advanced$findSubString, str, s.b, s.C, s.dW, s.a);
+		var _n1 = A5(elm$parser$Parser$Advanced$findSubString, str, s.b, s.D, s.dW, s.a);
 		var newOffset = _n1.a;
 		var newRow = _n1.b;
 		var newCol = _n1.c;
@@ -6025,7 +6034,7 @@ var elm$parser$Parser$Advanced$chompUntil = function (_n0) {
 			elm$parser$Parser$Advanced$Good,
 			_Utils_cmp(s.b, newOffset) < 0,
 			0,
-			{dW: newCol, aM: s.aM, f: s.f, b: newOffset, C: newRow, a: s.a});
+			{dW: newCol, aM: s.aM, f: s.f, b: newOffset, D: newRow, a: s.a});
 	};
 };
 var elm$core$Basics$neq = _Utils_notEqual;
@@ -6197,8 +6206,8 @@ var stil4m$elm_syntax$Elm$Parser$Layout$verifyIndent = function (f) {
 					return A2(
 						f,
 						stil4m$elm_syntax$Elm$Parser$State$expectedColumn(s),
-						l.W) ? stil4m$elm_syntax$Combine$succeed(0) : stil4m$elm_syntax$Combine$fail(
-						'Expected higher indent than ' + elm$core$String$fromInt(l.W));
+						l.X) ? stil4m$elm_syntax$Combine$succeed(0) : stil4m$elm_syntax$Combine$fail(
+						'Expected higher indent than ' + elm$core$String$fromInt(l.X));
 				});
 		});
 };
@@ -6274,7 +6283,7 @@ var elm$parser$Parser$Advanced$consumeBase16 = _Parser_consumeBase16;
 var elm$core$String$toFloat = _String_toFloat;
 var elm$parser$Parser$Advanced$bumpOffset = F2(
 	function (newOffset, s) {
-		return {dW: s.dW + (newOffset - s.b), aM: s.aM, f: s.f, b: newOffset, C: s.C, a: s.a};
+		return {dW: s.dW + (newOffset - s.b), aM: s.aM, f: s.f, b: newOffset, D: s.D, a: s.a};
 	});
 var elm$parser$Parser$Advanced$chompBase10 = _Parser_chompBase10;
 var elm$parser$Parser$Advanced$isAsciiCode = _Parser_isAsciiCode;
@@ -6326,7 +6335,7 @@ var elm$parser$Parser$Advanced$finalizeFloat = F6(
 			return A2(
 				elm$parser$Parser$Advanced$Bad,
 				true,
-				A4(elm$parser$Parser$Advanced$fromInfo, s.C, s.dW - (floatOffset + s.b), invalid, s.aM));
+				A4(elm$parser$Parser$Advanced$fromInfo, s.D, s.dW - (floatOffset + s.b), invalid, s.aM));
 		} else {
 			if (_Utils_eq(s.b, floatOffset)) {
 				return A2(
@@ -6453,7 +6462,7 @@ var stil4m$elm_syntax$Elm$Parser$Tokens$functionName = stil4m$elm_syntax$Combine
 				return elm$core$Char$isAlphaNum(c) || (c === '_');
 			},
 			eM: elm$core$Set$fromList(stil4m$elm_syntax$Elm$Parser$Tokens$reservedList),
-			I: elm$core$Char$isLower
+			J: elm$core$Char$isLower
 		}));
 var stil4m$elm_syntax$Elm$Syntax$Pattern$RecordPattern = function (a) {
 	return {$: 8, a: a};
@@ -6494,14 +6503,14 @@ var elm$parser$Parser$Advanced$getOffset = function (s) {
 var elm$parser$Parser$getOffset = elm$parser$Parser$Advanced$getOffset;
 var stil4m$elm_syntax$Elm$Parser$Tokens$stringLiteral = function () {
 	var helper = function (s) {
-		return s.F ? A2(
+		return s.G ? A2(
 			elm$parser$Parser$map,
 			function (v) {
 				return elm$parser$Parser$Loop(
 					_Utils_update(
 						s,
 						{
-							F: false,
+							G: false,
 							h: A2(
 								elm$core$List$cons,
 								elm$core$String$fromList(
@@ -6527,7 +6536,7 @@ var stil4m$elm_syntax$Elm$Parser$Tokens$stringLiteral = function () {
 						return elm$parser$Parser$Loop(
 							_Utils_update(
 								s,
-								{F: true, h: s.h}));
+								{G: true, h: s.h}));
 					},
 					elm$parser$Parser$getChompedString(
 						elm$parser$Parser$symbol('\\'))),
@@ -6574,7 +6583,7 @@ var stil4m$elm_syntax$Elm$Parser$Tokens$stringLiteral = function () {
 				elm$parser$Parser$symbol('\"')),
 			A2(
 				elm$parser$Parser$loop,
-				{F: false, h: _List_Nil},
+				{G: false, h: _List_Nil},
 				helper)));
 }();
 var elm$core$Maybe$map2 = F3(
@@ -6594,16 +6603,16 @@ var elm$core$Maybe$map2 = F3(
 	});
 var stil4m$elm_syntax$Elm$Syntax$Range$Range = F2(
 	function (start, end) {
-		return {bE: end, I: start};
+		return {bE: end, J: start};
 	});
 var stil4m$elm_syntax$Elm$Syntax$Range$emptyRange = {
-	bE: {W: 0, C: 0},
-	I: {W: 0, C: 0}
+	bE: {X: 0, D: 0},
+	J: {X: 0, D: 0}
 };
 var elm$core$List$sortWith = _List_sortWith;
 var stil4m$elm_syntax$Elm$Syntax$Range$compareLocations = F2(
 	function (left, right) {
-		return (_Utils_cmp(left.C, right.C) < 0) ? 0 : ((_Utils_cmp(right.C, left.C) < 0) ? 2 : A2(elm$core$Basics$compare, left.W, right.W));
+		return (_Utils_cmp(left.D, right.D) < 0) ? 0 : ((_Utils_cmp(right.D, left.D) < 0) ? 2 : A2(elm$core$Basics$compare, left.X, right.X));
 	});
 var stil4m$elm_syntax$Elm$Syntax$Range$sortLocations = elm$core$List$sortWith(stil4m$elm_syntax$Elm$Syntax$Range$compareLocations);
 var stil4m$elm_syntax$Elm$Syntax$Range$combine = function (ranges) {
@@ -6611,7 +6620,7 @@ var stil4m$elm_syntax$Elm$Syntax$Range$combine = function (ranges) {
 		A2(
 			elm$core$List$map,
 			function ($) {
-				return $.I;
+				return $.J;
 			},
 			ranges));
 	var ends = elm$core$List$reverse(
@@ -6900,7 +6909,7 @@ var stil4m$elm_syntax$Elm$Parser$Layout$compute = stil4m$elm_syntax$Combine$with
 					elm$core$List$cons,
 					1,
 					stil4m$elm_syntax$Elm$Parser$State$storedColumns(s));
-				return A2(elm$core$List$member, l.W, known) ? stil4m$elm_syntax$Combine$succeed(0) : stil4m$elm_syntax$Combine$succeed(1);
+				return A2(elm$core$List$member, l.X, known) ? stil4m$elm_syntax$Combine$succeed(0) : stil4m$elm_syntax$Combine$succeed(1);
 			});
 	});
 var stil4m$elm_syntax$Elm$Parser$Layout$optimisticLayout = A2(
@@ -7381,14 +7390,14 @@ var stil4m$elm_syntax$Elm$Parser$Declarations$liftRecordAccess = function (e) {
 };
 var stil4m$elm_syntax$Elm$Parser$Tokens$multiLineStringLiteral = function () {
 	var helper = function (s) {
-		return s.F ? A2(
+		return s.G ? A2(
 			elm$parser$Parser$map,
 			function (v) {
 				return elm$parser$Parser$Loop(
 					_Utils_update(
 						s,
 						{
-							F: false,
+							G: false,
 							h: A2(
 								elm$core$List$cons,
 								elm$core$String$fromList(
@@ -7414,7 +7423,7 @@ var stil4m$elm_syntax$Elm$Parser$Tokens$multiLineStringLiteral = function () {
 							_Utils_update(
 								s,
 								{
-									P: s.P + 1,
+									Q: s.Q + 1,
 									h: A2(elm$core$List$cons, v, s.h)
 								}));
 					},
@@ -7426,7 +7435,7 @@ var stil4m$elm_syntax$Elm$Parser$Tokens$multiLineStringLiteral = function () {
 						return elm$parser$Parser$Loop(
 							_Utils_update(
 								s,
-								{P: s.P + 1, F: true, h: s.h}));
+								{Q: s.Q + 1, G: true, h: s.h}));
 					},
 					elm$parser$Parser$getChompedString(
 						elm$parser$Parser$symbol('\\'))),
@@ -7441,7 +7450,7 @@ var stil4m$elm_syntax$Elm$Parser$Tokens$multiLineStringLiteral = function () {
 								_Utils_update(
 									s,
 									{
-										P: s.P + 1,
+										Q: s.Q + 1,
 										h: A2(elm$core$List$cons, value, s.h)
 									})));
 					},
@@ -7474,7 +7483,7 @@ var stil4m$elm_syntax$Elm$Parser$Tokens$multiLineStringLiteral = function () {
 				elm$parser$Parser$symbol('\"\"\"')),
 			A2(
 				elm$parser$Parser$loop,
-				{P: 0, F: false, h: _List_Nil},
+				{Q: 0, G: false, h: _List_Nil},
 				helper)));
 }();
 var stil4m$elm_syntax$Elm$Syntax$Expression$Literal = function (a) {
@@ -7645,7 +7654,7 @@ var stil4m$elm_syntax$Elm$Parser$Declarations$withIndentedState = function (p) {
 					stil4m$elm_syntax$Combine$continueWith,
 					p,
 					stil4m$elm_syntax$Combine$modifyState(
-						stil4m$elm_syntax$Elm$Parser$State$pushColumn(location.W))));
+						stil4m$elm_syntax$Elm$Parser$State$pushColumn(location.X))));
 		});
 };
 var stil4m$elm_syntax$Elm$Parser$Layout$layoutStrict = A2(
@@ -7956,7 +7965,7 @@ function stil4m$elm_syntax$Elm$Parser$Declarations$cyclic$caseStatements() {
 							function (l) {
 								return _Utils_eq(
 									stil4m$elm_syntax$Elm$Parser$State$expectedColumn(s),
-									l.W) ? A2(
+									l.X) ? A2(
 									stil4m$elm_syntax$Combine$andThen,
 									helper,
 									A2(
@@ -8657,7 +8666,7 @@ var stil4m$elm_syntax$Elm$Parser$Infix$infixDirection = stil4m$elm_syntax$Combin
 		]));
 var stil4m$elm_syntax$Elm$Syntax$Infix$Infix = F4(
 	function (direction, precedence, operator, _function) {
-		return {fE: direction, fQ: _function, gj: operator, eC: precedence};
+		return {fE: direction, fQ: _function, gk: operator, eC: precedence};
 	});
 var stil4m$elm_syntax$Elm$Parser$Infix$infixDefinition = A2(
 	stil4m$elm_syntax$Combine$andMap,
@@ -8697,15 +8706,15 @@ var stil4m$elm_syntax$Elm$Parser$Infix$infixDefinition = A2(
 											stil4m$elm_syntax$Combine$succeed(stil4m$elm_syntax$Elm$Syntax$Infix$Infix))))))))))));
 var stil4m$elm_syntax$Elm$Parser$Ranges$asPointerLocation = function (_n0) {
 	var line = _n0.aV;
-	var column = _n0.W;
-	return {W: column, C: line};
+	var column = _n0.X;
+	return {X: column, D: line};
 };
 var stil4m$elm_syntax$Elm$Parser$Ranges$withCurrentPoint = function (p) {
 	return stil4m$elm_syntax$Combine$withLocation(
 		function (start) {
 			var k = stil4m$elm_syntax$Elm$Parser$Ranges$asPointerLocation(start);
 			return p(
-				{bE: k, I: k});
+				{bE: k, J: k});
 		});
 };
 var stil4m$elm_syntax$Elm$Syntax$Declaration$InfixDeclaration = function (a) {
@@ -9121,7 +9130,7 @@ var stil4m$elm_syntax$Elm$Parser$Ranges$withRange = function (p) {
 						return stil4m$elm_syntax$Combine$succeed(
 							{
 								bE: stil4m$elm_syntax$Elm$Parser$Ranges$asPointerLocation(end),
-								I: stil4m$elm_syntax$Elm$Parser$Ranges$asPointerLocation(start)
+								J: stil4m$elm_syntax$Elm$Parser$Ranges$asPointerLocation(start)
 							});
 					}),
 				p);
@@ -9440,7 +9449,7 @@ var stil4m$elm_syntax$Elm$Parser$parse = function (input) {
 	}
 };
 var author$project$Analyser$Files$FileContent$loadedFileFromContent = function (fileContent) {
-	var _n0 = fileContent.bz;
+	var _n0 = fileContent.cS;
 	if (!_n0.$) {
 		var content = _n0.a;
 		return author$project$Result$Extra$merge(
@@ -9458,7 +9467,7 @@ var author$project$Analyser$Files$FileContent$loadedFileFromContent = function (
 					{
 					dW: 0,
 					eE: elm$parser$Parser$Problem('No file content'),
-					C: 0
+					D: 0
 				}
 				]));
 	}
@@ -9570,8 +9579,8 @@ var stil4m$elm_syntax$Elm$Syntax$Range$fromList = function (input) {
 		var d = _n3.a;
 		return elm$core$Result$Ok(
 			{
-				bE: {W: d, C: c},
-				I: {W: b, C: a}
+				bE: {X: d, D: c},
+				J: {X: b, D: a}
 			});
 	} else {
 		return elm$core$Result$Err('Invalid input list');
@@ -10515,7 +10524,7 @@ var author$project$Analyser$Files$FileContent$asRawFile = function (fileContent)
 						{
 						dW: 0,
 						eE: elm$parser$Parser$Problem('Internal problem in the file loader. Please report an issue.'),
-						C: 0
+						D: 0
 					}
 					])),
 			false),
@@ -10559,7 +10568,7 @@ var author$project$Analyser$DependencyHandler$onDependencyFiles = _Platform_inco
 				elm$json$Json$Decode$andThen,
 				function (dependency) {
 					return elm$json$Json$Decode$succeed(
-						{y: dependency, cY: files});
+						{z: dependency, cZ: files});
 				},
 				A2(
 					elm$json$Json$Decode$field,
@@ -10597,7 +10606,7 @@ var author$project$Analyser$DependencyHandler$onDependencyFiles = _Platform_inco
 													elm$json$Json$Decode$andThen,
 													function (ast) {
 														return elm$json$Json$Decode$succeed(
-															{fg: ast, bz: content, gl: path, gs: sha1, gz: success});
+															{fg: ast, cS: content, cg: path, gs: sha1, gz: success});
 													},
 													A2(
 														elm$json$Json$Decode$field,
@@ -10641,8 +10650,8 @@ var author$project$Result$Extra$isOk = function (r) {
 };
 var author$project$Analyser$DependencyHandler$onLoadDependencyFilesFromDisk = function (dep) {
 	var onRawFiles = function (_n0) {
-		var dependency = _n0.y;
-		var files = _n0.cY;
+		var dependency = _n0.z;
+		var files = _n0.cZ;
 		if (_Utils_eq(dep, dependency)) {
 			var loadedFiles = A2(elm$core$List$map, author$project$Analyser$DependencyHandler$dependencyFileInterface, files);
 			return (!A2(elm$core$List$all, author$project$Result$Extra$isOk, loadedFiles)) ? elm$core$Maybe$Just(
@@ -10672,7 +10681,7 @@ var author$project$Analyser$DependencyHandler$binopToOperator = function (binOp)
 				}
 			}()),
 		fQ: A2(stil4m$elm_syntax$Elm$Syntax$Node$Node, stil4m$elm_syntax$Elm$Syntax$Range$emptyRange, binOp.f7),
-		gj: A2(stil4m$elm_syntax$Elm$Syntax$Node$Node, stil4m$elm_syntax$Elm$Syntax$Range$emptyRange, binOp.f7),
+		gk: A2(stil4m$elm_syntax$Elm$Syntax$Node$Node, stil4m$elm_syntax$Elm$Syntax$Range$emptyRange, binOp.f7),
 		eC: A2(stil4m$elm_syntax$Elm$Syntax$Node$Node, stil4m$elm_syntax$Elm$Syntax$Range$emptyRange, binOp.eC)
 	};
 };
@@ -10750,7 +10759,7 @@ var author$project$Analyser$DependencyHandler$onHttpDocumentation = _Platform_in
 				elm$json$Json$Decode$andThen,
 				function (dependency) {
 					return elm$json$Json$Decode$succeed(
-						{y: dependency, ay: json});
+						{z: dependency, ay: json});
 				},
 				A2(
 					elm$json$Json$Decode$field,
@@ -10775,7 +10784,7 @@ var elm$project_metadata_utils$Elm$Docs$Module = F6(
 	});
 var elm$project_metadata_utils$Elm$Docs$Alias = F4(
 	function (name, comment, args, tipe) {
-		return {fc: args, ao: comment, f7: name, a2: tipe};
+		return {fc: args, ao: comment, f7: name, a3: tipe};
 	});
 var elm$parser$Parser$Forbidden = 0;
 var elm$parser$Parser$Advanced$Forbidden = 0;
@@ -10944,7 +10953,7 @@ var elm$parser$Parser$Advanced$sequenceEnd = F5(
 var elm$parser$Parser$Advanced$sequence = function (i) {
 	return A2(
 		elm$parser$Parser$Advanced$skip,
-		elm$parser$Parser$Advanced$token(i.I),
+		elm$parser$Parser$Advanced$token(i.J),
 		A2(
 			elm$parser$Parser$Advanced$skip,
 			i.eU,
@@ -10963,7 +10972,7 @@ var elm$parser$Parser$sequence = function (i) {
 			ek: i.ek,
 			eS: elm$parser$Parser$toToken(i.eS),
 			eU: i.eU,
-			I: elm$parser$Parser$toToken(i.I),
+			J: elm$parser$Parser$toToken(i.J),
 			e5: elm$parser$Parser$toAdvancedTrailing(i.e5)
 		});
 };
@@ -10989,7 +10998,7 @@ var elm$project_metadata_utils$Elm$Type$isInnerVarChar = function (_char) {
 };
 var elm$project_metadata_utils$Elm$Type$var = function (isFirst) {
 	return elm$parser$Parser$variable(
-		{eh: elm$project_metadata_utils$Elm$Type$isInnerVarChar, eM: elm$core$Set$empty, I: isFirst});
+		{eh: elm$project_metadata_utils$Elm$Type$isInnerVarChar, eM: elm$core$Set$empty, J: isFirst});
 };
 var elm$project_metadata_utils$Elm$Type$lowVar = elm$project_metadata_utils$Elm$Type$var(elm$core$Char$isLower);
 var elm$project_metadata_utils$Elm$Type$spaces = elm$parser$Parser$chompWhile(
@@ -11228,7 +11237,7 @@ function elm$project_metadata_utils$Elm$Type$cyclic$tuple() {
 				ek: elm$project_metadata_utils$Elm$Type$cyclic$tipe(),
 				eS: ',',
 				eU: elm$project_metadata_utils$Elm$Type$spaces,
-				I: '(',
+				J: '(',
 				e5: 0
 			}));
 }
@@ -11300,7 +11309,7 @@ var elm$project_metadata_utils$Elm$Docs$aliasDecoder = A5(
 var elm$json$Json$Decode$map5 = _Json_map5;
 var elm$project_metadata_utils$Elm$Docs$Binop = F5(
 	function (name, comment, tipe, associativity, precedence) {
-		return {ff: associativity, ao: comment, f7: name, eC: precedence, a2: tipe};
+		return {ff: associativity, ao: comment, f7: name, eC: precedence, a3: tipe};
 	});
 var elm$project_metadata_utils$Elm$Docs$Left = 0;
 var elm$project_metadata_utils$Elm$Docs$None = 1;
@@ -11356,7 +11365,7 @@ var elm$project_metadata_utils$Elm$Docs$unionDecoder = A5(
 		elm$json$Json$Decode$list(elm$project_metadata_utils$Elm$Docs$tagDecoder)));
 var elm$project_metadata_utils$Elm$Docs$Value = F3(
 	function (name, comment, tipe) {
-		return {ao: comment, f7: name, a2: tipe};
+		return {ao: comment, f7: name, a3: tipe};
 	});
 var elm$project_metadata_utils$Elm$Docs$valueDecoder = A4(
 	elm$json$Json$Decode$map3,
@@ -11388,7 +11397,7 @@ var elm$project_metadata_utils$Elm$Docs$decoder = A7(
 var author$project$Analyser$DependencyHandler$onOnlineDocumentation = function (dep) {
 	return author$project$Analyser$DependencyHandler$onHttpDocumentation(
 		function (_n0) {
-			var dependency = _n0.y;
+			var dependency = _n0.z;
 			var json = _n0.ay;
 			return _Utils_eq(dependency, dep) ? elm$core$Maybe$Just(
 				A2(
@@ -11414,7 +11423,7 @@ var author$project$Analyser$DependencyHandler$onRawDependency = _Platform_incomi
 				elm$json$Json$Decode$andThen,
 				function (dependency) {
 					return elm$json$Json$Decode$succeed(
-						{y: dependency, ay: json});
+						{z: dependency, ay: json});
 				},
 				A2(
 					elm$json$Json$Decode$field,
@@ -11516,7 +11525,7 @@ var author$project$Analyser$DependencyHandler$onReadFromDisk = function (_n0) {
 	var version = _n0.p;
 	return author$project$Analyser$DependencyHandler$onRawDependency(
 		function (_n1) {
-			var dependency = _n1.y;
+			var dependency = _n1.z;
 			var json = _n1.ay;
 			if (_Utils_eq(dependency.f7, name) && _Utils_eq(version, dependency.p)) {
 				var _n2 = author$project$Analyser$Files$Json$deserialiseDependencyValue(json);
@@ -11544,13 +11553,13 @@ var elm$core$Platform$Sub$map = _Platform_map;
 var elm$core$Platform$Sub$batch = _Platform_batch;
 var elm$core$Platform$Sub$none = elm$core$Platform$Sub$batch(_List_Nil);
 var author$project$Analyser$Files$DependencyLoader$subscriptions = function (model) {
-	var _n0 = model.m;
+	var _n0 = model.i;
 	switch (_n0.$) {
 		case 0:
 			return A2(
 				elm$core$Platform$Sub$map,
 				author$project$Analyser$Files$DependencyLoader$OnCacheRead,
-				author$project$Analyser$DependencyHandler$onReadFromDisk(model.y));
+				author$project$Analyser$DependencyHandler$onReadFromDisk(model.z));
 		case 3:
 			return elm$core$Platform$Sub$none;
 		case 4:
@@ -11559,12 +11568,12 @@ var author$project$Analyser$Files$DependencyLoader$subscriptions = function (mod
 			return A2(
 				elm$core$Platform$Sub$map,
 				author$project$Analyser$Files$DependencyLoader$OnOnlineDocs,
-				author$project$Analyser$DependencyHandler$onOnlineDocumentation(model.y));
+				author$project$Analyser$DependencyHandler$onOnlineDocumentation(model.z));
 		default:
 			return A2(
 				elm$core$Platform$Sub$map,
 				author$project$Analyser$Files$DependencyLoader$OnLocallyBuildDependency,
-				author$project$Analyser$DependencyHandler$onLoadDependencyFilesFromDisk(model.y));
+				author$project$Analyser$DependencyHandler$onLoadDependencyFilesFromDisk(model.z));
 	}
 };
 var author$project$Analyser$DependencyLoadingStage$subscriptions = function (model) {
@@ -11592,14 +11601,14 @@ var author$project$Analyser$FileWatch$asFileContent = F2(
 	function (p, content) {
 		return {
 			fg: elm$core$Maybe$Nothing,
-			bz: elm$core$Maybe$Just(content),
-			gl: p.d6,
+			cS: elm$core$Maybe$Just(content),
+			cg: p.d6,
 			gs: elm$core$Maybe$Nothing,
 			gz: true
 		};
 	});
 var author$project$Analyser$FileWatch$asFileChange = function (p) {
-	var _n0 = p.cV;
+	var _n0 = p.cW;
 	switch (_n0) {
 		case 'update':
 			return elm$core$Maybe$Just(
@@ -11609,7 +11618,7 @@ var author$project$Analyser$FileWatch$asFileChange = function (p) {
 					A2(
 						elm$core$Maybe$map,
 						author$project$Analyser$FileWatch$asFileContent(p),
-						p.bz)));
+						p.cS)));
 		case 'remove':
 			return elm$core$Maybe$Just(
 				author$project$Analyser$FileWatch$Remove(p.d6));
@@ -11629,7 +11638,7 @@ var author$project$Analyser$FileWatch$fileWatch = _Platform_incomingPort(
 						elm$json$Json$Decode$andThen,
 						function (content) {
 							return elm$json$Json$Decode$succeed(
-								{bz: content, cV: event, d6: file});
+								{cS: content, cW: event, d6: file});
 						},
 						A2(
 							elm$json$Json$Decode$field,
@@ -11663,7 +11672,7 @@ var author$project$Analyser$Fixer$onFileContentWithShas = _Platform_incomingPort
 				elm$json$Json$Decode$andThen,
 				function (content) {
 					return elm$json$Json$Decode$succeed(
-						{bz: content, d6: file});
+						{cS: content, d6: file});
 				},
 				A2(elm$json$Json$Decode$field, 'content', elm$json$Json$Decode$string));
 		},
@@ -11677,7 +11686,7 @@ var author$project$Analyser$Fixer$onFileContentWithShas = _Platform_incomingPort
 						elm$json$Json$Decode$andThen,
 						function (path) {
 							return elm$json$Json$Decode$succeed(
-								{gl: path, p: version});
+								{cg: path, p: version});
 						},
 						A2(elm$json$Json$Decode$field, 'path', elm$json$Json$Decode$string));
 				},
@@ -11710,7 +11719,7 @@ var author$project$Analyser$Files$FileLoader$fileContent = _Platform_incomingPor
 										elm$json$Json$Decode$andThen,
 										function (ast) {
 											return elm$json$Json$Decode$succeed(
-												{fg: ast, bz: content, gl: path, gs: sha1, gz: success});
+												{fg: ast, cS: content, cg: path, gs: sha1, gz: success});
 										},
 										A2(
 											elm$json$Json$Decode$field,
@@ -11761,9 +11770,12 @@ var author$project$Analyser$SourceLoadingStage$subscriptions = function (_n0) {
 					author$project$Analyser$SourceLoadingStage$FileLoaderMsg(n),
 					author$project$Analyser$Files$FileLoader$subscriptions);
 			},
-			elm$core$Set$toList(model.L)));
+			elm$core$Set$toList(model.M)));
 };
+var author$project$AnalyserPorts$onFixFileMessage = _Platform_incomingPort('onFixFileMessage', elm$json$Json$Decode$string);
+var author$project$AnalyserPorts$onFixFileQuick = _Platform_incomingPort('onFixFileQuick', elm$json$Json$Decode$string);
 var author$project$AnalyserPorts$onFixMessage = _Platform_incomingPort('onFixMessage', elm$json$Json$Decode$int);
+var author$project$AnalyserPorts$onFixQuick = _Platform_incomingPort('onFixQuick', elm$json$Json$Decode$int);
 var author$project$AnalyserPorts$onReset = _Platform_incomingPort('onReset', elm$json$Json$Decode$bool);
 var elm$time$Time$Every = F2(
 	function (a, b) {
@@ -12062,14 +12074,17 @@ var author$project$Analyser$subscriptions = function (model) {
 			[
 				author$project$AnalyserPorts$onReset(
 				elm$core$Basics$always(author$project$Analyser$Reset)),
-				model.T ? A2(
+				model.U ? A2(
 				elm$time$Time$every,
 				1000,
 				elm$core$Basics$always(author$project$Analyser$ReloadTick)) : elm$core$Platform$Sub$none,
 				author$project$Analyser$FileWatch$watcher(author$project$Analyser$Change),
 				author$project$AnalyserPorts$onFixMessage(author$project$Analyser$OnFixMessage),
+				author$project$AnalyserPorts$onFixFileMessage(author$project$Analyser$OnFixFileMessage),
+				author$project$AnalyserPorts$onFixQuick(author$project$Analyser$OnQuickFixMessage),
+				author$project$AnalyserPorts$onFixFileQuick(author$project$Analyser$OnQuickFixFileMessage),
 				function () {
-				var _n0 = model.j;
+				var _n0 = model.k;
 				switch (_n0.$) {
 					case 0:
 						return author$project$Analyser$ContextLoader$onLoadedContext(author$project$Analyser$OnContext);
@@ -12340,7 +12355,7 @@ var author$project$ASTUtil$Inspector$inspectInnerExpression = F3(
 							_List_fromArray(
 								[left, right]));
 					},
-					{fE: dir, f2: left, gj: op, gq: right},
+					{fE: dir, f2: left, gk: op, gq: right},
 					context);
 			case 4:
 				var e1 = expression.a;
@@ -12582,12 +12597,12 @@ var author$project$ASTUtil$Inspector$inspect = F3(
 			context);
 	});
 var author$project$AST$Ranges$locationToString = function (_n0) {
-	var row = _n0.C;
-	var column = _n0.W;
+	var row = _n0.D;
+	var column = _n0.X;
 	return '(' + (elm$core$String$fromInt(row) + (',' + (elm$core$String$fromInt(column) + ')')));
 };
 var author$project$AST$Ranges$rangeToString = function (_n0) {
-	var start = _n0.I;
+	var start = _n0.J;
 	var end = _n0.bE;
 	return '(' + (author$project$AST$Ranges$locationToString(start) + (',' + (author$project$AST$Ranges$locationToString(end) + ')')));
 };
@@ -12695,8 +12710,8 @@ var author$project$Analyser$Fixes$Base$Patched = function (a) {
 };
 var author$project$Analyser$Fixes$FileContent$patchRange = function (rawRange) {
 	return {
-		bE: {W: rawRange.bE.W - 1, C: rawRange.bE.C - 1},
-		I: {W: rawRange.I.W - 1, C: rawRange.I.C - 1}
+		bE: {X: rawRange.bE.X - 1, D: rawRange.bE.D - 1},
+		J: {X: rawRange.J.X - 1, D: rawRange.J.D - 1}
 	};
 };
 var elm$core$List$takeReverse = F3(
@@ -12837,9 +12852,9 @@ var author$project$Analyser$Fixes$FileContent$updateRange = F3(
 	function (rawRange, patch, content) {
 		var rows = A2(elm$core$String$split, '\n', content);
 		var range = author$project$Analyser$Fixes$FileContent$patchRange(rawRange);
-		var rowPostPartTakeFn = elm$core$String$dropLeft(range.bE.W);
-		var rowPrePartTakeFn = elm$core$String$left(range.I.W);
-		var beforeRows = range.I.C;
+		var rowPostPartTakeFn = elm$core$String$dropLeft(range.bE.X);
+		var rowPrePartTakeFn = elm$core$String$left(range.J.X);
+		var beforeRows = range.J.D;
 		var linesBefore = A2(elm$core$List$take, beforeRows, rows);
 		var rowPrePart = A2(
 			elm$core$Maybe$withDefault,
@@ -12856,7 +12871,7 @@ var author$project$Analyser$Fixes$FileContent$updateRange = F3(
 				linesBefore,
 				_List_fromArray(
 					[rowPrePart])));
-		var afterRows = range.bE.C;
+		var afterRows = range.bE.D;
 		var postRows = A2(elm$core$List$drop, afterRows + 1, rows);
 		var rowPostPart = A2(
 			elm$core$Maybe$withDefault,
@@ -12896,7 +12911,7 @@ var author$project$Analyser$Fixes$FileContent$replaceRangeWith = F3(
 var elm$core$String$append = _String_append;
 var author$project$Analyser$Fixes$DropConsOfItemAndList$fixContent = F3(
 	function (headRange, tailRange, content) {
-		var middleRange = {bE: tailRange.I, I: headRange.bE};
+		var middleRange = {bE: tailRange.J, J: headRange.bE};
 		return A3(
 			author$project$Analyser$Fixes$FileContent$updateRange,
 			headRange,
@@ -13484,10 +13499,10 @@ var author$project$Analyser$Fixes$DuplicateImport$removeImports = F2(
 						A2(
 							elm$core$Basics$composeR,
 							function ($) {
-								return $.I;
+								return $.J;
 							},
 							function ($) {
-								return $.C;
+								return $.D;
 							}),
 						ranges))));
 	});
@@ -13542,8 +13557,8 @@ var author$project$Analyser$Checks$MultiLineRecordFormatting$fieldsOnSameLine = 
 	var left = _n0.a;
 	var right = _n0.b;
 	return _Utils_eq(
-		author$project$Analyser$Checks$MultiLineRecordFormatting$typeAnnotationRange(left.b).I.C,
-		author$project$Analyser$Checks$MultiLineRecordFormatting$typeAnnotationRange(right.b).I.C);
+		author$project$Analyser$Checks$MultiLineRecordFormatting$typeAnnotationRange(left.b).J.D,
+		author$project$Analyser$Checks$MultiLineRecordFormatting$typeAnnotationRange(right.b).J.D);
 };
 var author$project$Analyser$Checks$MultiLineRecordFormatting$firstTwo = function (def) {
 	if (def.b && def.b.b) {
@@ -13669,7 +13684,7 @@ var author$project$Analyser$Checks$MultiLineRecordFormatting$checker = {
 };
 var elm$regex$Regex$Match = F4(
 	function (match, index, number, submatches) {
-		return {fX: index, f4: match, gg: number, gx: submatches};
+		return {fX: index, f4: match, gh: number, gx: submatches};
 	});
 var elm$regex$Regex$fromStringWith = _Regex_fromStringWith;
 var elm$regex$Regex$fromString = function (string) {
@@ -14015,10 +14030,10 @@ var author$project$Analyser$Checks$UnnecessaryParens$rangeToString = function (r
 		'|',
 		_List_fromArray(
 			[
-				elm$core$String$fromInt(range.I.C),
-				elm$core$String$fromInt(range.I.W),
-				elm$core$String$fromInt(range.bE.C),
-				elm$core$String$fromInt(range.bE.W)
+				elm$core$String$fromInt(range.J.D),
+				elm$core$String$fromInt(range.J.X),
+				elm$core$String$fromInt(range.bE.D),
+				elm$core$String$fromInt(range.bE.X)
 			]));
 };
 var elm_community$list_extra$List$Extra$uniqueBy = F2(
@@ -14056,15 +14071,15 @@ var author$project$Analyser$Fixes$Base$Error = function (a) {
 	return {$: 2, a: a};
 };
 var author$project$Analyser$Fixes$FileContent$patchLocation = function (_n0) {
-	var column = _n0.W;
-	var row = _n0.C;
-	return {W: column - 1, C: row - 1};
+	var column = _n0.X;
+	var row = _n0.D;
+	return {X: column - 1, D: row - 1};
 };
 var author$project$Analyser$Fixes$FileContent$getCharAtLocation = F2(
 	function (pair, input) {
 		var _n0 = author$project$Analyser$Fixes$FileContent$patchLocation(pair);
-		var row = _n0.C;
-		var column = _n0.W;
+		var row = _n0.D;
+		var column = _n0.X;
 		return A2(
 			elm$core$Maybe$map,
 			A2(
@@ -14091,8 +14106,8 @@ var author$project$Analyser$Fixes$FileContent$replaceLocationWith = F3(
 	function (pair, x, input) {
 		var rows = A2(elm$core$String$split, '\n', input);
 		var _n0 = author$project$Analyser$Fixes$FileContent$patchLocation(pair);
-		var row = _n0.C;
-		var column = _n0.W;
+		var row = _n0.D;
+		var column = _n0.X;
 		var lineUpdater = function (target) {
 			return elm$core$String$concat(
 				_List_fromArray(
@@ -14114,9 +14129,9 @@ var author$project$Analyser$Fixes$FileContent$replaceLocationWith = F3(
 var author$project$Analyser$Fixes$UnnecessaryParens$fixContent = F2(
 	function (range, content) {
 		var _n0 = range;
-		var start = _n0.I;
+		var start = _n0.J;
 		var end = _n0.bE;
-		var endLoc = {W: end.W - 1, C: end.C};
+		var endLoc = {X: end.X - 1, D: end.D};
 		var endChar = A2(author$project$Analyser$Fixes$FileContent$getCharAtLocation, endLoc, content);
 		var startChar = A2(author$project$Analyser$Fixes$FileContent$getCharAtLocation, start, content);
 		var _n1 = _Utils_Tuple2(startChar, endChar);
@@ -14307,11 +14322,11 @@ var author$project$Analyser$Checks$UnusedImport$checker = {
 var author$project$Analyser$Fixes$UnusedImport$canFix = author$project$Analyser$Checks$UnusedImport$checker.fY.f1;
 var author$project$AST$Ranges$isGte = F2(
 	function (a, b) {
-		return (_Utils_cmp(a.C, b.C) > 0) ? true : ((_Utils_cmp(a.C, b.C) < 0) ? false : (_Utils_cmp(a.W, b.W) > -1));
+		return (_Utils_cmp(a.D, b.D) > 0) ? true : ((_Utils_cmp(a.D, b.D) < 0) ? false : (_Utils_cmp(a.X, b.X) > -1));
 	});
 var author$project$AST$Ranges$containsRange = F2(
 	function (a, b) {
-		return A2(author$project$AST$Ranges$isGte, a.I, b.I) && A2(author$project$AST$Ranges$isGte, b.bE, a.bE);
+		return A2(author$project$AST$Ranges$isGte, a.J, b.J) && A2(author$project$AST$Ranges$isGte, b.bE, a.bE);
 	});
 var author$project$ASTUtil$Imports$findImportWithRange = F2(
 	function (ast, range) {
@@ -14485,10 +14500,10 @@ var author$project$ASTUtil$Imports$rangesOnDifferentLines = function (ranges) {
 		A2(
 			elm$core$Basics$composeR,
 			function ($) {
-				return $.I;
+				return $.J;
 			},
 			function ($) {
-				return $.C;
+				return $.D;
 			}),
 		ranges);
 	return _Utils_eq(
@@ -14598,7 +14613,7 @@ var author$project$Analyser$Fixes$UnusedImportAlias$writeNewImport = F3(
 	function (syntaxRange, imp, i) {
 		return A3(
 			author$project$Analyser$Fixes$FileContent$replaceLines,
-			_Utils_Tuple2(syntaxRange.I.C - 1, syntaxRange.bE.C - 1),
+			_Utils_Tuple2(syntaxRange.J.D - 1, syntaxRange.bE.D - 1),
 			author$project$ASTUtil$Imports$naiveStringifyImport(imp),
 			i);
 	});
@@ -15198,7 +15213,7 @@ var author$project$Analyser$Checks$Variables$onLetBlock = F3(
 	});
 var author$project$Analyser$Checks$Variables$onOperatorAppliction = F2(
 	function (_n0, context) {
-		var operator = _n0.gj;
+		var operator = _n0.gk;
 		return A2(author$project$Analyser$Checks$Variables$addUsedVariable, operator, context);
 	});
 var author$project$Analyser$Checks$Variables$onPrefixOperator = F2(
@@ -15307,7 +15322,7 @@ var stil4m$elm_syntax$Elm$Interface$exposesFunction = F2(
 					case 3:
 						var inf = x.a;
 						return _Utils_eq(
-							stil4m$elm_syntax$Elm$Syntax$Node$value(inf.gj),
+							stil4m$elm_syntax$Elm$Syntax$Node$value(inf.gk),
 							k);
 					default:
 						return false;
@@ -15441,7 +15456,7 @@ var author$project$Analyser$Fixes$UnusedImportedVariable$writeNewImport = F3(
 	function (syntaxRange, imp, i) {
 		return A3(
 			author$project$Analyser$Fixes$FileContent$replaceLines,
-			_Utils_Tuple2(syntaxRange.I.C - 1, syntaxRange.bE.C - 1),
+			_Utils_Tuple2(syntaxRange.J.D - 1, syntaxRange.bE.D - 1),
 			author$project$ASTUtil$Imports$naiveStringifyImport(imp),
 			i);
 	});
@@ -15729,7 +15744,7 @@ var author$project$Analyser$Checks$UnusedPatternVariable$onLetBlock = F3(
 	});
 var author$project$Analyser$Checks$UnusedPatternVariable$onOperatorApplication = F2(
 	function (_n0, context) {
-		var operator = _n0.gj;
+		var operator = _n0.gk;
 		return A2(author$project$Analyser$Checks$UnusedPatternVariable$addUsedVariable, operator, context);
 	});
 var author$project$Analyser$Checks$UnusedPatternVariable$onPrefixOperator = F2(
@@ -15841,8 +15856,8 @@ var author$project$Analyser$Checks$UnusedPatternVariable$checker = {
 	}
 };
 var author$project$ASTUtil$PatternOptimizer$emptyRange = {
-	bE: {W: 0, C: 0},
-	I: {W: 0, C: 0}
+	bE: {X: 0, D: 0},
+	J: {X: 0, D: 0}
 };
 var author$project$ASTUtil$PatternOptimizer$isAllPattern = function (p) {
 	var _n0 = stil4m$elm_syntax$Elm$Syntax$Node$value(p);
@@ -16544,14 +16559,14 @@ var author$project$Analyser$Fixes$UnusedTypeAlias$removeTypeAlias = F2(
 		var typeAlias = _n0.b;
 		var start = A2(
 			elm$core$Maybe$withDefault,
-			range.I,
+			range.J,
 			A2(
 				elm$core$Maybe$map,
 				A2(
 					elm$core$Basics$composeR,
 					stil4m$elm_syntax$Elm$Syntax$Node$range,
 					function ($) {
-						return $.I;
+						return $.J;
 					}),
 				typeAlias.fG));
 		var end = range.bE;
@@ -16637,7 +16652,7 @@ var author$project$Analyser$Fixer$initWithMessage = F2(
 			function (fixer) {
 				return _Utils_Tuple3(
 					{ap: false, bH: fixer, ac: mess, gz: true},
-					author$project$Analyser$Fixer$loadFileContentWithSha(mess.d6.gl),
+					author$project$Analyser$Fixer$loadFileContentWithSha(mess.d6.cg),
 					A2(author$project$Analyser$State$startFixing, mess, state));
 			},
 			author$project$Analyser$Fixers$getFixer(mess));
@@ -16687,9 +16702,9 @@ var elm$core$Platform$Cmd$map = _Platform_map;
 var author$project$Analyser$handleNextStep = function (input) {
 	var model = input.a;
 	var cmds = input.b;
-	var _n0 = model.j;
+	var _n0 = model.k;
 	if (_n0.$ === 4) {
-		var _n1 = author$project$Analyser$State$nextTask(model.m);
+		var _n1 = author$project$Analyser$State$nextTask(model.i);
 		if (_n1.$ === 1) {
 			return input;
 		} else {
@@ -16701,7 +16716,7 @@ var author$project$Analyser$handleNextStep = function (input) {
 				return _Utils_Tuple2(
 					_Utils_update(
 						model,
-						{m: newState}),
+						{i: newState}),
 					author$project$Util$Logger$info(
 						'Could not fix message: \'' + (elm$core$String$fromInt(taskId) + '\'.')));
 			} else {
@@ -16714,8 +16729,8 @@ var author$project$Analyser$handleNextStep = function (input) {
 						_Utils_update(
 							model,
 							{
-								j: author$project$Analyser$FixerStage(fixerModel),
-								m: newState2
+								k: author$project$Analyser$FixerStage(fixerModel),
+								i: newState2
 							}),
 						elm$core$Platform$Cmd$batch(
 							_List_fromArray(
@@ -16731,7 +16746,7 @@ var author$project$Analyser$handleNextStep = function (input) {
 };
 var author$project$Analyser$Configuration$isPathExcluded = F2(
 	function (p, _n0) {
-		var excludedPaths = _n0.cW;
+		var excludedPaths = _n0.cX;
 		return A2(
 			elm$core$List$any,
 			function (a) {
@@ -16746,7 +16761,7 @@ var author$project$Analyser$isSourceFileIncluded = function (configuration) {
 		A2(
 			elm$core$Basics$composeR,
 			function ($) {
-				return $.gl;
+				return $.cg;
 			},
 			A2(
 				elm$core$Basics$composeR,
@@ -16760,7 +16775,7 @@ var author$project$Analyser$CodeBase$mergeLoadedSourceFiles = F2(
 		return A3(
 			elm$core$List$foldl,
 			function (sourceFile) {
-				return A2(elm$core$Dict$insert, sourceFile.a.gl, sourceFile);
+				return A2(elm$core$Dict$insert, sourceFile.a.cg, sourceFile);
 			},
 			dict,
 			newItems);
@@ -16792,7 +16807,7 @@ var author$project$Analyser$CodeBase$addSourceFiles = F2(
 						elm$core$List$filterMap,
 						A2(elm$core$Basics$composeR, elm$core$Tuple$second, elm$core$Result$toMaybe),
 						sources)),
-				cz: A2(author$project$Analyser$CodeBase$mergeLoadedSourceFiles, sources, codeBase.cz)
+				a2: A2(author$project$Analyser$CodeBase$mergeLoadedSourceFiles, sources, codeBase.a2)
 			});
 	});
 var author$project$Analyser$CodeBase$dependencies = function (_n0) {
@@ -16811,7 +16826,7 @@ var elm$core$Dict$values = function (dict) {
 };
 var author$project$Analyser$CodeBase$sourceFiles = function (_n0) {
 	var codeBase = _n0;
-	return elm$core$Dict$values(codeBase.cz);
+	return elm$core$Dict$values(codeBase.a2);
 };
 var author$project$Analyser$Checks$UnusedDependency$dependencyIncludesModule = F2(
 	function (_n0, dependency) {
@@ -16985,7 +17000,7 @@ var stil4m$elm_syntax$Elm$Processing$fixApplication = F2(
 							{
 								fE: A2(stil4m$elm_syntax$Elm$Syntax$Node$Node, stil4m$elm_syntax$Elm$Syntax$Range$emptyRange, 0),
 								fQ: A2(stil4m$elm_syntax$Elm$Syntax$Node$Node, stil4m$elm_syntax$Elm$Syntax$Range$emptyRange, 'todo'),
-								gj: A2(stil4m$elm_syntax$Elm$Syntax$Node$Node, stil4m$elm_syntax$Elm$Syntax$Range$emptyRange, x),
+								gk: A2(stil4m$elm_syntax$Elm$Syntax$Node$Node, stil4m$elm_syntax$Elm$Syntax$Range$emptyRange, x),
 								eC: A2(stil4m$elm_syntax$Elm$Syntax$Node$Node, stil4m$elm_syntax$Elm$Syntax$Range$emptyRange, 5)
 							},
 							A2(elm$core$Dict$get, x, operators)));
@@ -17012,7 +17027,7 @@ var stil4m$elm_syntax$Elm$Processing$fixApplication = F2(
 						var s = _n0.c;
 						return A4(
 							stil4m$elm_syntax$Elm$Syntax$Expression$OperatorApplication,
-							stil4m$elm_syntax$Elm$Syntax$Node$value(infix.gj),
+							stil4m$elm_syntax$Elm$Syntax$Node$value(infix.gk),
 							stil4m$elm_syntax$Elm$Syntax$Node$value(infix.fE),
 							A2(
 								stil4m$elm_syntax$Elm$Syntax$Node$Node,
@@ -17244,7 +17259,7 @@ var stil4m$elm_syntax$Elm$Processing$buildSingle = F2(
 					elm$core$List$map,
 					function (x) {
 						return _Utils_Tuple2(
-							stil4m$elm_syntax$Elm$Syntax$Node$value(x.gj),
+							stil4m$elm_syntax$Elm$Syntax$Node$value(x.gk),
 							x);
 					},
 					stil4m$elm_syntax$Elm$Interface$operators(
@@ -17272,7 +17287,7 @@ var stil4m$elm_syntax$Elm$Processing$buildSingle = F2(
 						elm$core$List$map,
 						function (x) {
 							return _Utils_Tuple2(
-								stil4m$elm_syntax$Elm$Syntax$Node$value(x.gj),
+								stil4m$elm_syntax$Elm$Syntax$Node$value(x.gk),
 								x);
 						},
 						stil4m$elm_syntax$Elm$Interface$operators(
@@ -17735,7 +17750,7 @@ var stil4m$elm_syntax$Elm$Inspector$inspectInnerExpression = F3(
 							_List_fromArray(
 								[left, right]));
 					},
-					{fE: dir, f2: left, gj: op, gq: right},
+					{fE: dir, f2: left, gk: op, gq: right},
 					context);
 			case 4:
 				var e1 = expression.a;
@@ -18000,8 +18015,8 @@ var stil4m$elm_syntax$Elm$Processing$Documentation$isDocumentationForRange = F2(
 		var commentRange = _n0.a;
 		var commentText = _n0.b;
 		if (A2(elm$core$String$startsWith, '{-|', commentText)) {
-			var functionStartRow = range.I.C;
-			return _Utils_eq(commentRange.bE.C + 1, functionStartRow);
+			var functionStartRow = range.J.D;
+			return _Utils_eq(commentRange.bE.D + 1, functionStartRow);
 		} else {
 			return false;
 		}
@@ -18186,9 +18201,9 @@ var author$project$Analyser$FileContext$buildForFile = F2(
 			return elm$core$Maybe$Just(
 				{
 					fg: A2(stil4m$elm_syntax$Elm$Processing$process, moduleIndex, l),
-					bz: A2(elm$core$Maybe$withDefault, '', fileContent.bz),
+					cS: A2(elm$core$Maybe$withDefault, '', fileContent.cS),
 					d6: {
-						gl: fileContent.gl,
+						cg: fileContent.cg,
 						p: A2(elm$core$Maybe$withDefault, '', fileContent.gs)
 					},
 					f_: stil4m$elm_syntax$Elm$Interface$build(l),
@@ -18227,7 +18242,7 @@ var author$project$Analyser$Modules$build = F2(
 			A2(author$project$Analyser$Checks$UnusedDependency$check, codeBase, files),
 			{
 				fz: A2(elm$core$List$concatMap, author$project$Analyser$Modules$edgesInFile, files),
-				ch: A2(
+				ci: A2(
 					elm$core$List$map,
 					function ($) {
 						return $.aZ;
@@ -18242,7 +18257,7 @@ var author$project$Analyser$SourceLoadingStage$parsedFiles = function (_n0) {
 var author$project$Analyser$Messages$Types$Applicable = 3;
 var author$project$Analyser$State$Idle = 2;
 var author$project$Analyser$Messages$Util$messageFile = function (m) {
-	return m.d6.gl;
+	return m.d6.cg;
 };
 var author$project$Analyser$Messages$Util$compareMessageFile = F2(
 	function (a, b) {
@@ -18253,7 +18268,7 @@ var author$project$Analyser$Messages$Util$compareMessageFile = F2(
 	});
 var author$project$AST$Ranges$orderByStart = F2(
 	function (r1, r2) {
-		return (!_Utils_eq(r1.I.C, r2.I.C)) ? A2(elm$core$Basics$compare, r1.I.C, r2.I.C) : A2(elm$core$Basics$compare, r1.I.W, r2.I.W);
+		return (!_Utils_eq(r1.J.D, r2.J.D)) ? A2(elm$core$Basics$compare, r1.J.D, r2.J.D) : A2(elm$core$Basics$compare, r1.J.X, r2.J.X);
 	});
 var author$project$Analyser$Messages$Data$dataValueRanges = function (dv) {
 	switch (dv.$) {
@@ -18504,7 +18519,7 @@ var author$project$Analyser$State$Dependencies$dependencyInfo = F3(
 				elm$core$Maybe$map,
 				A2(author$project$Analyser$State$Dependencies$computeVersionState, mode, dep),
 				_package));
-		return {y: dep, ds: _package, dK: versionState};
+		return {z: dep, ds: _package, dK: versionState};
 	});
 var author$project$Analyser$State$Dependencies$init = F4(
 	function (mode, unused, dependencies, registry) {
@@ -18523,7 +18538,7 @@ var author$project$Analyser$State$Dependencies$init = F4(
 		};
 	});
 var author$project$Analyser$FileRef$encode = function (fileRef) {
-	return elm$json$Json$Encode$string(fileRef.gl);
+	return elm$json$Json$Encode$string(fileRef.cg);
 };
 var elm$json$Json$Encode$list = F2(
 	function (func, entries) {
@@ -18536,13 +18551,13 @@ var elm$json$Json$Encode$list = F2(
 	});
 var elm$json$Json$Encode$int = _Json_wrap;
 var stil4m$elm_syntax$Elm$Syntax$Range$encode = function (_n0) {
-	var start = _n0.I;
+	var start = _n0.J;
 	var end = _n0.bE;
 	return A2(
 		elm$json$Json$Encode$list,
 		elm$json$Json$Encode$int,
 		_List_fromArray(
-			[start.C, start.W, end.C, end.W]));
+			[start.D, start.X, end.D, end.X]));
 };
 var author$project$Analyser$Messages$Data$encodeDataValue = function (dataValue) {
 	switch (dataValue.$) {
@@ -18636,7 +18651,7 @@ var author$project$Analyser$Modules$encode = function (e) {
 			[
 				_Utils_Tuple2(
 				'projectModules',
-				A2(elm$json$Json$Encode$list, stil4m$elm_syntax$Elm$Syntax$ModuleName$encode, e.ch)),
+				A2(elm$json$Json$Encode$list, stil4m$elm_syntax$Elm$Syntax$ModuleName$encode, e.ci)),
 				_Utils_Tuple2(
 				'dependencies',
 				A2(elm$json$Json$Encode$list, author$project$Analyser$Modules$encodeDependency, e.fz))
@@ -18716,7 +18731,7 @@ var stil4m$elm_syntax$Elm$Syntax$Infix$encode = function (inf) {
 				A2(stil4m$elm_syntax$Elm$Syntax$Node$encode, elm$json$Json$Encode$int, inf.eC)),
 				_Utils_Tuple2(
 				'operator',
-				A2(stil4m$elm_syntax$Elm$Syntax$Node$encode, elm$json$Json$Encode$string, inf.gj)),
+				A2(stil4m$elm_syntax$Elm$Syntax$Node$encode, elm$json$Json$Encode$string, inf.gk)),
 				_Utils_Tuple2(
 				'function',
 				A2(stil4m$elm_syntax$Elm$Syntax$Node$encode, elm$json$Json$Encode$string, inf.fQ))
@@ -18847,7 +18862,7 @@ var author$project$Analyser$State$Dependencies$encodeDependencyInfo = function (
 			[
 				_Utils_Tuple2(
 				'dependency',
-				author$project$Analyser$Files$Json$encodeDependency(depInfo.y)),
+				author$project$Analyser$Files$Json$encodeDependency(depInfo.z)),
 				_Utils_Tuple2(
 				'versionState',
 				author$project$Analyser$State$Dependencies$encodeVersionState(depInfo.dK)),
@@ -19564,7 +19579,7 @@ var author$project$Analyser$Checks$MapNothingToNothing$isNothingPattern = functi
 var author$project$Analyser$Checks$MapNothingToNothing$onCase = F3(
 	function (_n0, _n1, context) {
 		var _n2 = _n1.a;
-		var start = _n2.a.I;
+		var start = _n2.a.J;
 		var pattern = _n2.b;
 		var _n3 = _n1.b;
 		var end = _n3.a.bE;
@@ -19572,7 +19587,7 @@ var author$project$Analyser$Checks$MapNothingToNothing$onCase = F3(
 		return (author$project$Analyser$Checks$MapNothingToNothing$isNothingPattern(pattern) && author$project$Analyser$Checks$MapNothingToNothing$isNothingExpression(expression)) ? A2(
 			elm$core$List$cons,
 			author$project$Analyser$Checks$MapNothingToNothing$buildMessage(
-				{bE: end, I: start}),
+				{bE: end, J: start}),
 			context) : context;
 	});
 var author$project$Analyser$Checks$MapNothingToNothing$scan = F2(
@@ -20167,7 +20182,7 @@ var author$project$Analyser$Checks$UnusedValueConstructor$onExpression = F2(
 			return _Utils_update(
 				config,
 				{
-					a8: A2(elm$core$Set$insert, s, config.a8)
+					a9: A2(elm$core$Set$insert, s, config.a9)
 				});
 		} else {
 			return config;
@@ -20200,7 +20215,7 @@ var author$project$Analyser$Checks$UnusedValueConstructor$onType = F3(
 		return _Utils_update(
 			context,
 			{
-				a7: _Utils_ap(context.a7, nonExposed)
+				a8: _Utils_ap(context.a8, nonExposed)
 			});
 	});
 var author$project$Analyser$Checks$UnusedValueConstructor$scan = F2(
@@ -20216,16 +20231,16 @@ var author$project$Analyser$Checks$UnusedValueConstructor$scan = F2(
 							author$project$Analyser$Checks$UnusedValueConstructor$onType(fileContext.f_)))
 				}),
 			fileContext.fg,
-			{a7: _List_Nil, a8: elm$core$Set$empty});
+			{a8: _List_Nil, a9: elm$core$Set$empty});
 		return A2(
 			elm$core$List$map,
 			author$project$Analyser$Checks$UnusedValueConstructor$buildMessageData,
 			A2(
 				elm$core$List$filter,
 				function (x) {
-					return !A2(elm$core$Set$member, x.a, result.a8);
+					return !A2(elm$core$Set$member, x.a, result.a9);
 				},
-				result.a7));
+				result.a8));
 	});
 var author$project$Analyser$Checks$UnusedValueConstructor$checker = {
 	fp: author$project$Analyser$Checks$UnusedValueConstructor$scan,
@@ -20410,7 +20425,7 @@ var author$project$Analyser$Configuration$checkEnabled = F2(
 	});
 var author$project$Analyser$Files$FileContent$asFileRef = function (x) {
 	return {
-		gl: x.gl,
+		cg: x.cg,
 		p: A2(elm$core$Maybe$withDefault, '', x.gs)
 	};
 };
@@ -20520,7 +20535,7 @@ var author$project$Inspection$run = F3(
 var author$project$Analyser$finishProcess = F3(
 	function (newStage, cmds, model) {
 		var mode = function () {
-			var _n1 = model.R;
+			var _n1 = model.S;
 			if (!_n1.$) {
 				return 1;
 			} else {
@@ -20528,12 +20543,12 @@ var author$project$Analyser$finishProcess = F3(
 			}
 		}();
 		var loadedSourceFiles = author$project$Analyser$SourceLoadingStage$parsedFiles(newStage);
-		var newCodeBase = A2(author$project$Analyser$CodeBase$addSourceFiles, loadedSourceFiles, model.J);
+		var newCodeBase = A2(author$project$Analyser$CodeBase$addSourceFiles, loadedSourceFiles, model.x);
 		var includedSources = A2(
 			elm$core$List$filter,
-			author$project$Analyser$isSourceFileIncluded(model.X),
+			author$project$Analyser$isSourceFileIncluded(model.K),
 			loadedSourceFiles);
-		var messages = A3(author$project$Inspection$run, newCodeBase, includedSources, model.X);
+		var messages = A3(author$project$Inspection$run, newCodeBase, includedSources, model.K);
 		var _n0 = A2(
 			author$project$Analyser$Modules$build,
 			newCodeBase,
@@ -20550,17 +20565,17 @@ var author$project$Analyser$finishProcess = F3(
 				},
 				unusedDeps),
 			author$project$Analyser$CodeBase$dependencies(newCodeBase),
-			model.S);
+			model.T);
 		var newState = A2(
 			author$project$Analyser$State$withDependencies,
 			deps,
 			A2(
 				author$project$Analyser$State$updateModules,
 				newModules,
-				A2(author$project$Analyser$State$finishWithNewMessages, messages, model.m)));
+				A2(author$project$Analyser$State$finishWithNewMessages, messages, model.i)));
 		var newModel = _Utils_update(
 			model,
-			{J: newCodeBase, j: author$project$Analyser$Finished, m: newState});
+			{x: newCodeBase, k: author$project$Analyser$Finished, i: newState});
 		return author$project$Analyser$handleNextStep(
 			_Utils_Tuple2(
 				newModel,
@@ -20612,7 +20627,7 @@ var author$project$Analyser$SourceLoadingStage$loadNextFile = function (_n0) {
 						model,
 						{
 							aq: rest,
-							L: A2(elm$core$Set$insert, next, model.L)
+							M: A2(elm$core$Set$insert, next, model.M)
 						}),
 					elm$core$Platform$Cmd$batch(
 						_List_fromArray(
@@ -20629,7 +20644,7 @@ var author$project$Analyser$SourceLoadingStage$loadNextFile = function (_n0) {
 var author$project$Analyser$SourceLoadingStage$init = function (input) {
 	return author$project$Analyser$SourceLoadingStage$loadNextFile(
 		_Utils_Tuple2(
-			{aq: input, L: elm$core$Set$empty, aB: _List_Nil},
+			{aq: input, M: elm$core$Set$empty, aB: _List_Nil},
 			elm$core$Platform$Cmd$none));
 };
 var elm$core$Tuple$mapFirst = F2(
@@ -20663,7 +20678,7 @@ var author$project$Analyser$startSourceLoading = F2(
 		return _Utils_Tuple2(
 			_Utils_update(
 				model,
-				{j: nextStage}),
+				{k: nextStage}),
 			elm$core$Platform$Cmd$batch(
 				_List_fromArray(
 					[stageCmds, cmds])));
@@ -20691,7 +20706,7 @@ var author$project$Analyser$CodeBase$setDependencies = F2(
 			});
 	});
 var author$project$Analyser$Files$DependencyLoader$getDependency = function (m) {
-	var _n0 = m.m;
+	var _n0 = m.i;
 	if (_n0.$ === 4) {
 		var d = _n0.a;
 		return elm$core$Maybe$Just(d);
@@ -20706,7 +20721,7 @@ var author$project$Analyser$DependencyLoadingStage$getDependencies = function (m
 		elm$core$Dict$values(model));
 };
 var author$project$Analyser$Files$DependencyLoader$isDone = function (m) {
-	var _n0 = m.m;
+	var _n0 = m.i;
 	switch (_n0.$) {
 		case 3:
 			return true;
@@ -20759,7 +20774,7 @@ var author$project$Analyser$DependencyHandler$storeRawDependency = _Platform_out
 				[
 					_Utils_Tuple2(
 					'content',
-					elm$json$Json$Encode$string($.bz)),
+					elm$json$Json$Encode$string($.cS)),
 					_Utils_Tuple2(
 					'dependency',
 					function ($) {
@@ -20773,7 +20788,7 @@ var author$project$Analyser$DependencyHandler$storeRawDependency = _Platform_out
 									'version',
 									elm$json$Json$Encode$string($.p))
 								]));
-					}($.y))
+					}($.z))
 				]));
 	});
 var author$project$Analyser$Files$Json$serialiseDependency = A2(
@@ -20783,8 +20798,8 @@ var author$project$Analyser$Files$Json$serialiseDependency = A2(
 var author$project$Analyser$DependencyHandler$storeToDisk = function (dependency) {
 	return author$project$Analyser$DependencyHandler$storeRawDependency(
 		{
-			bz: author$project$Analyser$Files$Json$serialiseDependency(dependency),
-			y: {f7: dependency.f7, p: dependency.p}
+			cS: author$project$Analyser$Files$Json$serialiseDependency(dependency),
+			z: {f7: dependency.f7, p: dependency.p}
 		});
 };
 var author$project$Analyser$Files$DependencyLoader$Done = function (a) {
@@ -20805,15 +20820,15 @@ var author$project$Analyser$Files$DependencyLoader$update = F2(
 							_Utils_update(
 								model,
 								{
-									m: author$project$Analyser$Files$DependencyLoader$Done(result)
+									i: author$project$Analyser$Files$DependencyLoader$Done(result)
 								}),
-							author$project$Util$Logger$info('Loaded ' + (model.y.f7 + ' from cache')));
+							author$project$Util$Logger$info('Loaded ' + (model.z.f7 + ' from cache')));
 					case 1:
 						return _Utils_Tuple2(
 							_Utils_update(
 								model,
-								{m: author$project$Analyser$Files$DependencyLoader$LoadingOnlineDocs}),
-							author$project$Analyser$DependencyHandler$loadOnlineDocumentation(model.y));
+								{i: author$project$Analyser$Files$DependencyLoader$LoadingOnlineDocs}),
+							author$project$Analyser$DependencyHandler$loadOnlineDocumentation(model.z));
 					default:
 						return _Utils_Tuple2(model, elm$core$Platform$Cmd$none);
 				}
@@ -20826,21 +20841,21 @@ var author$project$Analyser$Files$DependencyLoader$update = F2(
 						return _Utils_Tuple2(
 							_Utils_update(
 								model,
-								{m: author$project$Analyser$Files$DependencyLoader$RawDiskLoading}),
-							author$project$Analyser$DependencyHandler$loadDependencyFiles(model.y));
+								{i: author$project$Analyser$Files$DependencyLoader$RawDiskLoading}),
+							author$project$Analyser$DependencyHandler$loadDependencyFiles(model.z));
 					} else {
 						var decodedDependency = result.a.a;
 						return _Utils_Tuple2(
 							_Utils_update(
 								model,
 								{
-									m: author$project$Analyser$Files$DependencyLoader$Done(decodedDependency)
+									i: author$project$Analyser$Files$DependencyLoader$Done(decodedDependency)
 								}),
 							elm$core$Platform$Cmd$batch(
 								_List_fromArray(
 									[
 										author$project$Analyser$DependencyHandler$storeToDisk(decodedDependency),
-										author$project$Util$Logger$info('Loaded ' + (model.y.f7 + ' from package.elm-lang.org'))
+										author$project$Util$Logger$info('Loaded ' + (model.z.f7 + ' from package.elm-lang.org'))
 									])));
 					}
 				}
@@ -20853,21 +20868,21 @@ var author$project$Analyser$Files$DependencyLoader$update = F2(
 						return _Utils_Tuple2(
 							_Utils_update(
 								model,
-								{m: author$project$Analyser$Files$DependencyLoader$Failure}),
-							author$project$Util$Logger$info('Failed to load dependency: ' + model.y.f7));
+								{i: author$project$Analyser$Files$DependencyLoader$Failure}),
+							author$project$Util$Logger$info('Failed to load dependency: ' + model.z.f7));
 					} else {
 						var decodedDependency = result.a.a;
 						return _Utils_Tuple2(
 							_Utils_update(
 								model,
 								{
-									m: author$project$Analyser$Files$DependencyLoader$Done(decodedDependency)
+									i: author$project$Analyser$Files$DependencyLoader$Done(decodedDependency)
 								}),
 							elm$core$Platform$Cmd$batch(
 								_List_fromArray(
 									[
 										author$project$Analyser$DependencyHandler$storeToDisk(decodedDependency),
-										author$project$Util$Logger$info('Loaded ' + (model.y.f7 + ' by building dependency from plain source files'))
+										author$project$Util$Logger$info('Loaded ' + (model.z.f7 + ' by building dependency from plain source files'))
 									])));
 					}
 				}
@@ -20907,7 +20922,7 @@ var author$project$Analyser$onDependencyLoadingStageMsg = F3(
 					_Utils_update(
 						model,
 						{
-							J: A2(author$project$Analyser$CodeBase$setDependencies, newDependencies, model.J)
+							x: A2(author$project$Analyser$CodeBase$setDependencies, newDependencies, model.x)
 						}),
 					A2(elm$core$Platform$Cmd$map, author$project$Analyser$DependencyLoadingStageMsg, cmds)));
 		} else {
@@ -20915,7 +20930,7 @@ var author$project$Analyser$onDependencyLoadingStageMsg = F3(
 				_Utils_update(
 					model,
 					{
-						j: author$project$Analyser$DependencyLoadingStage(newStage)
+						k: author$project$Analyser$DependencyLoadingStage(newStage)
 					}),
 				A2(elm$core$Platform$Cmd$map, author$project$Analyser$DependencyLoadingStageMsg, cmds));
 		}
@@ -20961,7 +20976,7 @@ var author$project$Analyser$Fixer$storeFile = _Platform_outgoingPort(
 					elm$json$Json$Encode$string($.d6)),
 					_Utils_Tuple2(
 					'newContent',
-					elm$json$Json$Encode$string($.c4))
+					elm$json$Json$Encode$string($.f9))
 				]));
 	});
 var author$project$Analyser$Messages$Data$description = function (_n0) {
@@ -21007,20 +21022,20 @@ var author$project$Analyser$Fixer$update = F3(
 								A2(
 									elm$core$Result$map,
 									function (b) {
-										return _Utils_Tuple2(fileLoad.bz, b);
+										return _Utils_Tuple2(fileLoad.cS, b);
 									},
 									A2(
 										elm$core$Result$map,
 										stil4m$elm_syntax$Elm$Processing$process(
 											author$project$Analyser$CodeBase$processContext(codeBase)),
-										stil4m$elm_syntax$Elm$Parser$parse(fileLoad.bz))));
+										stil4m$elm_syntax$Elm$Parser$parse(fileLoad.cS))));
 						}(reference)));
 				if (!changedContent.$) {
 					var newContent = changedContent.a;
 					return _Utils_Tuple2(
 						model,
 						author$project$Analyser$Fixer$storeFile(
-							{d6: model.ac.d6.gl, c4: newContent}));
+							{d6: model.ac.d6.cg, f9: newContent}));
 				} else {
 					return _Utils_Tuple2(
 						_Utils_update(
@@ -21043,13 +21058,13 @@ var author$project$Analyser$onFixerMsg = F3(
 		var _n0 = A2(
 			elm$core$Tuple$mapSecond,
 			elm$core$Platform$Cmd$map(author$project$Analyser$FixerMsg),
-			A3(author$project$Analyser$Fixer$update, model.J, x, stage));
+			A3(author$project$Analyser$Fixer$update, model.x, x, stage));
 		var newFixerModel = _n0.a;
 		var fixerCmds = _n0.b;
 		return author$project$Analyser$Fixer$isDone(newFixerModel) ? (author$project$Analyser$Fixer$succeeded(newFixerModel) ? _Utils_Tuple2(
 			_Utils_update(
 				model,
-				{j: author$project$Analyser$Finished}),
+				{k: author$project$Analyser$Finished}),
 			fixerCmds) : A2(
 			author$project$Analyser$startSourceLoading,
 			_List_fromArray(
@@ -21061,7 +21076,7 @@ var author$project$Analyser$onFixerMsg = F3(
 			_Utils_update(
 				model,
 				{
-					j: author$project$Analyser$FixerStage(newFixerModel)
+					k: author$project$Analyser$FixerStage(newFixerModel)
 				}),
 			fixerCmds);
 	});
@@ -21078,7 +21093,7 @@ var elm$core$Set$isEmpty = function (_n0) {
 };
 var author$project$Analyser$SourceLoadingStage$isDone = function (_n0) {
 	var model = _n0;
-	return elm$core$List$isEmpty(model.aq) && elm$core$Set$isEmpty(model.L);
+	return elm$core$List$isEmpty(model.aq) && elm$core$Set$isEmpty(model.M);
 };
 var author$project$Analyser$Files$FileLoader$AstStore = F2(
 	function (sha1, ast) {
@@ -22238,7 +22253,7 @@ var author$project$Analyser$SourceLoadingStage$update = F2(
 				_Utils_update(
 					state,
 					{
-						L: A2(elm$core$Set$remove, name, state.L),
+						M: A2(elm$core$Set$remove, name, state.M),
 						aB: A2(elm$core$List$cons, fileLoad, state.aB)
 					}),
 				A2(
@@ -22255,13 +22270,13 @@ var author$project$Analyser$onSourceLoadingStageMsg = F3(
 			_Utils_update(
 				model,
 				{
-					j: author$project$Analyser$SourceLoadingStage(newStage)
+					k: author$project$Analyser$SourceLoadingStage(newStage)
 				}),
 			A2(elm$core$Platform$Cmd$map, author$project$Analyser$SourceLoadingStageMsg, cmds));
 	});
 var author$project$Analyser$Configuration$ConfigurationInner = F3(
 	function (raw, checks, excludedPaths) {
-		return {aK: checks, cW: excludedPaths, dx: raw};
+		return {aK: checks, cX: excludedPaths, dx: raw};
 	});
 var elm$json$Json$Decode$dict = function (decoder) {
 	return A2(
@@ -22418,7 +22433,7 @@ var author$project$Analyser$DependencyHandler$readFromDisk = function (dependenc
 var author$project$Analyser$Files$DependencyLoader$AwaitingCache = {$: 0};
 var author$project$Analyser$Files$DependencyLoader$init = function (dep) {
 	return _Utils_Tuple2(
-		{y: dep, m: author$project$Analyser$Files$DependencyLoader$AwaitingCache},
+		{z: dep, i: author$project$Analyser$Files$DependencyLoader$AwaitingCache},
 		elm$core$Platform$Cmd$batch(
 			_List_fromArray(
 				[
@@ -22463,6 +22478,124 @@ var author$project$Analyser$DependencyLoadingStage$init = function (elmProject) 
 				},
 				inits)));
 };
+var author$project$Analyser$CodeBase$getFile = F2(
+	function (path, _n0) {
+		var codeBase = _n0;
+		return A2(elm$core$Dict$get, path, codeBase.a2);
+	});
+var elm_community$maybe_extra$Maybe$Extra$join = function (mx) {
+	if (!mx.$) {
+		var x = mx.a;
+		return x;
+	} else {
+		return elm$core$Maybe$Nothing;
+	}
+};
+var author$project$Analyser$QuickFixer$getFileContext = F2(
+	function (path, codeBase) {
+		return elm_community$maybe_extra$Maybe$Extra$join(
+			A2(
+				elm$core$Maybe$map,
+				author$project$Analyser$FileContext$buildForFile(
+					author$project$Analyser$CodeBase$processContext(codeBase)),
+				A2(author$project$Analyser$CodeBase$getFile, path, codeBase)));
+	});
+var author$project$Analyser$QuickFixer$fix = F2(
+	function (codeBase, message) {
+		var messageId = elm$core$String$fromInt(message.fV);
+		var _n0 = A2(author$project$Analyser$QuickFixer$getFileContext, message.d6.cg, codeBase);
+		if (!_n0.$) {
+			var fileContext = _n0.a;
+			return A2(
+				elm$core$Maybe$withDefault,
+				elm$core$Result$Err('Unable to find fixer for messageId: ' + messageId),
+				A2(
+					elm$core$Maybe$map,
+					function (fixer) {
+						var _n1 = A2(
+							fixer.fO,
+							_Utils_Tuple2(fileContext.cS, fileContext.fg),
+							message.dY);
+						switch (_n1.$) {
+							case 2:
+								var e = _n1.a;
+								return elm$core$Result$Err(e);
+							case 1:
+								var p = _n1.a;
+								return elm$core$Result$Ok(
+									_Utils_update(
+										fileContext,
+										{cS: p}));
+							default:
+								return elm$core$Result$Err('Invalid message data for fixer, message id: ' + messageId);
+						}
+					},
+					author$project$Analyser$Fixers$getFixer(message)));
+		} else {
+			return elm$core$Result$Err('Unable to find file for message id: ' + messageId);
+		}
+	});
+var author$project$Analyser$Fixers$canFix = function (m) {
+	return !_Utils_eq(
+		author$project$Analyser$Fixers$getFixer(m),
+		elm$core$Maybe$Nothing);
+};
+var author$project$Analyser$QuickFixer$fixAllHelp = F4(
+	function (configuration, codeBase, messages, fileContext) {
+		fixAllHelp:
+		while (true) {
+			if (!messages.b) {
+				return fileContext;
+			} else {
+				var message = messages.a;
+				var nextFileContext = A2(
+					elm$core$Result$withDefault,
+					fileContext,
+					A2(author$project$Analyser$QuickFixer$fix, codeBase, message));
+				var loadedSourceFile = author$project$Analyser$Files$FileLoader$load(
+					{
+						fg: elm$core$Maybe$Nothing,
+						cS: elm$core$Maybe$Just(nextFileContext.cS),
+						cg: nextFileContext.d6.cg,
+						gs: elm$core$Maybe$Nothing,
+						gz: true
+					}).a;
+				var nextCodeBase = A2(
+					author$project$Analyser$CodeBase$addSourceFiles,
+					_List_fromArray(
+						[loadedSourceFile]),
+					codeBase);
+				var $temp$configuration = configuration,
+					$temp$codeBase = nextCodeBase,
+					$temp$messages = A2(
+					elm$core$List$filter,
+					author$project$Analyser$Fixers$canFix,
+					A3(
+						author$project$Inspection$run,
+						nextCodeBase,
+						_List_fromArray(
+							[loadedSourceFile]),
+						configuration)),
+					$temp$fileContext = nextFileContext;
+				configuration = $temp$configuration;
+				codeBase = $temp$codeBase;
+				messages = $temp$messages;
+				fileContext = $temp$fileContext;
+				continue fixAllHelp;
+			}
+		}
+	});
+var author$project$Analyser$QuickFixer$fixAll = F4(
+	function (configuration, codeBase, messages, path) {
+		var _n0 = A2(author$project$Analyser$QuickFixer$getFileContext, path, codeBase);
+		if (!_n0.$) {
+			var fileContext = _n0.a;
+			return elm$core$Result$Ok(
+				A4(author$project$Analyser$QuickFixer$fixAllHelp, configuration, codeBase, messages, fileContext).cS);
+		} else {
+			return elm$core$Result$Err('Unable to find file in code base, path: ' + path);
+		}
+	});
 var author$project$Analyser$SourceLoadingStage$initWithContent = function (input) {
 	var _n0 = author$project$Analyser$Files$FileLoader$load(input);
 	var loadedSourceFile = _n0.a;
@@ -22470,7 +22603,7 @@ var author$project$Analyser$SourceLoadingStage$initWithContent = function (input
 	return _Utils_Tuple2(
 		{
 			aq: _List_Nil,
-			L: elm$core$Set$empty,
+			M: elm$core$Set$empty,
 			aB: _List_fromArray(
 				[loadedSourceFile])
 		},
@@ -22487,6 +22620,17 @@ var author$project$Analyser$State$addFixToQueue = F2(
 						[m]))
 			});
 	});
+var author$project$Analyser$State$getMessagesForFile = function (path) {
+	return A2(
+		elm$core$Basics$composeR,
+		function ($) {
+			return $.es;
+		},
+		elm$core$List$filter(
+			function (m) {
+				return _Utils_eq(m.d6.cg, path);
+			}));
+};
 var author$project$Analyser$Messages$Types$Outdated = 0;
 var author$project$Analyser$Messages$Types$outdate = function (m) {
 	return _Utils_update(
@@ -22523,6 +22667,20 @@ var author$project$Analyser$State$removeMessagesForFile = F2(
 					state.es)
 			});
 	});
+var author$project$AnalyserPorts$sendFixedFile = _Platform_outgoingPort(
+	'sendFixedFile',
+	function ($) {
+		return elm$json$Json$Encode$object(
+			_List_fromArray(
+				[
+					_Utils_Tuple2(
+					'content',
+					elm$json$Json$Encode$string($.cS)),
+					_Utils_Tuple2(
+					'path',
+					elm$json$Json$Encode$string($.cg))
+				]));
+	});
 var author$project$Analyser$update = F2(
 	function (msg, model) {
 		switch (msg.$) {
@@ -22533,28 +22691,98 @@ var author$project$Analyser$update = F2(
 						_Utils_update(
 							model,
 							{
-								m: A2(author$project$Analyser$State$addFixToQueue, messageId, model.m)
+								i: A2(author$project$Analyser$State$addFixToQueue, messageId, model.i)
 							}),
 						elm$core$Platform$Cmd$none));
+			case 7:
+				var path = msg.a;
+				var messagesForFile = A2(
+					elm$core$List$filter,
+					function (m) {
+						return !_Utils_eq(
+							author$project$Analyser$Fixers$getFixer(m),
+							elm$core$Maybe$Nothing);
+					},
+					A2(author$project$Analyser$State$getMessagesForFile, path, model.i));
+				var _n1 = A4(author$project$Analyser$QuickFixer$fixAll, model.K, model.x, messagesForFile, path);
+				if (!_n1.$) {
+					var fixedFile = _n1.a;
+					return _Utils_Tuple2(
+						model,
+						author$project$Analyser$Fixer$storeFile(
+							{d6: path, f9: fixedFile}));
+				} else {
+					var err = _n1.a;
+					return _Utils_Tuple2(
+						model,
+						author$project$Util$Logger$info('Unable to fix file: ' + (path + (', Err: ' + err))));
+				}
+			case 8:
+				var messageId = msg.a;
+				var _n2 = A2(author$project$Analyser$State$getMessage, messageId, model.i);
+				if (!_n2.$) {
+					var message = _n2.a;
+					var _n3 = A2(author$project$Analyser$QuickFixer$fix, model.x, message);
+					if (!_n3.$) {
+						var fixedFile = _n3.a;
+						return _Utils_Tuple2(
+							model,
+							author$project$AnalyserPorts$sendFixedFile(
+								{cS: fixedFile.cS, cg: message.d6.cg}));
+					} else {
+						var err = _n3.a;
+						return _Utils_Tuple2(
+							model,
+							author$project$Util$Logger$error(err));
+					}
+				} else {
+					return _Utils_Tuple2(
+						model,
+						author$project$Util$Logger$info(
+							'Unable to apply fix, unable to find messageId: ' + elm$core$String$fromInt(messageId)));
+				}
+			case 9:
+				var path = msg.a;
+				var messagesForFile = A2(
+					elm$core$List$filter,
+					function (m) {
+						return !_Utils_eq(
+							author$project$Analyser$Fixers$getFixer(m),
+							elm$core$Maybe$Nothing);
+					},
+					A2(author$project$Analyser$State$getMessagesForFile, path, model.i));
+				var _n4 = A4(author$project$Analyser$QuickFixer$fixAll, model.K, model.x, messagesForFile, path);
+				if (!_n4.$) {
+					var fixedFile = _n4.a;
+					return _Utils_Tuple2(
+						model,
+						author$project$AnalyserPorts$sendFixedFile(
+							{cS: fixedFile, cg: path}));
+				} else {
+					var err = _n4.a;
+					return _Utils_Tuple2(
+						model,
+						author$project$Util$Logger$info('Unable to fix file: ' + (path + (', Err: ' + err))));
+				}
 			case 5:
 				return author$project$Analyser$reset(
 					_Utils_Tuple2(model, elm$core$Platform$Cmd$none));
 			case 0:
 				var context = msg.a;
-				var _n1 = author$project$Analyser$Configuration$fromString(context.X);
-				var configuration = _n1.a;
-				var messages = _n1.b;
-				var _n2 = author$project$Analyser$DependencyLoadingStage$init(model.R);
-				var stage = _n2.a;
-				var cmds = _n2.b;
+				var _n5 = author$project$Analyser$Configuration$fromString(context.K);
+				var configuration = _n5.a;
+				var messages = _n5.b;
+				var _n6 = author$project$Analyser$DependencyLoadingStage$init(model.S);
+				var stage = _n6.a;
+				var cmds = _n6.b;
 				return author$project$Analyser$doSendState(
 					_Utils_Tuple2(
 						_Utils_update(
 							model,
 							{
-								X: configuration,
+								K: configuration,
 								aM: context,
-								j: author$project$Analyser$DependencyLoadingStage(stage)
+								k: author$project$Analyser$DependencyLoadingStage(stage)
 							}),
 						elm$core$Platform$Cmd$batch(
 							A2(
@@ -22563,54 +22791,54 @@ var author$project$Analyser$update = F2(
 								A2(elm$core$List$map, author$project$Util$Logger$info, messages)))));
 			case 1:
 				var x = msg.a;
-				var _n3 = model.j;
-				if (_n3.$ === 1) {
-					var stage = _n3.a;
+				var _n7 = model.k;
+				if (_n7.$ === 1) {
+					var stage = _n7.a;
 					return A3(author$project$Analyser$onDependencyLoadingStageMsg, x, stage, model);
 				} else {
 					return _Utils_Tuple2(model, elm$core$Platform$Cmd$none);
 				}
 			case 2:
 				var x = msg.a;
-				var _n4 = model.j;
-				if (_n4.$ === 2) {
-					var stage = _n4.a;
+				var _n8 = model.k;
+				if (_n8.$ === 2) {
+					var stage = _n8.a;
 					return A3(author$project$Analyser$onSourceLoadingStageMsg, x, stage, model);
 				} else {
 					return _Utils_Tuple2(model, elm$core$Platform$Cmd$none);
 				}
-			case 7:
+			case 10:
 				var x = msg.a;
-				var _n5 = model.j;
-				if (_n5.$ === 3) {
-					var stage = _n5.a;
+				var _n9 = model.k;
+				if (_n9.$ === 3) {
+					var stage = _n9.a;
 					return A3(author$project$Analyser$onFixerMsg, x, stage, model);
 				} else {
 					return _Utils_Tuple2(model, elm$core$Platform$Cmd$none);
 				}
 			case 4:
-				return (_Utils_eq(model.j, author$project$Analyser$Finished) && (!_Utils_eq(model.D, _List_Nil))) ? A2(
+				return (_Utils_eq(model.k, author$project$Analyser$Finished) && (!_Utils_eq(model.E, _List_Nil))) ? A2(
 					author$project$Analyser$startSourceLoading,
-					model.D,
+					model.E,
 					_Utils_Tuple2(
 						_Utils_update(
 							model,
-							{D: _List_Nil}),
+							{E: _List_Nil}),
 						elm$core$Platform$Cmd$none)) : _Utils_Tuple2(model, elm$core$Platform$Cmd$none);
 			default:
 				if (msg.a.$ === 1) {
-					var _n9 = msg.a;
+					var _n13 = msg.a;
 					return _Utils_Tuple2(model, elm$core$Platform$Cmd$none);
 				} else {
 					if (!msg.a.a.$) {
-						var _n6 = msg.a.a;
-						var path = _n6.a;
-						var maybeContent = _n6.b;
+						var _n10 = msg.a.a;
+						var path = _n10.a;
+						var maybeContent = _n10.b;
 						if (!maybeContent.$) {
 							var content = maybeContent.a;
-							var finishQuick = function (_n8) {
-								var sourceModel = _n8.a;
-								var sourceCmds = _n8.b;
+							var finishQuick = function (_n12) {
+								var sourceModel = _n12.a;
+								var sourceCmds = _n12.b;
 								return A3(
 									author$project$Analyser$finishProcess,
 									sourceModel,
@@ -22618,7 +22846,7 @@ var author$project$Analyser$update = F2(
 									_Utils_update(
 										model,
 										{
-											m: A2(author$project$Analyser$State$outdateMessagesForFile, path, model.m)
+											i: A2(author$project$Analyser$State$outdateMessagesForFile, path, model.i)
 										}));
 							};
 							return finishQuick(
@@ -22626,13 +22854,13 @@ var author$project$Analyser$update = F2(
 						} else {
 							return A2(
 								author$project$Analyser$startSourceLoading,
-								A2(elm$core$List$cons, path, model.D),
+								A2(elm$core$List$cons, path, model.E),
 								_Utils_Tuple2(
 									_Utils_update(
 										model,
 										{
-											D: _List_Nil,
-											m: A2(author$project$Analyser$State$outdateMessagesForFile, path, model.m)
+											E: _List_Nil,
+											i: A2(author$project$Analyser$State$outdateMessagesForFile, path, model.i)
 										}),
 									elm$core$Platform$Cmd$none));
 						}
@@ -22643,14 +22871,14 @@ var author$project$Analyser$update = F2(
 								_Utils_update(
 									model,
 									{
-										D: A2(
+										E: A2(
 											elm$core$List$filter,
 											A2(
 												elm$core$Basics$composeL,
 												elm$core$Basics$not,
 												elm$core$Basics$eq(x)),
-											model.D),
-										m: A2(author$project$Analyser$State$removeMessagesForFile, x, model.m)
+											model.E),
+										i: A2(author$project$Analyser$State$removeMessagesForFile, x, model.i)
 									}),
 								author$project$Util$Logger$info('File was removed: \'' + (x + '\'. Removing known messages.'))));
 					}
@@ -22671,7 +22899,7 @@ _Platform_export({'Analyser':{'init':author$project$Analyser$main(
 						elm$json$Json$Decode$andThen,
 						function (project) {
 							return elm$json$Json$Decode$succeed(
-								{R: project, S: registry, T: server});
+								{S: project, T: registry, U: server});
 						},
 						A2(elm$json$Json$Decode$field, 'project', elm$json$Json$Decode$value));
 				},
