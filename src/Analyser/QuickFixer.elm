@@ -7,8 +7,10 @@ import Analyser.Files.FileLoader as FileLoader
 import Analyser.Fixers as Fixers
 import Analyser.Fixes.Base exposing (Patch(..))
 import Analyser.Messages.Types exposing (Message)
+import Analyser.Messages.Util as Messages
 import Inspection
 import Maybe.Extra as Maybe
+import Set
 
 
 fix : CodeBase -> Message -> Result String FileContext
@@ -52,15 +54,20 @@ fixAll configuration codeBase messages path =
 -}
 fixAllHelp : Configuration -> CodeBase -> List Message -> FileContext -> FileContext
 fixAllHelp configuration codeBase messages fileContext =
-    case messages of
+    case firstMessageForEachLine messages of
         [] ->
             fileContext
 
-        message :: _ ->
+        xs ->
             let
                 nextFileContext =
-                    fix codeBase message
-                        |> Result.withDefault fileContext
+                    List.foldl
+                        (\message context ->
+                            fix codeBase message
+                                |> Result.withDefault context
+                        )
+                        fileContext
+                        xs
 
                 loadedSourceFile =
                     Tuple.first <|
@@ -82,6 +89,27 @@ fixAllHelp configuration codeBase messages fileContext =
                     |> List.filter Fixers.canFix
                 )
                 nextFileContext
+
+
+firstMessageForEachLine : List Message -> List Message
+firstMessageForEachLine messages =
+    Tuple.second <|
+        List.foldl
+            (\message ( linesSeen, firstMessagesOfAllLines ) ->
+                let
+                    range =
+                        Messages.firstRange message
+                in
+                if Set.member range.start.row linesSeen then
+                    ( linesSeen, firstMessagesOfAllLines )
+
+                else
+                    ( Set.insert range.start.row linesSeen
+                    , message :: firstMessagesOfAllLines
+                    )
+            )
+            ( Set.empty, [] )
+            messages
 
 
 getFileContext : String -> CodeBase -> Maybe FileContext
