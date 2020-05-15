@@ -16,7 +16,8 @@ function start(config: Config, project: {}) {
             flags: {
                 server: false,
                 registry: registry || [],
-                project: project
+                project: project,
+                checkForUnusedDeps: config.checkForUnusedDeps
             }
         });
 

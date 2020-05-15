@@ -36,6 +36,7 @@ type alias Model =
     , server : Bool
     , registry : Registry
     , project : Elm.Project.Project
+    , checkForUnusedDeps : Bool
     }
 
 
@@ -63,6 +64,7 @@ type alias Flags =
     { server : Bool
     , registry : Value
     , project : Value
+    , checkForUnusedDeps : Bool
     }
 
 
@@ -99,6 +101,7 @@ init flags =
                         , testDepsDirect = []
                         , testDepsIndirect = []
                         }
+              , checkForUnusedDeps = flags.checkForUnusedDeps
               }
             , Cmd.none
             )
@@ -118,6 +121,7 @@ init flags =
                   , server = flags.server
                   , registry = Registry.fromValue flags.registry
                   , project = v
+                  , checkForUnusedDeps = flags.checkForUnusedDeps
                   }
                 , Logger.info "Started..."
                 )
@@ -388,8 +392,18 @@ finishProcess newStage cmds model =
         messages =
             Inspection.run newCodeBase includedSources model.configuration
 
-        ( unusedDeps, newModules ) =
+        checkUnused () =
             Analyser.Modules.build newCodeBase (CodeBase.sourceFiles newCodeBase)
+
+        fakeCheckUnused () =
+            ( [], Analyser.Modules.empty )
+
+        ( unusedDeps, newModules ) =
+            if model.checkForUnusedDeps then
+                checkUnused ()
+
+            else
+                fakeCheckUnused ()
 
         mode =
             case model.project of

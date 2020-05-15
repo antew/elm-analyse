@@ -29,7 +29,8 @@ var args = minimist(process.argv.slice(2), {
         port: args.port || 3000,
         elmFormatPath: elmFormatPath,
         format: validFormats.indexOf(args.format) != -1 ? args.format : 'human',
-        open: args.open || false
+        open: args.open || false,
+        checkForUnusedDeps: true
     };
     const info = {
         version: elmAnalyseVersion,
